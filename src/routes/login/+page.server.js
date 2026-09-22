@@ -15,7 +15,7 @@ export const actions = {
             });
         }
 
-        
+
          const [users] = await pool.execute(
             `SELECT id, username, email, hash_password, role
              FROM users
@@ -26,6 +26,18 @@ export const actions = {
         const user = users[0];
 
         if (!user) {
+            return fail(400, {
+                error: 'Invalid email or password.'
+            });
+        }
+
+
+         const validPassword = await verifyPassword(
+            password,
+            user.hash_password
+        );
+
+        if (!validPassword) {
             return fail(400, {
                 error: 'Invalid email or password.'
             });
