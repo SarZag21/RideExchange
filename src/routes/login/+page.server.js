@@ -14,5 +14,21 @@ export const actions = {
                 error: 'Please fill all the required fields.'
             });
         }
+
+        
+         const [users] = await pool.execute(
+            `SELECT id, username, email, hash_password, role
+             FROM users
+             WHERE email = ?`,
+            [email]
+        );
+
+        const user = users[0];
+
+        if (!user) {
+            return fail(400, {
+                error: 'Invalid email or password.'
+            });
+        }
     }
 };
