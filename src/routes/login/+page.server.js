@@ -42,5 +42,18 @@ export const actions = {
                 error: 'Invalid email or password.'
             });
         }
+
+
+        
+        const sessionId = await createSession(user.id);
+        cookies.set('session', sessionId, {
+            path: '/',
+            httpOnly: true,
+            sameSite: 'lax',
+            secure: false,
+            maxAge: 60 * 60 * 24 * 30
+        });
+
+        throw redirect(303, '/');
     }
 };
