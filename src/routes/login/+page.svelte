@@ -27,6 +27,12 @@
         </div>
 
 
+    {#if form?.error}
+       <div class="mb-5 rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700">
+        {form.error}
+      </div>
+    {/if}
+
 
     <form method="POST">
     <div class="mb-5">
