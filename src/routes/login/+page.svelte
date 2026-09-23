@@ -26,6 +26,39 @@
             </p>
         </div>
 
+
+
+    <form method="POST">
+    <div>
+        <label for="email">
+            Email address
+        </label>
+
+        <input
+            id="email"
+            name="email"
+            type="email"
+            placeholder="Enter your email"
+            required
+        />
     </div>
+
+    
+    <div>
+        <label for="password">
+            Password
+        </label>
+
+        <input
+            id="password"
+            name="password"
+            type="password"
+            placeholder="Enter your password"
+            required
+        />
+    </div>
+
+</form>
+</div>
 
 </div>
