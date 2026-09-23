@@ -22,14 +22,14 @@
             </h1>
 
             <p class="mt-2 text-gray-600">
-                Sign in to your account
+                Log in to your account
             </p>
         </div>
 
 
 
     <form method="POST">
-    <div>
+    <div class="mb-5">
         <label for="email"  class="mb-1 block text-sm font-medium text-gray-900" >
             Email address
         </label>
@@ -48,7 +48,7 @@
     </div>
 
     
-    <div>
+    <div class="mb-6">
         <label for="password" class="mb-1 block text-sm font-medium text-gray-900">
             Password
         </label>
@@ -65,6 +65,15 @@
                focus:border-red-700 focus:ring-2 focus:ring-red-100"
         />
     </div>
+
+
+    <button
+    type="submit"
+    class="w-full rounded-lg bg-red-700 py-3
+           font-semibold text-white transition
+           hover:bg-red-800">
+           Log in
+    </button>
 
 </form>
 </div>
