@@ -6,9 +6,14 @@
     <title>Login</title>
 </svelte:head>
 
-<div class="min-h-screen bg-gray-50 flex items-center justify-center p-6">
+<div   
+class="relative min-h-screen flex items-center justify-center bg-cover bg-center p-6"
+style="background-image: url('/images/car-bg.png');"
+>
+   <div class="absolute inset-0 bg-white/35"></div>
 
-    <div class="w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
+
+    <div class=" relative w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
 
         <div class="text-center mb-8">
             <img
