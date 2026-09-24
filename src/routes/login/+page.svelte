@@ -82,6 +82,18 @@
     </button>
 
 </form>
+
+
+<p class="mt-6 text-center text-sm text-gray-600">
+    Don't have an account?
+
+    <a
+        href="/register"
+        class="font-semibold text-red-700 hover:text-red-800 hover:underline"
+    >
+        Create an account
+    </a>
+</p>
 </div>
 
 </div>
