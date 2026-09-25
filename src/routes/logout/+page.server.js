@@ -7,4 +7,11 @@ export async function POST({ cookies }) {
     if (sessionId) {
         await invalidateSession(sessionId);
     }
+
+
+cookies.delete('session', {
+    path: '/'
+});
+
+throw redirect(303, '/login');
 }
