@@ -1,7 +1,8 @@
 import { redirect } from '@sveltejs/kit';
 import { invalidateSession } from '$lib/server/auth.js';
 
-export async function POST({ cookies }) {
+export const actions ={
+    default: async ({ cookies }) => {
     const sessionId = cookies.get('session');
 
     if (sessionId) {
@@ -15,3 +16,4 @@ cookies.delete('session', {
 
 throw redirect(303, '/login');
 }
+};
