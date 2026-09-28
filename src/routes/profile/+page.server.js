@@ -23,5 +23,11 @@ export const actions = {
         const username = formData.get('username');
         const email = formData.get('email');
         const phoneNumber = formData.get('phone_number');
+
+        if (!username || !email) {
+            return fail(400, {
+            error: 'Username and email are required.'
+            });
+        }
     }
 };
