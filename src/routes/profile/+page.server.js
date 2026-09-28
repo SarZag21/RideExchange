@@ -18,6 +18,10 @@ export function load({ locals }) {
 
 export const actions = {
     update: async ({ request, locals }) => {
-
+        const formData = await request.formData();
+        
+        const username = formData.get('username');
+        const email = formData.get('email');
+        const phoneNumber = formData.get('phone_number');
     }
 };
