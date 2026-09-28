@@ -1,4 +1,4 @@
-import { redirect } from '@sveltejs/kit';
+import { fail, redirect } from '@sveltejs/kit';
 
 export function load({ locals }) {
     if (!locals.user) {
@@ -15,3 +15,9 @@ export function load({ locals }) {
     }
 };
 }
+
+export const actions = {
+    update: async ({ request, locals }) => {
+
+    }
+};
