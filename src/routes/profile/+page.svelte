@@ -50,9 +50,24 @@
         <p class="mt-1 text-sm text-gray-500">
         View and update your account details
         </p>
-</div>
-    </div>
 
-    </div>
+        <div class="mt-6">
+    <label for="username" class="block text-sm font-medium text-gray-700">
+        Username
+    </label>
+
+    <input
+        id="username"
+        name="username"
+        type="text"
+        value={data.user.username}
+        class="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2"
+    />
+</div>
+
+</div>
+</div>
+
+</div>
 </div>
 </div>
