@@ -38,7 +38,7 @@ const [rows] = await pool.execute(
             u.id,
             u.username,
             u.email,
-            u.role
+            u.role,
             u.phone_number,
             u.is_owner
          FROM sessions s
