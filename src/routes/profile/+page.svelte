@@ -17,5 +17,19 @@
             Manage your personal information
         </p>
 
+
+
+    <div class="mt-8 rounded-2xl bg-white p-8 shadow-lg">
+
+        <h2 class="text-xl font-semibold text-gray-900">
+        Personal Information
+        </h2>
+
+        <p class="mt-1 text-sm text-gray-500">
+        View and update your account details
+        </p>
+
+    </div>
+
     </div>
 </div>
