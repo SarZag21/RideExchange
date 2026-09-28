@@ -1,4 +1,5 @@
 import { fail, redirect } from '@sveltejs/kit';
+import pool from '$lib/server/database.js';
 
 export function load({ locals }) {
     if (!locals.user) {
@@ -29,5 +30,17 @@ export const actions = {
             error: 'Username and email are required.'
             });
         }
+
+
+        await pool.execute(
+        `UPDATE users
+        SET username = ?, email = ?, phone_number = ?
+        WHERE id = ?`,
+        [username, email, phoneNumber, locals.user.id]
+        );
+
+        return {
+        success: true
+        };
     }
 };
