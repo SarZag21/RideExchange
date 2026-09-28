@@ -22,11 +22,22 @@
     <div class="mt-8 rounded-2xl bg-white p-8 shadow-lg">
 
         <div class="flex gap-8">
-        <div class="w-48 border-r border-gray-200 pr-8 text-center">
+        <div class="w-48  pr-8 text-center">
             <div class="mx-auto flex h-24 w-24 items-center justify-center
                         rounded-full bg-red-100 text-3xl font-medium text-red-800">
                 {data.user.username?.charAt(0).toUpperCase()}
             </div>
+
+
+            <button
+            type="button"
+            class="mt-4 rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">
+                Change Photo
+            </button>
+
+            <p class="mt-2 text-xs text-gray-500">
+            JPG or PNG (max 2MB)
+            </p>
 
         </div>
 
