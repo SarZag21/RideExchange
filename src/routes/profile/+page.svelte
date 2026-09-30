@@ -80,6 +80,22 @@
      />
     </div>
 
+
+
+<div class="mt-4">
+    <label for="phone_number" class="block text-sm font-medium text-gray-700">
+        Phone Number
+    </label>
+
+    <input
+        id="phone_number"
+        name="phone_number"
+        type="tel"
+        value={data.user.phone_number ?? ''}
+        class="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2"
+    />
+</div>
+
 </div>
 </div>
 
