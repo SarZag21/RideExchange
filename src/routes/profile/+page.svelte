@@ -51,6 +51,8 @@
         View and update your account details
         </p>
 
+
+    <form method="POST" action="?/update">
         <div class="mt-6">
     <label for="username" class="block text-sm font-medium text-gray-700">
         Username
@@ -95,6 +97,15 @@
         class="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2"
     />
 </div>
+
+<button
+    type="submit"
+    class="mt-6 rounded-lg bg-red-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-red-800"
+>
+    Save Changes
+</button>
+
+</form>
 
 </div>
 </div>
