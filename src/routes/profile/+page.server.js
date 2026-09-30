@@ -39,8 +39,6 @@ export const actions = {
         [username, email, phoneNumber, locals.user.id]
         );
 
-        return {
-        success: true
-        };
+       throw redirect(303, '/profile');
     }
 };
