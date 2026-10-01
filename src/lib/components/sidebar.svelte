@@ -18,6 +18,21 @@
         >
             My Cars
         </a>
+
+        <a
+            href="/bookings"
+            class="block rounded-lg px-4 py-3 text-gray-700 hover:bg-gray-100"
+        >
+            My Bookings
+        </a>
+
+        <a
+            href="/messages"
+            class="block rounded-lg px-4 py-3 text-gray-700 hover:bg-gray-100"
+        >
+            Messages
+        </a>
+
     </nav>
 
 </aside>
