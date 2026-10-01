@@ -63,7 +63,7 @@
         name="username"
         type="text"
         value={data.user.username}
-        class="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2"
+        class="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 outline-none focus:border-red-700 focus:ring-2 focus:ring-red-100"
     />
 </div>
 
@@ -78,7 +78,7 @@
         name="email"
         type="email"
         value={data.user.email}
-        class="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2"
+        class="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 outline-none focus:border-red-700 focus:ring-2 focus:ring-red-100"
      />
     </div>
 
@@ -94,7 +94,7 @@
         name="phone_number"
         type="tel"
         value={data.user.phone_number ?? ''}
-        class="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2"
+        class="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 outline-none focus:border-red-700 focus:ring-2 focus:ring-red-100"
     />
 </div>
 
