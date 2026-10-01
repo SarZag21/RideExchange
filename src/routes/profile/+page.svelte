@@ -52,6 +52,14 @@
         </p>
 
 
+
+        {#if form?.error}
+            <p class="mt-4 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700">
+            {form.error}
+            </p>
+        {/if}
+
+        
     <form method="POST" action="?/update">
         <div class="mt-6">
     <label for="username" class="block text-sm font-medium text-gray-700">
