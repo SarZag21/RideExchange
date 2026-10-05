@@ -1,4 +1,6 @@
 <script>
+       import Sidebar from '$lib/components/sidebar.svelte';
+
     let { data, form } = $props();
 </script>
 
@@ -6,8 +8,12 @@
     <title>My Profile</title>
 </svelte:head>
 
-<div class="min-h-screen bg-gray-50 p-6">
-    <div class="mx-auto max-w-4xl">
+<div class="flex min-h-screen bg-gray-50">
+
+    <Sidebar />
+
+    <main class="flex-1 p-6">
+        <div class="mx-auto max-w-4xl">
 
         <h1 class="text-3xl font-bold text-gray-900">
             My Profile
@@ -120,4 +126,6 @@
 
 </div>
 </div>
+
+</main>
 </div>
