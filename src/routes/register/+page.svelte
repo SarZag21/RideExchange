@@ -1,21 +1,33 @@
 <script>
+    // $props() enthält die vom Server zurückgegebenen Daten.
+    // form enthält mögliche Fehlermeldungen aus +page.server.js.
     let { form } = $props();
 </script>
 
+<!-- Erstellt den Hintergrund und zentriert den Registrierungsbereich. -->
 <div class="min-h-screen bg-grey-50 flex items-center justify-center p-6"> 
 
+<!-- Erstellt eine weiße Karte mit abgerundeten Ecken und Schatten. -->
+<!-- md:grid-cols-2 zeigt ab mittlerer Bildschirmgröße zwei Spalten an. -->
 <div class="w-full max-w-6xl bg-white rounded-2xl shadow-xl overflow-hidden grid md:grid-cols-2">
 
+<!-- Erstellt die linke Seite mit einem Hintergrundbild. -->
 <div class="relative p-10 flex flex-col bg-cover bg-center"
     style="background-image: url('/images/car-bg.png');">
 
+<!-- Fügt eine halbtransparente weiße Schicht über dem Hintergrundbild hinzu. -->
     <div class="absolute inset-0 bg-white/75"></div>   
+
+<!-- Zeigt den Inhalt über der weißen Schicht an. -->
+<!-- z-10 sorgt dafür, dass der Inhalt im Vordergrund liegt. -->
     <div class="relative z-10 flex flex-col h-full">
 
+      <!-- Link zur Startseite -->
     <a href="/" class="text-gray-700 hover:text-[#BF0030]">
-        ← Home Page
+        Got to Home Page
     </a>
 
+    <!-- Zentriert das Logo, die Texte und den Login-Button. -->
     <div class="flex flex-col items-center justify-center flex-1 text-center">
 
         <img
@@ -46,6 +58,8 @@
 </div>
 </div>
 
+<!-- Erstellt die rechte Seite mit dem Registrierungsformular. -->
+<!-- md:p-14 vergrößert den Innenabstand auf mittleren und größeren Bildschirmen. -->
 <div class="p-10 md:p-14">
 
         <h1 class="text-3xl font-bold text-[#D62828] text-center mb-2">
@@ -55,13 +69,15 @@
         <p class="text-gray-500 text-center mb-6">
             Create your account
         </p>
-
+<!-- Zeigt eine Fehlermeldung an, wenn form.error existiert -->
         {#if form?.error}
             <p class="bg-red-100 text-red-700 p-3 rounded-lg mb-4">
                 {form.error}
             </p>
         {/if}
 
+        <!-- Erstellt das Registrierungsformular. -->
+        <!-- POST sendet die eingegebenen Daten an +page.server.js. -->
         <form method="POST">
             <label for="username" class="block mb-1">
                 Username
