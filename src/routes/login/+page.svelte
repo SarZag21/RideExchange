@@ -1,20 +1,25 @@
+
 <script>
     let { form } = $props();
 </script>
 
+<!-- Legt den Titel "Login" für den Browser-Tab fest. -->
 <svelte:head>
     <title>Login</title>
 </svelte:head>
 
+<!-- Erstellt einen Container für das Login-Formular mit einem Hintergrundbild. -->
 <div   
 class="relative min-h-screen flex items-center justify-center bg-cover bg-center p-6"
 style="background-image: url('/images/car-bg.png');"
 >
+<!-- Fügt eine halbtransparente weiße Schicht über dem Hintergrundbild hinzu. -->
    <div class="absolute inset-0 bg-white/35"></div>
 
-
+ <!-- Erstellt eine weiße Login-Karte mit abgerundeten Ecken und Schatten. -->
     <div class=" relative w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
 
+        <!-- Zentriert das Logo, die Überschrift und den Beschreibungstext. -->
         <div class="text-center mb-8">
             <img
                 src="/images/RideExchange_logo_clean_transparent.png"
@@ -31,20 +36,35 @@ style="background-image: url('/images/car-bg.png');"
             </p>
         </div>
 
-
+   <!--
+    Prüft, ob vom Server eine Fehlermeldung zurückgegeben wurde.
+    Wenn form.error existiert, wird die Meldung in einem roten Feld angezeigt.
+    -->
     {#if form?.error}
        <div class="mb-5 rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700">
         {form.error}
       </div>
     {/if}
 
-
+<!--
+    Erstellt das Login-Formular.
+    method="POST" sendet die eingegebenen Daten an die Server-Aktion.
+-->
     <form method="POST">
+      <!-- Erstellt den Bereich für die E-Mail-Adresse. -->
     <div class="mb-5">
+     <!-- Beschriftet das Eingabefeld für die E-Mail-Adresse. -->
         <label for="email"  class="mb-1 block text-sm font-medium text-gray-900" >
             Email address
         </label>
 
+    <!--
+    id verbindet das Feld mit dem Label.
+    name bestimmt den Namen des Feldes in den Formulardaten.
+    type="email" prüft das grundlegende E-Mail-Format.
+    required macht die Eingabe verpflichtend.
+    focus ändert die Rahmenfarbe und den Schatten, wenn das Feld aktiv ist.
+    -->
         <input
             id="email"
             name="email"
@@ -77,7 +97,11 @@ style="background-image: url('/images/car-bg.png');"
         />
     </div>
 
-
+    <!--
+    Erstellt den Login-Button.
+    type="submit" sendet das Formular an den Server.
+   mit hover beim Darüberfahren mit der Maus wird der Button dunkler.
+    -->
     <button
     type="submit"
     class="w-full rounded-lg bg-red-700 py-3
