@@ -1,17 +1,22 @@
 <script>
-       import Sidebar from '$lib/components/sidebar.svelte';
-
+    // Importiert die Sidebar für die Navigation im Benutzerkonto
+    import Sidebar from '$lib/components/sidebar.svelte';
+   
+    // data enthält die Benutzerdaten aus +page.server.js.
+    // form enthält mögliche Fehlermeldungen nach dem Speichern
     let { data, form } = $props();
 </script>
 
+<!-- Legt den Titel des Browser-Tabs fest. -->
 <svelte:head>
     <title>My Profile</title>
 </svelte:head>
 
+<!-- Erstellt das Layout für die Profilseite mit Sidebar und Hauptinhalt. -->
 <div class="flex min-h-screen bg-gray-50">
-
+ <!-- Zeigt die Sidebar mit den Navigationslinks an. -->
     <Sidebar />
-
+  <!-- Erstellt den Hauptbereich neben der Sidebar. -->
     <main class="flex-1 px-8 py-10">
         <div class="mx-auto max-w-4xl">
 
@@ -24,29 +29,42 @@
         </p>
 
 
-
+    <!-- Erstellt eine weiße Karte mit abgerundeten Ecken und Schatten. -->
     <div class="mt-8 rounded-2xl bg-white p-8 shadow-lg">
-
+    
+        <!-- Ordnet den Profilbildbereich und die Benutzerdaten nebeneinander an. -->    
         <div class="flex gap-8">
+        <!-- Erstellt den Bereich für das Profilbild. --> 
         <div class="w-48  pr-8 text-center">
-            <div class="mx-auto flex h-24 w-24 items-center justify-center
+           
+            <!--
+            Zeigt den ersten Buchstaben des Benutzernamens als Profilbild.
+            charAt(0) nimmt den ersten Buchstaben.
+            toUpperCase() wandelt ihn in einen Großbuchstaben um.
+            ?. prüft, ob der Benutzername existiert, bevor charAt() aufgerufen wird.
+            -->
+           <div class="mx-auto flex h-24 w-24 items-center justify-center
                         rounded-full bg-red-100 text-3xl font-medium text-red-800">
                 {data.user.username?.charAt(0).toUpperCase()}
             </div>
 
 
+            <!--
+            Zeigt den Button zum Ändern des Profilbildes.
+            -->
             <button
             type="button"
             class="mt-4 rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">
                 Change Photo
             </button>
-
+            
             <p class="mt-2 text-xs text-gray-500">
             JPG or PNG (max 2MB)
             </p>
 
         </div>
 
+    <!-- Erstellt den Bereich für die persönlichen Informationen. -->
         <div class="flex-1">
 
         <h2 class="text-xl font-semibold text-gray-900">
@@ -58,7 +76,7 @@
         </p>
 
 
-
+<!-- Zeigt eine Fehlermeldung an, wenn form.error existiert -->
         {#if form?.error}
             <p class="mt-4 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700">
             {form.error}
@@ -66,12 +84,22 @@
         {/if}
 
         
+    <!--
+    Erstellt das Formular zum Bearbeiten der Profildaten.
+    POST sendet die Daten an den Server.
+    ?/update ruft die update-Aktion in +page.server.js auf.
+    -->
     <form method="POST" action="?/update">
         <div class="mt-6">
     <label for="username" class="block text-sm font-medium text-gray-700">
         Username
     </label>
 
+    <!--
+    value zeigt den aktuellen Benutzernamen an.
+    name="username" bestimmt den Namen in den Formulardaten.
+    focus ändert die Rahmenfarbe und den Schatten, wenn das Feld aktiv ist.
+    -->
     <input
         id="username"
         name="username"
@@ -103,6 +131,11 @@
         Phone Number
     </label>
 
+    <!--
+    type="tel" ist für Telefonnummern vorgesehen.
+    value zeigt die gespeicherte Telefonnummer an.
+    ?? '' verwendet einen leeren Text, wenn keine Telefonnummer vorhanden ist.
+    -->
     <input
         id="phone_number"
         name="phone_number"
