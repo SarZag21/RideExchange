@@ -16,7 +16,11 @@
       </a>
     </nav>
   </header>
-
+  <div class="mt-20">
+  <div class="relative mx-auto max-w-3xl border-t-2 border-dotted border-gray-300">
+    <div class="driving-car">🚗</div>
+  </div>
+</div>
   <main class="mx-auto max-w-6xl px-8 py-24">
      <section class="grid items-center gap-12 md:grid-cols-2">
       <div>
@@ -45,6 +49,53 @@
   class="block w-full max-w-md justify-self-center"
 />  
   </section>
+  
+<section class="mt-16 rounded-xl border border-gray-200 bg-gray-50 p-6">
+  <h2 class="mb-4 text-xl font-bold">Find your next ride</h2>
+
+  <form class="grid gap-4 md:grid-cols-3">
+    <div>
+      <label for="location" class="mb-2 block text-sm font-medium">
+        Pickup location
+      </label>
+      <input
+        id="location"
+        type="text"
+        placeholder="Where do you need a car?"
+        class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3"
+      />
+    </div>
+
+    <div>
+      <label for="start-date" class="mb-2 block text-sm font-medium">
+        Start date
+      </label>
+      <input
+        id="start-date"
+        type="date"
+        class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3"
+      />
+    </div>
+
+    <div>
+      <label for="end-date" class="mb-2 block text-sm font-medium">
+        End date
+      </label>
+      <input
+        id="end-date"
+        type="date"
+        class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3"
+      />
+    </div>
+
+    <button
+      type="submit"
+      class="rounded-lg bg-red-700 px-6 py-3 font-medium text-white hover:bg-red-800 md:col-span-3"
+    >
+      Search cars
+    </button>
+  </form>
+</section>
   <div class="mt-20">
   <div class="relative mx-auto max-w-3xl border-t-2 border-dotted border-gray-300">
     <div class="driving-car">🚗</div>
