@@ -16,11 +16,7 @@
       </a>
     </nav>
   </header>
-  <div class="mt-20">
-  <div class="relative mx-auto max-w-3xl border-t-2 border-dotted border-gray-300">
-    <div class="driving-car">🚗</div>
-  </div>
-</div>
+  
   <main class="mx-auto max-w-6xl px-8 py-24">
      <section class="grid items-center gap-12 md:grid-cols-2">
       <div>
@@ -102,6 +98,24 @@
   </div>
 </div>
   </main>
+  
+<footer class="border-t border-gray-200 px-8 py-8">
+  <div class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 md:flex-row">
+    <a href="/" class="text-xl font-bold text-red-700">
+      RideExchange
+    </a>
+
+    <nav class="flex gap-6 text-sm text-gray-500">
+      <a href="/" class="hover:text-red-700">Home</a>
+      <a href="/guide" class="hover:text-red-700">Guide</a>
+      <a href="/login" class="hover:text-red-700">Log in</a>
+    </nav>
+
+    <p class="text-sm text-gray-400">
+      © 2026 RideExchange
+    </p>
+  </div>
+</footer>
 </div>
 
 
