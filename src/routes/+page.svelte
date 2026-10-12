@@ -45,5 +45,29 @@
   class="block w-full max-w-md justify-self-center"
 />  
   </section>
+  <div class="mt-20">
+  <div class="relative mx-auto max-w-3xl border-t-2 border-dotted border-gray-300">
+    <div class="driving-car">🚗</div>
+  </div>
+</div>
   </main>
 </div>
+
+
+<style>
+  .driving-car {
+    position: absolute;
+    top: -22px;
+    left: 0;
+    animation: drive 10s linear infinite;
+  }
+
+  @keyframes drive {
+  from {
+    left: calc(100% - 28px);
+  }
+  to {
+    left: 0;
+  }
+}
+</style>
