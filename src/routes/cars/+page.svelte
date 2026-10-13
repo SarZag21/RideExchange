@@ -44,6 +44,41 @@
 
             </div>
 
-        </div>
-    </main>
+        <!-- Prüft, ob der Benutzer bereits Autos hat. -->
+        {#if data.cars.length === 0}
+            <!-- Zeigt eine Nachricht, wenn noch keine Autos vorhanden sind. -->
+            <div class="mt-10 rounded-2xl bg-white p-10 text-center shadow-sm">
+                <h2 class="text-xl font-semibold text-gray-900">
+                    No cars yet
+                </h2>
+                <p class="mt-2 text-gray-500">
+                    You haven't added any cars yet.
+                </p>
+            </div>
+        {:else}
+            <!-- Zeigt alle Autos des angemeldeten Benutzers an. -->
+            <div class="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                <!-- Erstellt eine Karte für jedes Auto. -->
+                {#each data.cars as car (car.id)}
+                    <div class="rounded-2xl bg-white p-5 shadow-sm">
+                        <!-- Zeigt die Marke und das Baujahr an. -->
+                        <h2 class="text-xl font-semibold text-gray-900">
+                            {car.brand_name} {car.production_year}
+                        </h2>
+
+                        <!-- Zeigt den Standort an. -->
+                        <p class="mt-2 text-gray-500">
+                            {car.location}
+                        </p>
+
+                        <!-- Zeigt den Tagespreis an. -->
+                        <p class="mt-4 text-lg font-bold text-red-700">
+                            €{car.price_per_day} / day
+                        </p>
+                    </div>
+                {/each}
+            </div>
+        {/if}
+    </div>
+   </main>
 </div>
