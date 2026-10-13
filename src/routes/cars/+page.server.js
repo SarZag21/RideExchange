@@ -1,5 +1,6 @@
 // Importiert redirect von SvelteKit, um Benutzer weiterzuleiten.
 import { redirect } from '@sveltejs/kit';
+import pool from '$lib/server/database.js';
 
 // Die load-Funktion wird aufgerufen, wenn die Seite geladen wird.
 export async function load({ locals }) {
@@ -10,5 +11,15 @@ export async function load({ locals }) {
         throw redirect(303, '/login');
     }
 
-    return {};
+    // Holt alle Autos des angemeldeten Benutzers aus der Datenbank.
+    // WHERE zeigt nur Autos an, die diesem Benutzer gehören.
+    const [cars] = await pool.execute(
+        `SELECT *
+        FROM autos
+        WHERE user_id = ?`,
+        [locals.user.id]
+    );
+
+    // Führt eine SQL-Abfrage aus, um alle Autos aus der Datenbank abzurufen.
+    return { cars };
 }
