@@ -1,8 +1,9 @@
-<!--
-Lucide Svelte ist eine Bibliothek mit fertigen Icons für Svelte-Anwendungen.
-Mit "import" werden die benötigten Icons aus dieser Bibliothek geladen.
--->
 <script> 
+// Importiert die aktuelle Seite.
+import { page } from '$app/state';
+
+//Lucide Svelte ist eine Bibliothek mit fertigen Icons für Svelte-Anwendungen.
+//Mit "import" werden die benötigten Icons aus dieser Bibliothek geladen.
     import {
         User,
         Car,
@@ -21,38 +22,54 @@ Mit "import" werden die benötigten Icons aus dieser Bibliothek geladen.
 
  <!-- Enthält die Navigationslinks mit den zugehörigen Icons -->
     <nav class="space-y-2">
-       <a
-            href="/profile"
-            class="flex items-center gap-3 rounded-xl bg-red-50 px-4 py-3 font-semibold text-red-700"
-        >
-           <!-- Zeigt das Benutzer-Icon mit 20 Pixeln Größe. -->
-            <User size={20} />
-            My Profile
-        </a>
+   
+<!-- Markiert My Profile, wenn diese Seite geöffnet ist. -->
+<a
+    href="/profile"
+    class="flex items-center gap-3 rounded-xl px-4 py-3 font-medium transition hover:bg-gray-50"
+    class:bg-red-50={page.url.pathname === '/profile'}
+    class:text-red-700={page.url.pathname === '/profile'}
+    class:text-gray-600={page.url.pathname !== '/profile'}
+>
+    <User size={20} />
+    My Profile
+</a>
 
-        <a
-            href="/cars"
-            class="flex items-center gap-3 rounded-xl px-4 py-3 font-medium text-gray-600 transition hover:bg-gray-50 hover:text-gray-900"
-        >
-            <Car size={20} />
-            My Cars
-        </a>
+    <!-- Markiert My Cars, wenn diese Seite geöffnet ist. -->
+    <a
+    href="/cars"
+    class="flex items-center gap-3 rounded-xl px-4 py-3 font-medium transition hover:bg-gray-50"
+    class:bg-red-50={page.url.pathname === '/cars'}
+    class:text-red-700={page.url.pathname === '/cars'}
+    class:text-gray-600={page.url.pathname !== '/cars'}
+    >
+    <Car size={20} />
+    My Cars
+</a>
 
-        <a
-            href="/bookings"
-            class="flex items-center gap-3 rounded-xl px-4 py-3 font-medium text-gray-600 transition hover:bg-gray-50 hover:text-gray-900"
-        >
-            <CalendarDays size={20} />
-            My Bookings
-        </a>
+     <!-- Markiert My Bookings, wenn diese Seite geöffnet ist. -->
+<a
+    href="/bookings"
+    class="flex items-center gap-3 rounded-xl px-4 py-3 font-medium transition hover:bg-gray-50"
+    class:bg-red-50={page.url.pathname === '/bookings'}
+    class:text-red-700={page.url.pathname === '/bookings'}
+    class:text-gray-600={page.url.pathname !== '/bookings'}
+>
+    <CalendarDays size={20} />
+    My Bookings
+</a>
 
-        <a
-            href="/messages"
-            class="flex items-center gap-3 rounded-xl px-4 py-3 font-medium text-gray-600 transition hover:bg-gray-50 hover:text-gray-900"
-        >
-            <MessageSquare size={20} />
-            Messages
-        </a>
+<!-- Markiert Messages, wenn diese Seite geöffnet ist. -->
+<a
+    href="/messages"
+    class="flex items-center gap-3 rounded-xl px-4 py-3 font-medium transition hover:bg-gray-50"
+    class:bg-red-50={page.url.pathname === '/messages'}
+    class:text-red-700={page.url.pathname === '/messages'}
+    class:text-gray-600={page.url.pathname !== '/messages'}
+>
+    <MessageSquare size={20} />
+    Messages
+</a>
 
     </nav>
 
