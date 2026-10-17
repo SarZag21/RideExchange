@@ -88,6 +88,55 @@
         />
     </div>
 
+
+<!-- Eingabefeld für die Anzahl der Sitzplätze. -->
+<div>
+    <label for="number_of_seats" class="block font-medium text-gray-700">
+        Number of Seats
+    </label>
+    <input
+        id="number_of_seats"
+        name="number_of_seats"
+        type="number"
+        min="1"
+        max="100"
+        required
+        class="mt-2 w-full rounded-xl border border-gray-300 p-3"
+    />
+</div>
+
+<!-- Eingabefeld für den Standort. -->
+<div>
+    <label for="location" class="block font-medium text-gray-700">
+        Location
+    </label>
+    <input
+        id="location"
+        name="location"
+        type="text"
+        placeholder="e.g. Shkoder"
+        required
+        class="mt-2 w-full rounded-xl border border-gray-300 p-3"
+    />
+</div>
+
+<!-- Eingabefeld für den Tagespreis. -->
+<div>
+    <label for="price_per_day" class="block font-medium text-gray-700">
+        Price per Day (€)
+    </label>
+    <input
+        id="price_per_day"
+        name="price_per_day"
+        type="number"
+        min="0.01"
+        step="0.01"
+        required
+        class="mt-2 w-full rounded-xl border border-gray-300 p-3"
+    />
+</div>
+
+
 </form>
 </div>
 </main>
