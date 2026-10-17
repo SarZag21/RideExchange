@@ -34,13 +34,13 @@
                     </p>
                 </div>
 
-                <!-- Button für das spätere Hinzufügen eines Autos. -->
-                <button
-                    type="button"
+                <!--  Öffnet die Seite zum Hinzufügen eines Autos. -->
+                <a
+                    href="/cars/add"
                     class="flex items-center gap-2 rounded-xl bg-red-700 px-5 py-3 font-semibold text-white hover:bg-red-800"
                 >
                     + Add Car
-                </button>
+                </a>
 
             </div>
 
