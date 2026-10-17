@@ -60,25 +60,55 @@
             <div class="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                 <!-- Erstellt eine Karte für jedes Auto. -->
                 {#each data.cars as car (car.id)}
-                    <div class="rounded-2xl bg-white p-5 shadow-sm">
-                        <!-- Zeigt die Marke und das Baujahr an. -->
-                        <h2 class="text-xl font-semibold text-gray-900">
-                            {car.brand_name} {car.production_year}
-                        </h2>
+                    <div class="overflow-hidden rounded-2xl bg-white shadow-sm">
+                       
+                    <!-- Zeigt das Bild des Autos an. -->
+                    {#if car.url_image}
+                    <img
+                        src={car.url_image}
+                        alt="Car"
+                        class="h-48 w-full object-cover"
+                    />
+                    {:else}
+                        <div class="flex h-48 items-center justify-center bg-gray-100 text-gray-400">
+                            No image available
+                        </div>
+                    {/if}    
 
-                        <!-- Zeigt den Standort an. -->
-                        <p class="mt-2 text-gray-500">
-                            {car.location}
-                        </p>
+                    <div class="p-5">
+                    <!-- Zeigt die Marke und das Baujahr an. -->
+                    <h2 class="text-xl font-semibold text-gray-900">
+                        {car.brand_name} {car.production_year}
+                    </h2>
 
-                        <!-- Zeigt den Tagespreis an. -->
-                        <p class="mt-4 text-lg font-bold text-red-700">
-                            €{car.price_per_day} / day
-                        </p>
-                    </div>
-                {/each}
+                    <!-- Zeigt den Status des Autos an. -->
+                    <p class="mt-2 text-sm text-gray-500">
+                        Status: {car.status}
+                    </p>
+
+                    <!-- Zeigt den Standort an. -->
+                    <p class="mt-2 text-gray-500">
+                        Location: {car.location}
+                    </p>
+
+                    <!-- Zeigt die Farbe und die Sitzplätze an. -->
+                    <p class="mt-2 text-gray-500">
+                        Color: {car.color}
+                    </p>
+
+                     <p class="mt-2 text-gray-500">
+                        Seats: {car.number_of_seats}
+                    </p>
+
+                    <!-- Zeigt den Tagespreis an. -->
+                    <p class="mt-4 text-lg font-bold text-red-700">
+                        €{car.price_per_day} / day
+                    </p>
+                </div>
             </div>
+            {/each}
+           </div> 
         {/if}
-    </div>
+        </div>
    </main>
 </div>
