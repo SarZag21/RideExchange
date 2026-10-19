@@ -1,6 +1,23 @@
 <script>
     // Importiert die Sidebar für die Navigation.
     import Sidebar from '$lib/components/sidebar.svelte';
+
+    
+    // Speichert die Fehlermeldung bei zu vielen Bildern.
+    let imageError = $state('');
+
+    // Prüft, ob höchstens sieben Bilder ausgewählt wurden.
+    function checkImages(event) {
+        const files = event.currentTarget.files;
+
+        if (files.length > 7) {
+            imageError = 'You can upload a maximum of 7 pictures.';
+            event.currentTarget.value = '';
+        } else {
+            imageError = '';
+        }
+    }
+
 </script>
 
 <svelte:head>
@@ -125,12 +142,12 @@
     <label for="price_per_day" class="block font-medium text-gray-700">
         Price per Day (€)
     </label>
+    <!-- Erlaubt Tagespreise ab 5,01 € mit zwei Dezimalstellen. -->
     <input
         id="price_per_day"
         name="price_per_day"
         type="number"
         min="5.01"
-        // Legen die Schrittweite für Dezimalstellen fest – wenn wir z.B Preise wie 10,50, 20,75 usw. zulassen möchten.
         step="0.01"
         required
         class="mt-2 w-full rounded-xl border border-gray-300 p-3"
@@ -144,19 +161,29 @@
         Car Pictures (max. 7)
     </label>
 
+    <!-- Erlaubt die Auswahl mehrerer Bilder in allen Bildformaten. -->
     <input
         id="car_images"
         name="car_images"
         type="file"
-        //Erlaubt alle Bildformate.
         accept="image/*"
         multiple
+        //Prüft die Anzahl der Bilder bei der Auswahl.
+        onchange={checkImages}
         class="mt-2 w-full rounded-xl border border-gray-300 p-3"
     />
 
     <p class="mt-2 text-sm text-gray-500">
         You can select up to 7 pictures of your car.
     </p>
+    
+<!-- Zeigt eine Fehlermeldung bei mehr als sieben Bildern an. -->
+{#if imageError}
+    <p class="mt-2 text-sm text-red-600">
+        {imageError}
+    </p>
+{/if}
+
 </div>
 
 
