@@ -18,7 +18,7 @@
   </header>
   
   <main class="mx-auto max-w-6xl px-8 py-24">
-     <section class="grid items-center gap-12 md:grid-cols-2">
+     <section class="grid items-center gap-8 md:grid-cols-2">
       <div>
         <p class="mb-4 font-medium text-red-700">
           YOUR JOURNEY STARTS HERE
@@ -39,11 +39,14 @@
         </a>
       </div>
 
-<img
-  src="/images/hp_car.jpg"
-  alt="Black and white car"
-  class="block w-full max-w-md justify-self-center"
-/>  
+
+<div class="h-80 w-full max-w-xl justify-self-center overflow-hidden rounded-2xl">
+  <img
+    src="/images/hp_car.jpg"
+    alt="Black and white car"
+    class="h-full w-full object-cover object-[center_70%]"
+  />
+</div>
   </section>
   
 <section class="mt-16 rounded-xl border border-gray-200 bg-gray-50 p-6">
