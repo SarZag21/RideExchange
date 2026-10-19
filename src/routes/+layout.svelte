@@ -2,6 +2,11 @@
 	import './layout.css';
 	import favicon from '$lib/assets/favicon.svg';
 
+	export function load({ locals }) {
+  	  return {
+   	     user: locals.user
+   	 };
+}
 	let { children } = $props();
 </script>
 

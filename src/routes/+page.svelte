@@ -1,4 +1,8 @@
 
+<script>
+  let { data } = $props();
+</script>
+
 <div class="min-h-screen bg-white text-slate-900">
   <header class="flex items-center justify-between border-b border-gray-100 px-8 py-5">
     <a href="/" class="text-2xl font-bold text-red-700">
@@ -8,12 +12,32 @@
     <nav class="flex items-center gap-6">
       <a href="/" class="hover:text-red-700">Home</a>
       <a href="/guide" class="hover:text-red-700">Guide</a>
-      <a href="/login" class="rounded-lg border border-gray-200 px-4 py-2 hover:border-red-700">
-        Log in
-      </a>
-      <a href="/register" class="rounded-lg bg-red-700 px-4 py-2 text-white hover:bg-red-800">
-        Register
-      </a>
+      
+{#if data.user}
+  <form method="POST" action="/logout">
+    <button
+      type="submit"
+      class="rounded-lg border border-gray-200 px-4 py-2 hover:border-red-700"
+    >
+      Log out
+    </button>
+  </form>
+{:else}
+  <a
+    href="/login"
+    class="rounded-lg border border-gray-200 px-4 py-2 hover:border-red-700"
+  >
+    Log in
+  </a>
+
+  <a
+    href="/register"
+    class="rounded-lg bg-red-700 px-4 py-2 text-white hover:bg-red-800"
+  >
+    Register
+  </a>
+{/if}
+
     </nav>
   </header>
   
