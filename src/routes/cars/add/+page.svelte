@@ -6,17 +6,28 @@
     // Speichert die Fehlermeldung bei zu vielen Bildern.
     let imageError = $state('');
 
+    // Speichert die Vorschau-URLs der ausgewählten Bilder.
+    let imagePreviews = $state([]);
+
     // Prüft, ob höchstens sieben Bilder ausgewählt wurden.
     function checkImages(event) {
         const files = event.currentTarget.files;
+
+        // Entfernt die bisherigen Vorschau-URLs.
+        imagePreviews.forEach((url) => URL.revokeObjectURL(url));
+        imagePreviews = [];
 
         if (files.length > 7) {
             imageError = 'You can upload a maximum of 7 pictures.';
             event.currentTarget.value = '';
         } else {
-            imageError = '';
-        }
+    imageError = '';
+
+    // Erstellt eine Vorschau für jedes ausgewählte Bild.
+    imagePreviews = Array.from(files, (file) => URL.createObjectURL(file));
     }
+}
+
 
 </script>
 
@@ -161,14 +172,13 @@
         Car Pictures (max. 7)
     </label>
 
-    <!-- Erlaubt die Auswahl mehrerer Bilder in allen Bildformaten. -->
+   <!-- Erlaubt mehrere Bilder und prüft ihre Anzahl bei der Auswahl. -->
     <input
         id="car_images"
         name="car_images"
         type="file"
         accept="image/*"
         multiple
-        //Prüft die Anzahl der Bilder bei der Auswahl.
         onchange={checkImages}
         class="mt-2 w-full rounded-xl border border-gray-300 p-3"
     />
@@ -183,6 +193,21 @@
         {imageError}
     </p>
 {/if}
+
+<!-- Zeigt die ausgewählten Autobilder als Vorschau an. -->
+{#if imagePreviews.length > 0}
+    <div class="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3">
+        {#each imagePreviews as image}
+            <img
+                src={image}
+                alt="Car preview"
+                class="h-32 w-full rounded-xl object-cover"
+            />
+        {/each}
+    </div>
+{/if}
+
+
 
 </div>
 
