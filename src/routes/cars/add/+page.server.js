@@ -1,4 +1,4 @@
-import { redirect } from '@sveltejs/kit';
+import { fail, redirect } from '@sveltejs/kit';
 
 // Verarbeitet das Formular zum Hinzufügen eines Autos.
 export const actions = {
@@ -19,6 +19,21 @@ export const actions = {
         const number_of_seats = formData.get('number_of_seats');
         const location = formData.get('location');
         const price_per_day = formData.get('price_per_day');
+
+        // Prüft, ob alle Felder ausgefüllt sind.
+        if (
+            !brand ||
+            !type ||
+            !production_year ||
+            !color ||
+            !number_of_seats ||
+            !location ||
+            !price_per_day
+        ) {
+            return fail(400, {
+                error: 'Please fill in all fields.'
+            });
+        }
 
         return { success: true };
     }
