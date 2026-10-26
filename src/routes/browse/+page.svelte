@@ -16,9 +16,20 @@
     </p>
 
     <div class="mt-10">
-        <h2 class="text-2xl font-semibold text-gray-900">
-            Available Cars
-        </h2>
+        <!-- Zeigt die Überschrift und den Filter-Button nebeneinander an. -->
+        <div class="flex items-center justify-between">
+            <h2 class="text-2xl font-semibold text-gray-900">
+                Available Cars
+            </h2>
+
+            <!-- Öffnet später den Filterbereich. -->
+            <button
+                type="button"
+                class="rounded-lg bg-red-700 px-5 py-2 text-white hover:bg-red-800"
+            >
+                Filters
+            </button>
+        </div>
 
         <!-- Erstellt ein Raster für die Fahrzeugkarten. -->
         <div class="mt-6 grid grid-cols-1 gap-6 md:grid-cols-3">
