@@ -36,12 +36,24 @@ export const actions = {
             });
         }
 
+        // Wandelt die Zahlen aus dem Formular um.
+        const year = Number(production_year);
+        const seats = Number(number_of_seats);
+        const price = Number(price_per_day);
+
+        const validYear = Number.isInteger(year) && year >= 1901 && year <= 2155;
+        const validSeats = Number.isInteger(seats) && seats >= 1 && seats <= 100;
+        const validPrice = Number.isFinite(price) && price >= 5.01 && price <= 999999.99;
+
+        // Prüft, ob die Zahlen gültig sind.
+        if (!validYear || !validSeats || !validPrice) {
+            return fail(400, {
+                error: 'Please enter valid car details.'
+            });
+        }
 
         // Prüft, ob die Automarke bereits existiert.
-            const [brands] = await pool.execute(
-                'SELECT id FROM brands WHERE name = ?',
-                [brand]
-            );
+        const [brands] = await pool.execute('SELECT id FROM brands WHERE name = ?', [brand]);
 
         // Speichert die ID der Automarke.
         let brandId;
@@ -60,6 +72,23 @@ export const actions = {
             // Speichert die ID der neuen Marke.
             brandId = result.insertId;
         }
+
+        // Speichert das Auto in der Datenbank.
+        await pool.execute(
+            `INSERT INTO autos
+            (color, production_year, type, number_of_seats, user_id, price_per_day, location, brand_id)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+            [
+                color,
+                year,
+                type,
+                seats,
+                locals.user.id,
+                price,
+                location,
+                brandId
+            ]
+        );
 
             return { success: true };
         }
