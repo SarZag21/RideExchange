@@ -52,6 +52,24 @@ export const actions = {
             });
         }
 
+        // Entfernt Leerzeichen am Anfang und Ende.
+        const brandName = String(brand).trim();
+        const modelName = String(type).trim();
+        const carColor = String(color).trim();
+        const carLocation = String(location).trim();
+
+        // Prüft die Länge der Texte.
+        if (
+            brandName.length < 1 || brandName.length > 100 ||
+            modelName.length < 1 || modelName.length > 50 ||
+            carColor.length < 1 || carColor.length > 30 ||
+            carLocation.length < 1 || carLocation.length > 100
+        ) {
+            return fail(400, {
+                error: 'Please enter valid text details.'
+            });
+        }
+
         // Prüft, ob die Automarke bereits existiert.
         const [brands] = await pool.execute('SELECT id FROM brands WHERE name = ?', [brand]);
 
