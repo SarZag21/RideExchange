@@ -1,4 +1,5 @@
 import { fail, redirect } from '@sveltejs/kit';
+import pool from '$lib/server/database.js';
 
 // Verarbeitet das Formular zum Hinzufügen eines Autos.
 export const actions = {
@@ -35,8 +36,33 @@ export const actions = {
             });
         }
 
-        return { success: true };
-    }
+
+        // Prüft, ob die Automarke bereits existiert.
+            const [brands] = await pool.execute(
+                'SELECT id FROM brands WHERE name = ?',
+                [brand]
+            );
+
+        // Speichert die ID der Automarke.
+        let brandId;
+
+        // Prüft, ob die Marke gefunden wurde.
+        if (brands.length > 0) {
+            brandId = brands[0].id;
+        } else {
+
+            // Fügt eine neue Marke in die Datenbank ein.
+            const [result] = await pool.execute(
+                'INSERT INTO brands (name) VALUES (?)',
+                [brand]
+            );
+
+            // Speichert die ID der neuen Marke.
+            brandId = result.insertId;
+        }
+
+            return { success: true };
+        }
 
 
 };
