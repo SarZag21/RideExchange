@@ -70,8 +70,8 @@ export const actions = {
             });
         }
 
-        // Prüft, ob die Automarke bereits existiert.
-        const [brands] = await pool.execute('SELECT id FROM brands WHERE name = ?', [brand]);
+      // Prüft, ob die Automarke bereits existiert.
+     const [brands] = await pool.execute('SELECT id FROM brands WHERE name = ?', [brandName]);
 
         // Speichert die ID der Automarke.
         let brandId;
@@ -84,7 +84,7 @@ export const actions = {
             // Fügt eine neue Marke in die Datenbank ein.
             const [result] = await pool.execute(
                 'INSERT INTO brands (name) VALUES (?)',
-                [brand]
+                [brandName]
             );
 
             // Speichert die ID der neuen Marke.
@@ -96,15 +96,16 @@ export const actions = {
             `INSERT INTO autos
             (color, production_year, type, number_of_seats, user_id, price_per_day, location, brand_id)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
-            [
-                color,
+             [
+                carColor,
                 year,
-                type,
+                modelName,
                 seats,
                 locals.user.id,
                 price,
-                location,
+                carLocation,
                 brandId
+
             ]
         );
 
