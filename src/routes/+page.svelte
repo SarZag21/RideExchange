@@ -2,6 +2,8 @@
 <script>
   let { data } = $props();
 </script>
+<p>Login status: {data.user ? 'Logged in' : 'Logged out'}</p>
+ 
 
 <div class="min-h-screen bg-white text-slate-900">
   <header class="flex items-center justify-between border-b border-gray-100 px-8 py-5">

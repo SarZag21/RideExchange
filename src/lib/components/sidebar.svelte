@@ -75,14 +75,17 @@ import { page } from '$app/state';
 
 
     <!-- Trennt den Logout-Bereich durch Abstand und eine obere Linie ab. -->
-    <div class="mt-8 border-t border-gray-200 pt-4">
-        <a
-        href="/logout"
-        class="flex items-center gap-3 rounded-xl px-4 py-3 font-medium text-gray-600 transition hover:bg-red-50 hover:text-red-700"
+<div class="mt-8 border-t border-gray-200 pt-4">
+    <!-- Sendet eine POST-Anfrage zum Abmelden. -->
+    <form method="POST" action="/logout">
+        <button
+            type="submit"
+            class="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-left font-medium text-gray-600 transition hover:bg-red-50 hover:text-red-700"
         >
-        <LogOut size={20} />
-        Logout
-        </a>
-    </div>
+            <LogOut size={20} />
+            Logout
+        </button>
+    </form>
+</div>
 
 </aside>
