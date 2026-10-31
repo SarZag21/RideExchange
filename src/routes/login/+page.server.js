@@ -10,8 +10,12 @@ export const actions = {
         // Liest die eingegebenen Daten aus dem Formular.
         const formData = await request.formData();
 
-        // Holt die E-Mail-Adresse oder Username und das Passwort aus den Formulardaten.
-        const identifier = formData.get('identifier');
+    
+        // Liest den Benutzernamen oder die E-Mail aus den Formulardaten.
+        // ?? '' verwendet einen leeren Text, wenn kein Wert vorhanden ist.
+        // String() wandelt den Wert in einen Text um.
+        // trim() entfernt Leerzeichen am Anfang und Ende.
+        const identifier = String(formData.get('identifier') ?? '').trim();
         const password = formData.get('password');
 
         // Prüft, ob E-Mail/Username oder Passwort fehlen.
