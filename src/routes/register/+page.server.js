@@ -10,10 +10,20 @@ export const actions = {
     default: async ({ request }) => {
         // Liest die eingegebenen Daten aus dem Formular.
         const formData = await request.formData();
+        
+        // Liest den Benutzernamen aus dem Formular.
+        // ?? '' verwendet einen leeren Text, wenn kein Wert vorhanden ist.
+        // String() wandelt den Wert in einen Text um.
+        // trim() entfernt Leerzeichen am Anfang und Ende.
+        const username = String(formData.get('username') ?? '').trim();
 
-        // Holt Benutzername, E-Mail, Passwort und Telefonnummer aus dem Formular.
-        const username = formData.get('username');
-        const email = formData.get('email');
+        // Liest die E-Mail-Adresse aus dem Formular.
+        // ?? '' verwendet einen leeren Text, wenn kein Wert vorhanden ist.
+        // String() wandelt den Wert in einen Text um.
+        // trim() entfernt Leerzeichen am Anfang und Ende.
+        // toLowerCase() wandelt alle Buchstaben in Kleinbuchstaben um.
+        const email = String(formData.get('email') ?? '').trim().toLowerCase();
+
         const password = formData.get('password');
         const phoneNumber = formData.get('phone_number');
 
