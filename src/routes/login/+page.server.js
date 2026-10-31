@@ -2,6 +2,8 @@ import { fail, redirect } from '@sveltejs/kit';
 import pool from '$lib/server/database.js';
 // Importiert Funktionen zur Passwortprüfung und Session-Erstellung 
 import { verifyPassword, createSession } from '$lib/server/auth.js';
+// Prüft, ob die Webseite im Entwicklungsmodus und nicht in der fertigen Version läuft.
+import { dev } from '$app/environment';
 
 export const actions = {
     // Die default-Aktion verarbeitet das Login-Formular.
@@ -40,7 +42,7 @@ export const actions = {
          // Gibt eine Fehlermeldung zurück, wenn kein Benutzer gefunden wurde.
         if (!user) {
             return fail(400, {
-                error: 'Invalid email or password.'
+                error: 'Invalid email, username or password.'
             });
         }
 
@@ -68,10 +70,8 @@ export const actions = {
             httpOnly: true,
             // Schränkt das Mitsenden des Cookies bei fremden Webseiten ein.
             sameSite: 'lax',
-            // Erlaubt das Cookie auch ohne HTTPS (für die lokale Entwicklung).
-            secure: false,
-            // Das Cookie bleibt 30 Tage gültig.
-            maxAge: 60 * 60 * 24 * 30
+            // Verwendet HTTPS in der Produktionsumgebung.
+            secure: !dev
         });
 
         // Leitet den Benutzer nach erfolgreichem Login zur Startseite weiter.
