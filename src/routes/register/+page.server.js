@@ -24,18 +24,18 @@ export const actions = {
                 error: 'Please fill all the required fields.'
             });
         }
-        // Check the username length.
+        // Überprüft die Länge des Benutzernamens.
         if (username.length < 3) {
             return fail(400, {
                 error: 'Username must have at least 3 characters.'
             });
         }
 
-        // Check if the email contains @.
-        if (!email.includes('@')) {
-            return fail(400, {
-                error: 'Please enter a valid email.'
-            });
+        // Prüft, ob die E-Mail-Adresse ein gültiges Format hat.
+        if (!email.includes('@') || !email.includes('.')) {
+        return fail(400, {
+            error: 'Please enter a valid email.'
+        });
         }
 
         // Prüft, ob das Passwort mindestens 8 Zeichen lang ist.
