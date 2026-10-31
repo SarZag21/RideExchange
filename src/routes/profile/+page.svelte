@@ -13,6 +13,30 @@
     function selectPhoto() {
         photoInput?.click();
     }
+
+    // Speichert eine Fehlermeldung für das Foto.
+    let photoError = $state('');
+
+    // Prüft das ausgewählte Foto.
+    function validatePhoto() {
+        const file = photoInput?.files?.[0];
+        photoError = '';
+
+        // Prüft, ob eine Datei ausgewählt wurde.
+        if (!file) return;
+
+        // Erlaubt nur JPG- und PNG-Dateien.
+        if (file.type !== 'image/jpeg' && file.type !== 'image/png') {
+            photoError = 'Only JPG and PNG images are allowed.';
+            return;
+        }
+
+        // Erlaubt maximal 2 MB.
+        if (file.size > 2 * 1024 * 1024) {
+            photoError = 'The image must be smaller than 2 MB.';
+            return;
+        }
+    }
 </script>
 
 <!-- Legt den Titel des Browser-Tabs fest. -->
@@ -67,6 +91,7 @@
                 type="file"
                 accept="image/jpeg,image/png"
                 bind:this={photoInput}
+                onchange={validatePhoto}
                 class="hidden"
             />
             
@@ -80,6 +105,13 @@
             <p class="mt-2 text-xs text-gray-500">
             JPG or PNG (max 2MB)
             </p>
+
+            <!-- Zeigt einen Fehler bei einem ungültigen Foto. -->
+            {#if photoError}
+                <p class="mt-2 text-xs text-red-700">
+                    {photoError}
+                </p>
+            {/if}
 
         </div>
 
