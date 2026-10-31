@@ -80,7 +80,8 @@
                 {data.user.username?.charAt(0).toUpperCase()}
             </div>
 
-
+<!-- Sendet das ausgewählte Foto an den Server. -->
+<form method="POST" action="?/uploadPhoto" enctype="multipart/form-data">
            <!--
             type="file": Erlaubt die Auswahl einer Datei.
             accept: Erlaubt nur JPG- und PNG-Bilder.
@@ -89,19 +90,29 @@
             -->
             <input
                 type="file"
+                name="photo"
                 accept="image/jpeg,image/png"
                 bind:this={photoInput}
                 onchange={validatePhoto}
                 class="hidden"
             />
-            
+
+            <!-- Öffnet die Dateiauswahl. -->
             <button
-            type="button"
-            onclick={selectPhoto}
-            class="mt-4 rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">
+                type="button"
+                disabled={!!photoError}
+                class="mt-4 rounded-lg border border-gray-300 px-4 py-2 text-sm"
+            >
                 Change Photo
             </button>
             
+            <button
+            type="submit"
+            class="mt-4 rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">
+                Upload Photo
+            </button>
+    </form>
+
             <p class="mt-2 text-xs text-gray-500">
             JPG or PNG (max 2MB)
             </p>
@@ -131,6 +142,20 @@
         {#if form?.success}
             <p class="mt-4 rounded-lg bg-green-50 px-4 py-3 text-sm text-green-700">
                 Profile updated successfully!
+            </p>
+        {/if}
+
+        <!-- Zeigt eine Fehlermeldung beim Speichern. -->
+        {#if form?.error}
+            <p class="mt-4 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700">
+                {form.error}
+            </p>
+        {/if}
+
+        <!-- Zeigt einen Fehler vom Server beim Hochladen. -->
+        {#if form?.photoError}
+            <p class="mt-2 text-xs text-red-700">
+                {form.photoError}
             </p>
         {/if}
         
