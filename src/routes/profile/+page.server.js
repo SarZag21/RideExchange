@@ -1,6 +1,8 @@
  // Importiert fail für Fehlermeldungen und redirect für Weiterleitungen.
 import { fail, redirect } from '@sveltejs/kit';
 import pool from '$lib/server/database.js';
+// Importiert put zum Hochladen von Bildern.
+import { put } from '@vercel/blob';
 
 // Die load-Funktion lädt die Benutzerdaten für die Profilseite.
 export function load({ locals }) {
@@ -90,5 +92,46 @@ export const actions = {
 
         // Gibt eine Erfolgsmeldung nach dem Speichern zurück.
         return { success: true };
+    },
+
+
+    // Lädt ein Profilfoto hoch.
+    uploadPhoto: async ({ request, locals }) => {
+
+        // Prüft, ob der Benutzer angemeldet ist.
+        if (!locals.user) {
+            throw redirect(303, '/login');
+        }
+
+        // Liest das Foto aus dem Formular.
+        const formData = await request.formData();
+        const photo = formData.get('photo');
+
+        // Prüft, ob eine Datei ausgewählt wurde.
+        if (!(photo instanceof File) || photo.size === 0) {
+            return fail(400, { photoError: 'Please select a photo.' });
+        }
+
+        // Erlaubt nur JPG und PNG.
+        if (!['image/jpeg', 'image/png'].includes(photo.type)) {
+            return fail(400, { photoError: 'Only JPG and PNG are allowed.' });
+        }
+
+        // Prüft die maximale Größe von 2 MB.
+        if (photo.size > 2 * 1024 * 1024) {
+            return fail(400, { photoError: 'Maximum photo size is 2 MB.' });
+        }
+
+        // Bestimmt die Dateiendung.
+        const extension = photo.type === 'image/png' ? 'png' : 'jpg';
+
+        // Speichert das Foto in Vercel Blob.
+        const blob = await put(`profiles/${locals.user.id}.${extension}`, photo, {
+            access: 'public',
+            addRandomSuffix: true
+        });
+
+        // Gibt die URL des Fotos zurück.
+        return { photoUrl: blob.url };
     }
 };
