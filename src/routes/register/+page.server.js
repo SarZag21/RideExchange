@@ -46,6 +46,13 @@ export const actions = {
             });
         }
 
+       // Prüft, ob das Passwort Leerzeichen enthält.
+        if (password.includes(' ')) {
+            return fail(400, {
+                error: 'Password must not contain spaces.'
+            });
+        }
+
         // Sucht in der Datenbank nach einem bestehenden Benutzernamen oder einer E-Mail.
         // SELECT id liest die Benutzer-ID aus der Tabelle users.
         const [existingUsers] = await pool.execute(
