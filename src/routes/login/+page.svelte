@@ -51,25 +51,25 @@ style="background-image: url('/images/car-bg.png');"
     method="POST" sendet die eingegebenen Daten an die Server-Aktion.
 -->
     <form method="POST">
-      <!-- Erstellt den Bereich für die E-Mail-Adresse. -->
+      <!-- Erstellt den Bereich für die E-Mail-Adresse und Username. -->
     <div class="mb-5">
-     <!-- Beschriftet das Eingabefeld für die E-Mail-Adresse. -->
-        <label for="email"  class="mb-1 block text-sm font-medium text-gray-900" >
-            Email address
+     <!-- Beschriftet das Eingabefeld für die E-Mail-Adresse und Username. -->
+        <label for="identifier"class="mb-1 block text-sm font-medium text-gray-900" >
+            Email address or username
         </label>
 
     <!--
     id verbindet das Feld mit dem Label.
     name bestimmt den Namen des Feldes in den Formulardaten.
-    type="email" prüft das grundlegende E-Mail-Format.
+    type="text" erlaubt den User sowohl email als auch username zu schreiben
     required macht die Eingabe verpflichtend.
     focus ändert die Rahmenfarbe und den Schatten, wenn das Feld aktiv ist.
     -->
         <input
-            id="email"
-            name="email"
-            type="email"
-            placeholder="Enter your email"
+            id="identifier"
+            name="identifier"
+            type="text"
+            placeholder="Enter your email or username"
             required
             class="w-full rounded-lg border border-gray-300
                bg-white px-4 py-3 text-gray-900

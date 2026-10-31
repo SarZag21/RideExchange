@@ -10,24 +10,25 @@ export const actions = {
         // Liest die eingegebenen Daten aus dem Formular.
         const formData = await request.formData();
 
-        // Holt die E-Mail-Adresse und das Passwort aus den Formulardaten.
-        const email = formData.get('email');
+        // Holt die E-Mail-Adresse oder Username und das Passwort aus den Formulardaten.
+        const identifier = formData.get('identifier');
         const password = formData.get('password');
 
-        // Prüft, ob E-Mail oder Passwort fehlen.
+        // Prüft, ob E-Mail/Username oder Passwort fehlen.
         // fail(400, {...}) sendet einen HTTP-Fehlercode 400 (Bad Request, client side error) und eine Fehlermeldung zurück.
-        if (!email || !password) {
+        if (!identifier || !password) {
             return fail(400, {
                 error: 'Please fill all the required fields.'
             });
         }
 
-        // Sucht den Benutzer anhand seiner E-Mail-Adresse in der Datenbank
+        // Sucht den Benutzer anhand seiner E-Mail-Adresse oder Username in der Datenbank
          const [users] = await pool.execute(
             `SELECT id, username, email, hash_password, role
              FROM users
-             WHERE email = ?`,
-            [email]
+             WHERE email = ? or username = ?
+             LIMIT 1`,
+            [identifier, identifier]
         );
 
         // Nimmt den ersten gefundenen Benutzer aus dem Ergebnis.
@@ -45,10 +46,10 @@ export const actions = {
             user.hash_password
         );
 
-        // Gibt eine Fehlermeldung zurück, wenn das Passwort falsch ist.
+       // Gibt eine allgemeine Fehlermeldung zurück, wenn das Passwort falsch ist.
         if (!validPassword) {
             return fail(400, {
-                error: 'Invalid email or password.'
+                error: 'Invalid username, email or password.'
             });
         }
 
