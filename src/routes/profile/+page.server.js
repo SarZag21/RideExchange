@@ -27,13 +27,34 @@ export const actions = {
     // Die update-Aktion verarbeitet das Formular zum Aktualisieren des Profils.
     // request enthält die Formulardaten, locals enthält den angemeldeten Benutzer.
     update: async ({ request, locals }) => {
+
+        // Prüft, ob der Benutzer angemeldet ist.
+        if (!locals.user) {
+            throw redirect(303, '/login');
+        }
+
         // Liest die eingegebenen Daten aus dem Formular.
         const formData = await request.formData();
         
-        // Holt Benutzername, E-Mail und Telefonnummer aus dem Formular.
-        const username = formData.get('username');
-        const email = formData.get('email');
-        const phoneNumber = formData.get('phone_number');
+        // Bereitet die Eingaben für die Speicherung vor.
+        const username = String(formData.get('username') ?? '').trim();
+        const email = String(formData.get('email') ?? '').trim().toLowerCase();
+        const phoneNumber = String(formData.get('phone_number') ?? '').trim();
+    
+        // Prüft den Benutzernamen.
+        if (username.length < 3 || username.includes(' ')) {
+            return fail(400, { error: 'Invalid username.' });
+        }
+
+        // Prüft die E-Mail-Adresse.
+        if (!email.includes('@') || !email.includes('.')) {
+            return fail(400, { error: 'Invalid email.' });
+        }
+
+        // Prüft die Telefonnummer.
+        if (phoneNumber.length > 25) {
+            return fail(400, { error: 'Phone number is too long.' });
+        }
 
         // Prüft, ob Benutzername oder E-Mail fehlen.
         // fail(400, {...}) sendet einen HTTP-Fehlercode 400 (Bad Request, client side error) und eine Fehlermeldung zurück.
@@ -41,6 +62,19 @@ export const actions = {
             return fail(400, {
             error: 'Username and email are required.'
             });
+        }
+
+
+        // Prüft, ob Benutzername oder E-Mail schon existieren.
+        const [existingUsers] = await pool.execute(
+            `SELECT id FROM users
+            WHERE (username = ? OR email = ?) AND id != ?`,
+            [username, email, locals.user.id]
+        );
+
+        // Verhindert doppelte Daten.
+        if (existingUsers.length > 0) {
+            return fail(400, { error: 'Username or email already exists.' });
         }
 
 
