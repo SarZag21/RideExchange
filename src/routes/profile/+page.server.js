@@ -22,7 +22,9 @@ export function load({ locals }) {
         username: locals.user.username,
         email: locals.user.email,
         phone_number: locals.user.phone_number,
-        role: locals.user.role
+        role: locals.user.role,
+        // Übergibt das gespeicherte Profilbild an die Seite.
+        profile_image: locals.user.profile_image
     }
 };
 }

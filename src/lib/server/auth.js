@@ -57,7 +57,8 @@ const [rows] = await pool.execute(
             u.email,
             u.role,
             u.phone_number,
-            u.is_owner
+            u.is_owner,
+            u.profile_image
          FROM sessions s
          JOIN users u ON u.id = s.user_id
          WHERE s.id = ?

@@ -18,7 +18,7 @@
     let photoError = $state('');
 
     // Prüft das ausgewählte Foto.
-function validatePhoto() {
+    function validatePhoto() {
 
     // Liest die ausgewählte Datei.
     const file = photoInput?.files?.[0];
@@ -76,16 +76,21 @@ function validatePhoto() {
         <!-- Erstellt den Bereich für das Profilbild. --> 
         <div class="w-48  pr-8 text-center">
            
-            <!--
-            Zeigt den ersten Buchstaben des Benutzernamens als Profilbild.
-            charAt(0) nimmt den ersten Buchstaben.
-            toUpperCase() wandelt ihn in einen Großbuchstaben um.
-            ?. prüft, ob der Benutzername existiert, bevor charAt() aufgerufen wird.
-            -->
+       <!-- Zeigt das Profilbild oder den Anfangsbuchstaben des Benutzernamens an. -->
            <div class="mx-auto flex h-24 w-24 items-center justify-center
-                        rounded-full bg-red-100 text-3xl font-medium text-red-800">
+             overflow-hidden rounded-full bg-red-100 text-3xl font-medium text-red-800">
+            {#if data.user.profile_image}
+                <!-- Zeigt das gespeicherte Profilbild. -->
+                <img
+                    src={data.user.profile_image}
+                    alt="Profile"
+                    class="h-full w-full object-cover"
+                />
+            {:else}
+                <!-- Zeigt den Anfangsbuchstaben ohne Profilbild. -->
                 {data.user.username?.charAt(0).toUpperCase()}
-            </div>
+            {/if}
+        </div>
 
 <!-- Sendet das ausgewählte Foto an den Server. -->
 <form method="POST" action="?/uploadPhoto" enctype="multipart/form-data">
@@ -111,7 +116,6 @@ function validatePhoto() {
                 console.log('Change Photo clicked');
                 selectPhoto();
                 }}
-                disabled={!!photoError}
                 class="mt-4 rounded-lg border border-gray-300 px-4 py-2 text-sm"
             >
                 Change Photo
@@ -119,7 +123,9 @@ function validatePhoto() {
             
             <button
             type="submit"
-            class="mt-4 rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">
+            disabled={!!photoError}
+            class="mt-4 rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
+            >
                 Upload Photo
             </button>
     </form>
