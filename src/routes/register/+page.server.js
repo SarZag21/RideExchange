@@ -30,6 +30,12 @@ export const actions = {
                 error: 'Username must have at least 3 characters.'
             });
         }
+        // Prüft, ob der Benutzername Leerzeichen enthält.
+        if (username.includes(' ')) {
+            return fail(400, {
+                error: 'Username must not contain spaces.'
+            });
+        }
 
         // Prüft, ob die E-Mail-Adresse ein gültiges Format hat.
         if (!email.includes('@') || !email.includes('.')) {
