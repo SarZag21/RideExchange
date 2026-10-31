@@ -76,13 +76,12 @@
         </p>
 
 
-<!-- Zeigt eine Fehlermeldung an, wenn form.error existiert -->
-        {#if form?.error}
-            <p class="mt-4 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700">
-            {form.error}
+        <!-- Zeigt eine Meldung nach erfolgreichem Speichern. -->
+        {#if form?.success}
+            <p class="mt-4 rounded-lg bg-green-50 px-4 py-3 text-sm text-green-700">
+                Profile updated successfully!
             </p>
         {/if}
-
         
     <!--
     Erstellt das Formular zum Bearbeiten der Profildaten.

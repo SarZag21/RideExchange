@@ -88,8 +88,7 @@ export const actions = {
         [username, email, phoneNumber, locals.user.id]
         );
 
-        // Leitet den Benutzer nach dem Speichern zurück zur Profilseite.
-        // 303 (see other) bedeutet, dass der Browser eine neue GET-Anfrage ausführt.
-       throw redirect(303, '/profile');
+        // Gibt eine Erfolgsmeldung nach dem Speichern zurück.
+        return { success: true };
     }
 };
