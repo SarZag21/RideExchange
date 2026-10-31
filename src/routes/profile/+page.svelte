@@ -18,25 +18,32 @@
     let photoError = $state('');
 
     // Prüft das ausgewählte Foto.
-    function validatePhoto() {
-        const file = photoInput?.files?.[0];
-        photoError = '';
+function validatePhoto() {
 
-        // Prüft, ob eine Datei ausgewählt wurde.
-        if (!file) return;
+    // Liest die ausgewählte Datei.
+    const file = photoInput?.files?.[0];
 
-        // Erlaubt nur JPG- und PNG-Dateien.
-        if (file.type !== 'image/jpeg' && file.type !== 'image/png') {
-            photoError = 'Only JPG and PNG images are allowed.';
-            return;
-        }
+    // Zeigt die Datei in der Konsole.
+    console.log('Selected photo:', file);
 
-        // Erlaubt maximal 2 MB.
-        if (file.size > 2 * 1024 * 1024) {
-            photoError = 'The image must be smaller than 2 MB.';
-            return;
-        }
+    // Entfernt die alte Fehlermeldung.
+    photoError = '';
+
+    // Prüft, ob eine Datei ausgewählt wurde.
+    if (!file) return;
+
+    // Erlaubt nur JPG- und PNG-Dateien.
+    if (file.type !== 'image/jpeg' && file.type !== 'image/png') {
+        photoError = 'Only JPG and PNG images are allowed.';
+        return;
     }
+
+    // Erlaubt maximal 2 MB.
+    if (file.size > 2 * 1024 * 1024) {
+        photoError = 'The image must be smaller than 2 MB.';
+        return;
+    }
+}
 </script>
 
 <!-- Legt den Titel des Browser-Tabs fest. -->
@@ -100,6 +107,10 @@
             <!-- Öffnet die Dateiauswahl. -->
             <button
                 type="button"
+                onclick={() => {
+                console.log('Change Photo clicked');
+                selectPhoto();
+                }}
                 disabled={!!photoError}
                 class="mt-4 rounded-lg border border-gray-300 px-4 py-2 text-sm"
             >

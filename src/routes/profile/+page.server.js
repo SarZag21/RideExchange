@@ -3,6 +3,8 @@ import { fail, redirect } from '@sveltejs/kit';
 import pool from '$lib/server/database.js';
 // Importiert put zum Hochladen von Bildern.
 import { put } from '@vercel/blob';
+// Liest den Blob-Token auf dem Server.
+import { BLOB_READ_WRITE_TOKEN } from '$env/static/private';
 
 // Die load-Funktion lädt die Benutzerdaten für die Profilseite.
 export function load({ locals }) {
@@ -128,8 +130,15 @@ export const actions = {
         // Speichert das Foto in Vercel Blob.
         const blob = await put(`profiles/${locals.user.id}.${extension}`, photo, {
             access: 'public',
-            addRandomSuffix: true
+            addRandomSuffix: true,
+            token: BLOB_READ_WRITE_TOKEN
         });
+
+        // Speichert die Foto-URL in der Datenbank.
+        await pool.execute(
+            'UPDATE users SET profile_image = ? WHERE id = ?',
+            [blob.url, locals.user.id]
+        );
 
         // Gibt die URL des Fotos zurück.
         return { photoUrl: blob.url };
