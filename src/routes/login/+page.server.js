@@ -18,7 +18,8 @@ export const actions = {
         // String() wandelt den Wert in einen Text um.
         // trim() entfernt Leerzeichen am Anfang und Ende.
         const identifier = String(formData.get('identifier') ?? '').trim();
-        const password = formData.get('password');
+        // Liest das Passwort als Text aus dem Formular.
+        const password = String(formData.get('password') ?? '');
 
         // Prüft, ob E-Mail/Username oder Passwort fehlen.
         // fail(400, {...}) sendet einen HTTP-Fehlercode 400 (Bad Request, client side error) und eine Fehlermeldung zurück.
