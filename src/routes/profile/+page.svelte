@@ -1,6 +1,8 @@
 <script>
     // Importiert die Sidebar für die Navigation im Benutzerkonto
     import Sidebar from '$lib/components/sidebar.svelte';
+    // Importiert die Icons für die Fotobuttons.
+    import { Upload, Pencil } from 'lucide-svelte';
    
     // data enthält die Benutzerdaten aus +page.server.js.
     // form enthält mögliche Fehlermeldungen nach dem Speichern
@@ -44,6 +46,18 @@
         return;
     }
 }
+
+// Prüft das Foto und sendet das Formular automatisch.
+function handlePhotoChange() {
+    validatePhoto();
+
+    // Stoppt den Upload bei einem ungültigen Foto.
+    if (photoError || !photoInput?.files?.length) return;
+
+    // Sendet das Foto an den Server.
+    photoInput.form?.requestSubmit();
+}
+
 </script>
 
 <!-- Legt den Titel des Browser-Tabs fest. -->
@@ -105,29 +119,20 @@
                 name="photo"
                 accept="image/jpeg,image/png"
                 bind:this={photoInput}
-                onchange={validatePhoto}
+                onchange={handlePhotoChange}
                 class="hidden"
             />
 
-            <!-- Öffnet die Dateiauswahl. -->
-            <button
-                type="button"
-                onclick={() => {
-                console.log('Change Photo clicked');
-                selectPhoto();
-                }}
-                class="mt-4 rounded-lg border border-gray-300 px-4 py-2 text-sm"
-            >
-                Change Photo
-            </button>
-            
-            <button
-            type="submit"
-            disabled={!!photoError}
-            class="mt-4 rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
-            >
-                Upload Photo
-            </button>
+    <!-- Öffnet die Dateiauswahl und lädt das Foto automatisch hoch. -->
+    <button
+        type="button"
+        onclick={selectPhoto}
+        class="mt-4 flex w-full items-center justify-center gap-2 whitespace-nowrap rounded-lg bg-red-700 px-3 py-2.5 text-sm font-medium text-white transition hover:bg-red-800"
+    >
+        <Pencil size={16} />
+        Change Photo
+    </button>
+
     </form>
 
             <p class="mt-2 text-xs text-gray-500">
