@@ -5,6 +5,14 @@
     // data enthält die Benutzerdaten aus +page.server.js.
     // form enthält mögliche Fehlermeldungen nach dem Speichern
     let { data, form } = $props();
+
+    // Speichert das ausgewählte Foto.
+    let photoInput = $state(null);
+
+    // Öffnet die Dateiauswahl.
+    function selectPhoto() {
+        photoInput?.click();
+    }
 </script>
 
 <!-- Legt den Titel des Browser-Tabs fest. -->
@@ -49,11 +57,22 @@
             </div>
 
 
-            <!--
-            Zeigt den Button zum Ändern des Profilbildes.
+           <!--
+            type="file": Erlaubt die Auswahl einer Datei.
+            accept: Erlaubt nur JPG- und PNG-Bilder.
+            bind:this: Speichert das Input-Element in photoInput.
+            class="hidden": Versteckt das Input-Feld.
             -->
+            <input
+                type="file"
+                accept="image/jpeg,image/png"
+                bind:this={photoInput}
+                class="hidden"
+            />
+            
             <button
             type="button"
+            onclick={selectPhoto}
             class="mt-4 rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">
                 Change Photo
             </button>
