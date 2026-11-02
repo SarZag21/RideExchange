@@ -1,10 +1,63 @@
 <script>
     // Importiert die Sidebar für die Navigation im Benutzerkonto
     import Sidebar from '$lib/components/sidebar.svelte';
+    // Importiert die Icons für die Fotobuttons.
+    import { Upload, Pencil } from 'lucide-svelte';
    
     // data enthält die Benutzerdaten aus +page.server.js.
     // form enthält mögliche Fehlermeldungen nach dem Speichern
     let { data, form } = $props();
+
+    // Speichert das ausgewählte Foto.
+    let photoInput = $state(null);
+
+    // Öffnet die Dateiauswahl.
+    function selectPhoto() {
+        photoInput?.click();
+    }
+
+    // Speichert eine Fehlermeldung für das Foto.
+    let photoError = $state('');
+
+    // Prüft das ausgewählte Foto.
+    function validatePhoto() {
+
+    // Liest die ausgewählte Datei.
+    const file = photoInput?.files?.[0];
+
+    // Zeigt die Datei in der Konsole.
+    console.log('Selected photo:', file);
+
+    // Entfernt die alte Fehlermeldung.
+    photoError = '';
+
+    // Prüft, ob eine Datei ausgewählt wurde.
+    if (!file) return;
+
+    // Erlaubt nur JPG- und PNG-Dateien.
+    if (file.type !== 'image/jpeg' && file.type !== 'image/png') {
+        photoError = 'Only JPG and PNG images are allowed.';
+        return;
+    }
+
+    // Erlaubt maximal 2 MB.
+    if (file.size > 2 * 1024 * 1024) {
+        photoError = 'The image must be smaller than 2 MB.';
+        return;
+    }
+}
+
+// Prüft das Foto und sendet das Formular automatisch.
+function handlePhotoChange() {
+    validatePhoto();
+
+    // Stoppt den Upload bei einem ungültigen Foto.
+    if (photoError || !photoInput?.files?.length) return;
+
+    // Sendet das Foto an den Server.
+    photoInput.form?.requestSubmit();
+}
+
 </script>
 
 <!-- Legt den Titel des Browser-Tabs fest. -->
@@ -37,30 +90,61 @@
         <!-- Erstellt den Bereich für das Profilbild. --> 
         <div class="w-48  pr-8 text-center">
            
-            <!--
-            Zeigt den ersten Buchstaben des Benutzernamens als Profilbild.
-            charAt(0) nimmt den ersten Buchstaben.
-            toUpperCase() wandelt ihn in einen Großbuchstaben um.
-            ?. prüft, ob der Benutzername existiert, bevor charAt() aufgerufen wird.
-            -->
+       <!-- Zeigt das Profilbild oder den Anfangsbuchstaben des Benutzernamens an. -->
            <div class="mx-auto flex h-24 w-24 items-center justify-center
-                        rounded-full bg-red-100 text-3xl font-medium text-red-800">
+             overflow-hidden rounded-full bg-red-100 text-3xl font-medium text-red-800">
+            {#if data.user.profile_image}
+                <!-- Zeigt das gespeicherte Profilbild. -->
+                <img
+                    src={data.user.profile_image}
+                    alt="Profile"
+                    class="h-full w-full object-cover"
+                />
+            {:else}
+                <!-- Zeigt den Anfangsbuchstaben ohne Profilbild. -->
                 {data.user.username?.charAt(0).toUpperCase()}
-            </div>
+            {/if}
+        </div>
 
-
-            <!--
-            Zeigt den Button zum Ändern des Profilbildes.
+<!-- Sendet das ausgewählte Foto an den Server. -->
+<form method="POST" action="?/uploadPhoto" enctype="multipart/form-data">
+           <!--
+            type="file": Erlaubt die Auswahl einer Datei.
+            accept: Erlaubt nur JPG- und PNG-Bilder.
+            bind:this: Speichert das Input-Element in photoInput.
+            class="hidden": Versteckt das Input-Feld.
             -->
-            <button
-            type="button"
-            class="mt-4 rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">
-                Change Photo
-            </button>
-            
+            <input
+                type="file"
+                name="photo"
+                accept="image/jpeg,image/png"
+                bind:this={photoInput}
+                onchange={handlePhotoChange}
+                class="hidden"
+            />
+
+    <!-- Öffnet die Dateiauswahl und lädt das Foto automatisch hoch. -->
+    <button
+        type="button"
+        onclick={selectPhoto}
+        class="mt-4 flex w-full items-center justify-center gap-2 whitespace-nowrap rounded-lg bg-red-700 px-3 py-2.5 text-sm font-medium text-white transition hover:bg-red-800"
+    >
+        <Pencil size={16} />
+        Change Photo
+    </button>
+
+    </form>
+
             <p class="mt-2 text-xs text-gray-500">
             JPG or PNG (max 2MB)
             </p>
+
+            <!-- Zeigt einen Fehler bei einem ungültigen Foto. -->
+            {#if photoError}
+                <p class="mt-2 text-xs text-red-700">
+                    {photoError}
+                </p>
+            {/if}
 
         </div>
 
@@ -76,13 +160,26 @@
         </p>
 
 
-<!-- Zeigt eine Fehlermeldung an, wenn form.error existiert -->
-        {#if form?.error}
-            <p class="mt-4 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700">
-            {form.error}
+        <!-- Zeigt eine Meldung nach erfolgreichem Speichern. -->
+        {#if form?.success}
+            <p class="mt-4 rounded-lg bg-green-50 px-4 py-3 text-sm text-green-700">
+                Profile updated successfully!
             </p>
         {/if}
 
+        <!-- Zeigt eine Fehlermeldung beim Speichern. -->
+        {#if form?.error}
+            <p class="mt-4 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700">
+                {form.error}
+            </p>
+        {/if}
+
+        <!-- Zeigt einen Fehler vom Server beim Hochladen. -->
+        {#if form?.photoError}
+            <p class="mt-2 text-xs text-red-700">
+                {form.photoError}
+            </p>
+        {/if}
         
     <!--
     Erstellt das Formular zum Bearbeiten der Profildaten.

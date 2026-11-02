@@ -10,10 +10,20 @@ export const actions = {
     default: async ({ request }) => {
         // Liest die eingegebenen Daten aus dem Formular.
         const formData = await request.formData();
+        
+        // Liest den Benutzernamen aus dem Formular.
+        // ?? '' verwendet einen leeren Text, wenn kein Wert vorhanden ist.
+        // String() wandelt den Wert in einen Text um.
+        // trim() entfernt Leerzeichen am Anfang und Ende.
+        const username = String(formData.get('username') ?? '').trim();
 
-        // Holt Benutzername, E-Mail, Passwort und Telefonnummer aus dem Formular.
-        const username = formData.get('username');
-        const email = formData.get('email');
+        // Liest die E-Mail-Adresse aus dem Formular.
+        // ?? '' verwendet einen leeren Text, wenn kein Wert vorhanden ist.
+        // String() wandelt den Wert in einen Text um.
+        // trim() entfernt Leerzeichen am Anfang und Ende.
+        // toLowerCase() wandelt alle Buchstaben in Kleinbuchstaben um.
+        const email = String(formData.get('email') ?? '').trim().toLowerCase();
+
         const password = formData.get('password');
         const phoneNumber = formData.get('phone_number');
 
@@ -24,12 +34,38 @@ export const actions = {
                 error: 'Please fill all the required fields.'
             });
         }
+        // Überprüft die Länge des Benutzernamens.
+        if (username.length < 3) {
+            return fail(400, {
+                error: 'Username must have at least 3 characters.'
+            });
+        }
+        // Prüft, ob der Benutzername Leerzeichen enthält.
+        if (username.includes(' ')) {
+            return fail(400, {
+                error: 'Username must not contain spaces.'
+            });
+        }
+
+        // Prüft, ob die E-Mail-Adresse ein gültiges Format hat.
+        if (!email.includes('@') || !email.includes('.')) {
+        return fail(400, {
+            error: 'Please enter a valid email.'
+        });
+        }
 
         // Prüft, ob das Passwort mindestens 8 Zeichen lang ist.
         // password.length gibt die Anzahl der Zeichen zurück.
         if (password.length < 8) {
             return fail(400, {
                 error: 'Password must be at least 8 characters long.'
+            });
+        }
+
+       // Prüft, ob das Passwort Leerzeichen enthält.
+        if (password.includes(' ')) {
+            return fail(400, {
+                error: 'Password must not contain spaces.'
             });
         }
 

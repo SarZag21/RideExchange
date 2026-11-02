@@ -10,7 +10,7 @@ export async function handle({ event, resolve }) {
     // Prüft mit der Session-ID, ob der Benutzer angemeldet ist.
     // Wenn die Session gültig ist, bekommt man die Benutzerdaten.
     // Sonst ist das Ergebnis null.
-    const user = await validateSession(sessionId)
+    const user = await validateSession(sessionId);
     // Speichert die Benutzerdaten in event.locals.user.
     // Andere Server-Dateien können diese Daten dann verwenden.
     event.locals.user = user;

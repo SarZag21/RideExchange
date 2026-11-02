@@ -55,6 +55,10 @@
 <!-- Formular zum Hinzufügen eines Autos. -->
     <form class="mt-10 space-y-6 rounded-2xl bg-white p-8 shadow-sm">
 
+
+    <!-- Ordnet Automarke und Modell nebeneinander an. -->
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+
     <!-- Eingabefeld für die Automarke. -->
     <div>
         <label for="brand" class="block font-medium text-gray-700">
@@ -84,6 +88,11 @@
             class="mt-2 w-full rounded-xl border border-gray-300 p-3"
         />
     </div>
+</div>
+
+
+    <!-- Ordnet Baujahr und Farbe nebeneinander an. -->
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
 
     <!-- Eingabefeld für das Baujahr. -->
     <div>
@@ -115,7 +124,10 @@
             class="mt-2 w-full rounded-xl border border-gray-300 p-3"
         />
     </div>
+</div>
 
+<!-- Ordnet Sitzplätze und Standort nebeneinander an. -->
+<div class="grid grid-cols-1 gap-6 md:grid-cols-2">
 
 <!-- Eingabefeld für die Anzahl der Sitzplätze. -->
 <div>
@@ -146,6 +158,7 @@
         required
         class="mt-2 w-full rounded-xl border border-gray-300 p-3"
     />
+</div>
 </div>
 
 <!-- Eingabefeld für den Tagespreis. -->

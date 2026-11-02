@@ -1,6 +1,10 @@
  // Importiert fail für Fehlermeldungen und redirect für Weiterleitungen.
 import { fail, redirect } from '@sveltejs/kit';
 import pool from '$lib/server/database.js';
+// Importiert put zum Hochladen von Bildern.
+import { put } from '@vercel/blob';
+// Liest den Blob-Token auf dem Server.
+import { BLOB_READ_WRITE_TOKEN } from '$env/static/private';
 
 // Die load-Funktion lädt die Benutzerdaten für die Profilseite.
 export function load({ locals }) {
@@ -18,7 +22,9 @@ export function load({ locals }) {
         username: locals.user.username,
         email: locals.user.email,
         phone_number: locals.user.phone_number,
-        role: locals.user.role
+        role: locals.user.role,
+        // Übergibt das gespeicherte Profilbild an die Seite.
+        profile_image: locals.user.profile_image
     }
 };
 }
@@ -27,13 +33,34 @@ export const actions = {
     // Die update-Aktion verarbeitet das Formular zum Aktualisieren des Profils.
     // request enthält die Formulardaten, locals enthält den angemeldeten Benutzer.
     update: async ({ request, locals }) => {
+
+        // Prüft, ob der Benutzer angemeldet ist.
+        if (!locals.user) {
+            throw redirect(303, '/login');
+        }
+
         // Liest die eingegebenen Daten aus dem Formular.
         const formData = await request.formData();
         
-        // Holt Benutzername, E-Mail und Telefonnummer aus dem Formular.
-        const username = formData.get('username');
-        const email = formData.get('email');
-        const phoneNumber = formData.get('phone_number');
+        // Bereitet die Eingaben für die Speicherung vor.
+        const username = String(formData.get('username') ?? '').trim();
+        const email = String(formData.get('email') ?? '').trim().toLowerCase();
+        const phoneNumber = String(formData.get('phone_number') ?? '').trim();
+    
+        // Prüft den Benutzernamen.
+        if (username.length < 3 || username.includes(' ')) {
+            return fail(400, { error: 'Invalid username.' });
+        }
+
+        // Prüft die E-Mail-Adresse.
+        if (!email.includes('@') || !email.includes('.')) {
+            return fail(400, { error: 'Invalid email.' });
+        }
+
+        // Prüft die Telefonnummer.
+        if (phoneNumber.length > 25) {
+            return fail(400, { error: 'Phone number is too long.' });
+        }
 
         // Prüft, ob Benutzername oder E-Mail fehlen.
         // fail(400, {...}) sendet einen HTTP-Fehlercode 400 (Bad Request, client side error) und eine Fehlermeldung zurück.
@@ -41,6 +68,19 @@ export const actions = {
             return fail(400, {
             error: 'Username and email are required.'
             });
+        }
+
+
+        // Prüft, ob Benutzername oder E-Mail schon existieren.
+        const [existingUsers] = await pool.execute(
+            `SELECT id FROM users
+            WHERE (username = ? OR email = ?) AND id != ?`,
+            [username, email, locals.user.id]
+        );
+
+        // Verhindert doppelte Daten.
+        if (existingUsers.length > 0) {
+            return fail(400, { error: 'Username or email already exists.' });
         }
 
 
@@ -54,8 +94,55 @@ export const actions = {
         [username, email, phoneNumber, locals.user.id]
         );
 
-        // Leitet den Benutzer nach dem Speichern zurück zur Profilseite.
-        // 303 (see other) bedeutet, dass der Browser eine neue GET-Anfrage ausführt.
-       throw redirect(303, '/profile');
+        // Gibt eine Erfolgsmeldung nach dem Speichern zurück.
+        return { success: true };
+    },
+
+
+    // Lädt ein Profilfoto hoch.
+    uploadPhoto: async ({ request, locals }) => {
+
+        // Prüft, ob der Benutzer angemeldet ist.
+        if (!locals.user) {
+            throw redirect(303, '/login');
+        }
+
+        // Liest das Foto aus dem Formular.
+        const formData = await request.formData();
+        const photo = formData.get('photo');
+
+        // Prüft, ob eine Datei ausgewählt wurde.
+        if (!(photo instanceof File) || photo.size === 0) {
+            return fail(400, { photoError: 'Please select a photo.' });
+        }
+
+        // Erlaubt nur JPG und PNG.
+        if (!['image/jpeg', 'image/png'].includes(photo.type)) {
+            return fail(400, { photoError: 'Only JPG and PNG are allowed.' });
+        }
+
+        // Prüft die maximale Größe von 2 MB.
+        if (photo.size > 2 * 1024 * 1024) {
+            return fail(400, { photoError: 'Maximum photo size is 2 MB.' });
+        }
+
+        // Bestimmt die Dateiendung.
+        const extension = photo.type === 'image/png' ? 'png' : 'jpg';
+
+        // Speichert das Foto in Vercel Blob.
+        const blob = await put(`profiles/${locals.user.id}.${extension}`, photo, {
+            access: 'public',
+            addRandomSuffix: true,
+            token: BLOB_READ_WRITE_TOKEN
+        });
+
+        // Speichert die Foto-URL in der Datenbank.
+        await pool.execute(
+            'UPDATE users SET profile_image = ? WHERE id = ?',
+            [blob.url, locals.user.id]
+        );
+
+        // Gibt die URL des Fotos zurück.
+        return { photoUrl: blob.url };
     }
 };

@@ -2,6 +2,8 @@ import { fail, redirect } from '@sveltejs/kit';
 import pool from '$lib/server/database.js';
 // Importiert Funktionen zur Passwortprüfung und Session-Erstellung 
 import { verifyPassword, createSession } from '$lib/server/auth.js';
+// Prüft, ob die Webseite im Entwicklungsmodus und nicht in der fertigen Version läuft.
+import { dev } from '$app/environment';
 
 export const actions = {
     // Die default-Aktion verarbeitet das Login-Formular.
@@ -10,24 +12,30 @@ export const actions = {
         // Liest die eingegebenen Daten aus dem Formular.
         const formData = await request.formData();
 
-        // Holt die E-Mail-Adresse und das Passwort aus den Formulardaten.
-        const email = formData.get('email');
-        const password = formData.get('password');
+    
+        // Liest den Benutzernamen oder die E-Mail aus den Formulardaten.
+        // ?? '' verwendet einen leeren Text, wenn kein Wert vorhanden ist.
+        // String() wandelt den Wert in einen Text um.
+        // trim() entfernt Leerzeichen am Anfang und Ende.
+        const identifier = String(formData.get('identifier') ?? '').trim();
+        // Liest das Passwort als Text aus dem Formular.
+        const password = String(formData.get('password') ?? '');
 
-        // Prüft, ob E-Mail oder Passwort fehlen.
+        // Prüft, ob E-Mail/Username oder Passwort fehlen.
         // fail(400, {...}) sendet einen HTTP-Fehlercode 400 (Bad Request, client side error) und eine Fehlermeldung zurück.
-        if (!email || !password) {
+        if (!identifier || !password) {
             return fail(400, {
                 error: 'Please fill all the required fields.'
             });
         }
 
-        // Sucht den Benutzer anhand seiner E-Mail-Adresse in der Datenbank
+        // Sucht den Benutzer anhand seiner E-Mail-Adresse oder Username in der Datenbank
          const [users] = await pool.execute(
             `SELECT id, username, email, hash_password, role
              FROM users
-             WHERE email = ?`,
-            [email]
+             WHERE email = ? or username = ?
+             LIMIT 1`,
+            [identifier, identifier]
         );
 
         // Nimmt den ersten gefundenen Benutzer aus dem Ergebnis.
@@ -35,7 +43,7 @@ export const actions = {
          // Gibt eine Fehlermeldung zurück, wenn kein Benutzer gefunden wurde.
         if (!user) {
             return fail(400, {
-                error: 'Invalid email or password.'
+                error: 'Invalid email, username or password.'
             });
         }
 
@@ -45,10 +53,10 @@ export const actions = {
             user.hash_password
         );
 
-        // Gibt eine Fehlermeldung zurück, wenn das Passwort falsch ist.
+       // Gibt eine allgemeine Fehlermeldung zurück, wenn das Passwort falsch ist.
         if (!validPassword) {
             return fail(400, {
-                error: 'Invalid email or password.'
+                error: 'Invalid username, email or password.'
             });
         }
 
@@ -63,10 +71,8 @@ export const actions = {
             httpOnly: true,
             // Schränkt das Mitsenden des Cookies bei fremden Webseiten ein.
             sameSite: 'lax',
-            // Erlaubt das Cookie auch ohne HTTPS (für die lokale Entwicklung).
-            secure: false,
-            // Das Cookie bleibt 30 Tage gültig.
-            maxAge: 60 * 60 * 24 * 30
+            // Verwendet HTTPS in der Produktionsumgebung.
+            secure: !dev
         });
 
         // Leitet den Benutzer nach erfolgreichem Login zur Startseite weiter.
