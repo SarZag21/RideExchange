@@ -227,23 +227,35 @@
 
 
   
-<footer class="border-t border-gray-200 px-8 py-8">
-  <div class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 md:flex-row">
-    <a href="/" class="text-xl font-bold text-red-700">
-      RideExchange
-    </a>
 
-    <nav class="flex gap-6 text-sm text-gray-500">
-      <a href="/" class="hover:text-red-700">Home</a>
-      <a href="/guide" class="hover:text-red-700">Guide</a>
-      <a href="/login" class="hover:text-red-700">Log in</a>
-    </nav>
+<footer class="mt-20 border-t border-gray-200 bg-gray-50">
+    <div class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-6 px-8 py-10 md:flex-row">
 
-    <p class="text-sm text-gray-400">
-      © 2026 RideExchange
-    </p>
-  </div>
+        <a href="/" class="text-2xl font-bold tracking-tight text-red-700">
+            RideExchange
+        </a>
+
+        <nav class="flex flex-wrap justify-center gap-8 text-sm font-medium text-gray-600">
+            <a href="/guide" class="transition hover:text-red-700">
+                Guide
+            </a>
+
+            <a href="/cars" class="transition hover:text-red-700">
+                Explore cars
+            </a>
+
+            <a href="/login" class="transition hover:text-red-700">
+                Log in
+            </a>
+        </nav>
+
+        <p class="text-sm text-gray-400">
+            © 2026 RideExchange. All rights reserved.
+        </p>
+
+    </div>
 </footer>
+
 </div>
 
 
