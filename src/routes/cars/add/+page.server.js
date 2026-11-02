@@ -1,5 +1,9 @@
 import { fail, redirect } from '@sveltejs/kit';
 import pool from '$lib/server/database.js';
+// Importiert put zum Hochladen der Autobilder.
+import { put } from '@vercel/blob';
+// Liest den Blob-Token auf dem Server.
+import { BLOB_READ_WRITE_TOKEN } from '$env/static/private';
 
 // Verarbeitet das Formular zum Hinzufügen eines Autos.
 export const actions = {
@@ -20,6 +24,27 @@ export const actions = {
         const number_of_seats = formData.get('number_of_seats');
         const location = formData.get('location');
         const price_per_day = formData.get('price_per_day');
+
+        // Liest alle ausgewählten Autobilder aus dem Formular.
+        const images = formData.getAll('car_images').filter(
+            (file) => file instanceof File && file.size > 0
+        );
+
+        // Prüft die maximale Anzahl der Bilder.
+        if (images.length > 7) {
+            return fail(400, { error: 'Maximum 7 pictures allowed.' });
+        }
+
+        // Prüft Dateityp und Dateigröße.
+        for (const image of images) {
+            if (!['image/jpeg', 'image/png'].includes(image.type)) {
+                return fail(400, { error: 'Only JPG and PNG are allowed.' });
+            }
+
+            if (image.size > 2 * 1024 * 1024) {
+                return fail(400, { error: 'Maximum image size is 2 MB.' });
+            }
+        }
 
         // Prüft, ob alle Felder ausgefüllt sind.
         if (
@@ -70,29 +95,19 @@ export const actions = {
             });
         }
 
-      // Prüft, ob die Automarke bereits existiert.
-     const [brands] = await pool.execute('SELECT id FROM brands WHERE name = ?', [brandName]);
+        // Fügt die Automarke hinzu oder verwendet die vorhandene Marke.
+        const [result] = await pool.execute(
+            `INSERT INTO brands (name)
+            VALUES (?)
+            ON DUPLICATE KEY UPDATE id = LAST_INSERT_ID(id)`,
+            [brandName]
+        );
 
         // Speichert die ID der Automarke.
-        let brandId;
-
-        // Prüft, ob die Marke gefunden wurde.
-        if (brands.length > 0) {
-            brandId = brands[0].id;
-        } else {
-
-            // Fügt eine neue Marke in die Datenbank ein.
-            const [result] = await pool.execute(
-                'INSERT INTO brands (name) VALUES (?)',
-                [brandName]
-            );
-
-            // Speichert die ID der neuen Marke.
-            brandId = result.insertId;
-        }
+        const brandId = result.insertId;
 
         // Speichert das Auto in der Datenbank.
-        await pool.execute(
+        const [carResult] = await pool.execute(
             `INSERT INTO autos
             (color, production_year, type, number_of_seats, user_id, price_per_day, location, brand_id)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
@@ -108,6 +123,8 @@ export const actions = {
 
             ]
         );
+        // Speichert die ID des neu hinzugefügten Autos.
+        const carId = carResult.insertId;
 
             return { success: true };
         }

@@ -1,7 +1,8 @@
 <script>
     // Importiert die Sidebar für die Navigation.
     import Sidebar from '$lib/components/sidebar.svelte';
-
+    // Enthält die Rückmeldung der Server-Aktion.
+    let { form } = $props();
     
     // Speichert die Fehlermeldung bei zu vielen Bildern.
     let imageError = $state('');
@@ -52,9 +53,14 @@
             </p>
 
 
-<!-- Formular zum Hinzufügen eines Autos. -->
-    <form class="mt-10 space-y-6 rounded-2xl bg-white p-8 shadow-sm">
-
+<!-- Sendet die Fahrzeugdaten an die Server-Aktion. 
+  enctype="multipart/form-data" ermöglicht das Hochladen von Dateien.
+-->
+<form
+    method="POST"
+    enctype="multipart/form-data"
+    class="mt-10 space-y-6 rounded-2xl bg-white p-8 shadow-sm"
+>
 
     <!-- Ordnet Automarke und Modell nebeneinander an. -->
     <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
@@ -103,7 +109,7 @@
             id="production_year"
             name="production_year"
             type="number"
-            min="1900"
+            min="1901"
             max="2155"
             required
             class="mt-2 w-full rounded-xl border border-gray-300 p-3"
@@ -225,15 +231,29 @@
 </div>
 
 
-<!-- Button zum späteren Speichern des Autos. -->
+    <!-- Zeigt die Rückmeldung nach dem Speichern an. -->
+    {#if form?.error}
+        <p class="text-sm text-red-600">
+            {form.error}
+        </p>
+    {/if}
+
+    {#if form?.success}
+        <p class="text-sm text-green-700">
+            Car saved successfully!
+        </p>
+    {/if}
+
+<!-- Speichert die Fahrzeugdaten über die Server-Aktion. 
+     disabled={!!imageError} Deaktiviert den Button, wenn ein Bildfehler vorliegt. 
+-->
 <button
-    type="button"
-    class="w-full rounded-xl bg-red-700 px-5 py-3 font-semibold text-white hover:bg-red-800"
+    type="submit"
+    disabled={!!imageError}
+    class="w-full rounded-xl bg-red-700 px-5 py-3 font-semibold text-white hover:bg-red-800 disabled:cursor-not-allowed disabled:opacity-50"
 >
     Save Car
 </button>
-
-
 
 </form>
 </div>
