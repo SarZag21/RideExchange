@@ -2,12 +2,9 @@
 <script>
   let { data } = $props();
 </script>
-<<<<<<< HEAD
-=======
-<p>Login status: {data.user ? 'Logged in' : 'Logged out'}</p>
+
  
 
->>>>>>> e14bde8e536137c0febe258bc603b8a50084f1ef
 <div class="min-h-screen bg-white text-slate-900">
   <header class="flex items-center justify-between border-b border-gray-100 px-8 py-5">
     <a href="/" class="text-2xl font-bold text-red-700">
@@ -173,6 +170,37 @@
     </div>
   </div>
 </section>
+
+
+<section class="mt-20 rounded-2xl bg-red-700 px-8 py-12 text-center text-white">
+  <h2 class="text-3xl font-bold">
+    Have a car? Let it earn.
+  </h2>
+
+  <p class="mx-auto mt-4 max-w-xl text-red-100">
+    Share your car with others and earn money while helping
+    people find their perfect ride.
+  </p>
+
+  
+   {#if data.user}
+    <a
+        href="/cars/new"
+        class="mt-8 inline-block rounded-lg bg-white px-6 py-3 font-semibold text-red-700 hover:bg-gray-100"
+    >
+        List your car →
+    </a>
+{:else}
+    <a
+        href="/register"
+        class="mt-8 inline-block rounded-lg bg-white px-6 py-3 font-semibold text-red-700 hover:bg-gray-100"
+    >
+        Become an owner →
+    </a>
+{/if}
+
+</section>
+
 
   
 <footer class="border-t border-gray-200 px-8 py-8">
