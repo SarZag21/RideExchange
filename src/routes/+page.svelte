@@ -6,43 +6,46 @@
  
 
 <div class="min-h-screen bg-white text-slate-900">
-  <header class="flex items-center justify-between border-b border-gray-100 px-8 py-5">
-    <a href="/" class="text-2xl font-bold text-red-700">
-      RideExchange
+
+<header class="flex items-center justify-between border-b border-gray-100 bg-white px-8 py-5 shadow-sm">
+    <a href="/" class="text-2xl font-bold tracking-tight text-red-700">
+        RideExchange
     </a>
 
-    
-<nav class="flex items-center gap-6">
-  <a href="/" class="hover:text-red-700">Home</a>
-  <a href="/guide" class="hover:text-red-700">Guide</a>
+    <nav class="flex items-center gap-8">
+        
 
-  {#if data.user}
-    <form method="POST" action="/logout">
-      <button
-        type="submit"
-        class="rounded-lg border border-gray-200 px-4 py-2 hover:border-red-700"
-      >
-        Log out
-      </button>
-    </form>
-  {:else}
-    <a
-      href="/login"
-      class="rounded-lg border border-gray-200 px-4 py-2 hover:border-red-700"
-    >
-      Log in
-    </a>
+        <a href="/guide" class="font-medium transition hover:text-red-700">
+            Guide
+        </a>
 
-    <a
-      href="/register"
-      class="rounded-lg bg-red-700 px-4 py-2 text-white hover:bg-red-800"
-    >
-      Register
-    </a>
-  {/if}
-</nav>
+        {#if data.user}
+            <form method="POST" action="/logout">
+                <button
+                    type="submit"
+                    class="rounded-lg border border-gray-200 px-5 py-2 font-medium transition hover:border-red-700 hover:text-red-700"
+                >
+                    Log out
+                </button>
+            </form>
+        {:else}
+            <a
+                href="/login"
+                class="rounded-lg border border-gray-200 px-5 py-2 font-medium transition hover:border-red-700 hover:text-red-700"
+            >
+                Log in
+            </a>
 
-  </header>
+            <a
+                href="/register"
+                class="rounded-lg bg-red-700 px-5 py-2 font-medium text-white transition hover:bg-red-800"
+            >
+                Register
+            </a>
+        {/if}
+    </nav>
+</header>
+
   
   <main class="mx-auto max-w-6xl px-8 py-24">
      <section class="grid items-center gap-8 md:grid-cols-2">
@@ -129,76 +132,97 @@
 </div>
   </main>
   
-<section class="mt-20">
-  <div class="text-center">
-    <p class="mb-3 font-medium text-red-700">
-      WHY RIDE EXCHANGE?
-    </p>
 
-    <h2 class="text-3xl font-bold">
-      A better way to get around.
-    </h2>
+<section class="mx-auto mt-20 max-w-6xl px-8">
+    <div class="text-center">
+        <p class="mb-3 text-sm font-semibold tracking-widest text-red-700">
+            WHY RIDEEXCHANGE?
+        </p>
 
-    <p class="mt-3 text-gray-500">
-      Everything you need for a simple and flexible journey.
-    </p>
-  </div>
+        <h2 class="text-3xl font-bold tracking-tight text-slate-900">
+            A better way to get around.
+        </h2>
 
-  <div class="mt-10 grid gap-6 md:grid-cols-3">
-    <div class="rounded-xl border border-gray-200 p-6 text-center">
-      <p class="text-4xl">💰</p>
-      <h3 class="mt-4 text-xl font-bold">Affordable prices</h3>
-      <p class="mt-3 text-gray-500">
-        Find cars at prices that fit your budget.
-      </p>
+        <p class="mx-auto mt-4 max-w-xl text-gray-500">
+            Everything you need for a simple, safe and flexible journey.
+        </p>
     </div>
 
-    <div class="rounded-xl border border-gray-200 p-6 text-center">
-      <p class="text-4xl">🤝</p>
-      <h3 class="mt-4 text-xl font-bold">Trusted owners</h3>
-      <p class="mt-3 text-gray-500">
-        Connect directly with local car owners.
-      </p>
-    </div>
+    <div class="mt-10 grid gap-6 md:grid-cols-3">
+        <div class="rounded-2xl border border-gray-200 bg-white p-8 text-center shadow-sm transition duration-300 hover:-translate-y-2 hover:shadow-lg">
+            <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-red-50 text-3xl">
+                💰
+            </div>
 
-    <div class="rounded-xl border border-gray-200 p-6 text-center">
-      <p class="text-4xl">🗺️</p>
-      <h3 class="mt-4 text-xl font-bold">Flexible journeys</h3>
-      <p class="mt-3 text-gray-500">
-        Choose a car that fits your travel plans.
-      </p>
+            <h3 class="mt-6 text-xl font-bold text-slate-900">
+                Affordable prices
+            </h3>
+
+            <p class="mt-3 leading-relaxed text-gray-500">
+                Find cars at prices that fit your budget and your travel plans.
+            </p>
+        </div>
+
+        <div class="rounded-2xl border border-gray-200 bg-white p-8 text-center shadow-sm transition duration-300 hover:-translate-y-2 hover:shadow-lg">
+            <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-red-50 text-3xl">
+                🤝
+            </div>
+
+            <h3 class="mt-6 text-xl font-bold text-slate-900">
+                Trusted owners
+            </h3>
+
+            <p class="mt-3 leading-relaxed text-gray-500">
+                Connect directly with local car owners and enjoy a simple booking experience.
+            </p>
+        </div>
+
+        <div class="rounded-2xl border border-gray-200 bg-white p-8 text-center shadow-sm transition duration-300 hover:-translate-y-2 hover:shadow-lg">
+            <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-red-50 text-3xl">
+                🗺️
+            </div>
+
+            <h3 class="mt-6 text-xl font-bold text-slate-900">
+                Flexible journeys
+            </h3>
+
+            <p class="mt-3 leading-relaxed text-gray-500">
+                Choose a car that suits your destination, schedule and needs.
+            </p>
+        </div>
     </div>
-  </div>
 </section>
 
 
-<section class="mt-20 rounded-2xl bg-red-700 px-8 py-12 text-center text-white">
-  <h2 class="text-3xl font-bold">
-    Have a car? Let it earn.
-  </h2>
 
-  <p class="mx-auto mt-4 max-w-xl text-red-100">
-    Share your car with others and earn money while helping
-    people find their perfect ride.
-  </p>
 
-  
-   {#if data.user}
-    <a
-        href="/cars/new"
-        class="mt-8 inline-block rounded-lg bg-white px-6 py-3 font-semibold text-red-700 hover:bg-gray-100"
-    >
-        List your car →
-    </a>
-{:else}
-    <a
-        href="/register"
-        class="mt-8 inline-block rounded-lg bg-white px-6 py-3 font-semibold text-red-700 hover:bg-gray-100"
-    >
-        Become an owner →
-    </a>
-{/if}
+<section class="mx-auto mt-14 max-w-6xl px-8">
+    <div class="rounded-2xl bg-red-700 px-8 py-12 text-center text-white">
+        <h2 class="text-3xl font-bold">
+            Have a car? Let it earn.
+        </h2>
 
+        <p class="mx-auto mt-4 max-w-xl text-base leading-relaxed text-red-100">
+            Share your car with others and earn money while helping
+            people find their perfect ride.
+        </p>
+
+        {#if data.user}
+            <a
+                href="/cars/new"
+                class="mt-8 inline-block rounded-lg bg-white px-7 py-3 font-semibold text-red-700 transition hover:bg-gray-100"
+            >
+                List your car →
+            </a>
+        {:else}
+            <a
+                href="/register"
+                class="mt-8 inline-block rounded-lg bg-white px-7 py-3 font-semibold text-red-700 transition hover:bg-gray-100"
+            >
+                Become an owner →
+            </a>
+        {/if}
+    </div>
 </section>
 
 
