@@ -2,43 +2,43 @@
 <script>
   let { data } = $props();
 </script>
-
 <div class="min-h-screen bg-white text-slate-900">
   <header class="flex items-center justify-between border-b border-gray-100 px-8 py-5">
     <a href="/" class="text-2xl font-bold text-red-700">
       RideExchange
     </a>
 
-    <nav class="flex items-center gap-6">
-      <a href="/" class="hover:text-red-700">Home</a>
-      <a href="/guide" class="hover:text-red-700">Guide</a>
-      
-{#if data.user}
-  <form method="POST" action="/logout">
-    <button
-      type="submit"
+    
+<nav class="flex items-center gap-6">
+  <a href="/" class="hover:text-red-700">Home</a>
+  <a href="/guide" class="hover:text-red-700">Guide</a>
+
+  {#if data.user}
+    <form method="POST" action="/logout">
+      <button
+        type="submit"
+        class="rounded-lg border border-gray-200 px-4 py-2 hover:border-red-700"
+      >
+        Log out
+      </button>
+    </form>
+  {:else}
+    <a
+      href="/login"
       class="rounded-lg border border-gray-200 px-4 py-2 hover:border-red-700"
     >
-      Log out
-    </button>
-  </form>
-{:else}
-  <a
-    href="/login"
-    class="rounded-lg border border-gray-200 px-4 py-2 hover:border-red-700"
-  >
-    Log in
-  </a>
+      Log in
+    </a>
 
-  <a
-    href="/register"
-    class="rounded-lg bg-red-700 px-4 py-2 text-white hover:bg-red-800"
-  >
-    Register
-  </a>
-{/if}
+    <a
+      href="/register"
+      class="rounded-lg bg-red-700 px-4 py-2 text-white hover:bg-red-800"
+    >
+      Register
+    </a>
+  {/if}
+</nav>
 
-    </nav>
   </header>
   
   <main class="mx-auto max-w-6xl px-8 py-24">
@@ -126,6 +126,49 @@
 </div>
   </main>
   
+<section class="mt-20">
+  <div class="text-center">
+    <p class="mb-3 font-medium text-red-700">
+      WHY RIDE EXCHANGE?
+    </p>
+
+    <h2 class="text-3xl font-bold">
+      A better way to get around.
+    </h2>
+
+    <p class="mt-3 text-gray-500">
+      Everything you need for a simple and flexible journey.
+    </p>
+  </div>
+
+  <div class="mt-10 grid gap-6 md:grid-cols-3">
+    <div class="rounded-xl border border-gray-200 p-6 text-center">
+      <p class="text-4xl">💰</p>
+      <h3 class="mt-4 text-xl font-bold">Affordable prices</h3>
+      <p class="mt-3 text-gray-500">
+        Find cars at prices that fit your budget.
+      </p>
+    </div>
+
+    <div class="rounded-xl border border-gray-200 p-6 text-center">
+      <p class="text-4xl">🤝</p>
+      <h3 class="mt-4 text-xl font-bold">Trusted owners</h3>
+      <p class="mt-3 text-gray-500">
+        Connect directly with local car owners.
+      </p>
+    </div>
+
+    <div class="rounded-xl border border-gray-200 p-6 text-center">
+      <p class="text-4xl">🗺️</p>
+      <h3 class="mt-4 text-xl font-bold">Flexible journeys</h3>
+      <p class="mt-3 text-gray-500">
+        Choose a car that fits your travel plans.
+      </p>
+    </div>
+  </div>
+</section>
+
+  
 <footer class="border-t border-gray-200 px-8 py-8">
   <div class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 md:flex-row">
     <a href="/" class="text-xl font-bold text-red-700">
@@ -144,6 +187,7 @@
   </div>
 </footer>
 </div>
+
 
 
 <style>
