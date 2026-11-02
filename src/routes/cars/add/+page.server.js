@@ -1,7 +1,7 @@
 import { fail, redirect } from '@sveltejs/kit';
 import pool from '$lib/server/database.js';
-// Importiert put zum Hochladen der Autobilder.
-import { put } from '@vercel/blob';
+// Importiert Funktionen zum Hochladen und Löschen von Bildern.
+import { put, del } from '@vercel/blob';
 // Liest den Blob-Token auf dem Server.
 import { BLOB_READ_WRITE_TOKEN } from '$env/static/private';
 
@@ -30,20 +30,28 @@ export const actions = {
             (file) => file instanceof File && file.size > 0
         );
 
+
+        // Prüft Dateityp und Dateigröße der Bilder.
+        for (const image of images) {
+
+            // Erlaubt nur JPG- und PNG-Bilder.
+            if (!['image/jpeg', 'image/png'].includes(image.type)) {
+                return fail(400, {
+                    error: 'Only JPG and PNG are allowed.'
+                });
+            }
+
+            // Prüft die maximale Bildgröße von 2 MB.
+            if (image.size > 2 * 1024 * 1024) {
+                return fail(400, {
+                    error: 'Maximum image size is 2 MB.'
+                });
+            }
+        }
+
         // Prüft die maximale Anzahl der Bilder.
         if (images.length > 7) {
             return fail(400, { error: 'Maximum 7 pictures allowed.' });
-        }
-
-        // Prüft Dateityp und Dateigröße.
-        for (const image of images) {
-            if (!['image/jpeg', 'image/png'].includes(image.type)) {
-                return fail(400, { error: 'Only JPG and PNG are allowed.' });
-            }
-
-            if (image.size > 2 * 1024 * 1024) {
-                return fail(400, { error: 'Maximum image size is 2 MB.' });
-            }
         }
 
         // Prüft, ob alle Felder ausgefüllt sind.
@@ -125,6 +133,59 @@ export const actions = {
         );
         // Speichert die ID des neu hinzugefügten Autos.
         const carId = carResult.insertId;
+
+
+        // Speichert die URLs der hochgeladenen Bilder.
+const uploadedUrls = [];
+
+try {
+    // Lädt die Autobilder in Vercel Blob hoch.
+    for (const image of images) {
+        // Bestimmt die Dateiendung.
+        const extension = image.type === 'image/png' ? 'png' : 'jpg';
+
+        // Lädt das Bild hoch.
+        const blob = await put(
+            `cars/${carId}/${crypto.randomUUID()}.${extension}`,
+            image,
+            {
+                access: 'public',
+                token: BLOB_READ_WRITE_TOKEN
+            }
+        );
+
+        // Merkt sich die hochgeladene Bild-URL.
+        uploadedUrls.push(blob.url);
+
+        // Speichert die Bild-URL in MySQL.
+        await pool.execute(
+            'INSERT INTO auto_images (auto_id, image_url) VALUES (?, ?)',
+            [carId, blob.url]
+        );
+    }
+} catch (error) {
+    // Versucht, das unvollständige Auto zu entfernen.
+    try {
+        await pool.execute('DELETE FROM autos WHERE id = ?', [carId]);
+    } catch (cleanupError) {
+        console.error('Car cleanup failed:', cleanupError);
+    }
+
+    // Versucht, bereits hochgeladene Bilder zu löschen.
+    try {
+        if (uploadedUrls.length > 0) {
+            await del(uploadedUrls, { token: BLOB_READ_WRITE_TOKEN });
+        }
+    } catch (cleanupError) {
+        console.error('Image cleanup failed:', cleanupError);
+    }
+
+    // Meldet den fehlgeschlagenen Upload.
+    console.error('Car image upload failed:', error);
+    return fail(500, {
+        error: 'Car images could not be saved. Please try again.'
+    });
+}
 
             return { success: true };
         }

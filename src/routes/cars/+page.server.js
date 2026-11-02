@@ -11,10 +11,14 @@ export async function load({ locals }) {
         throw redirect(303, '/login');
     }
 
-    // Holt alle Autos des angemeldeten Benutzers aus der Datenbank.
-    // WHERE zeigt nur Autos an, die diesem Benutzer gehören.
+    // Holt die Autos und das erste Bild jedes Autos.
     const [cars] = await pool.execute(
-        `SELECT autos.*, brands.name AS brand_name
+        `SELECT autos.*, brands.name AS brand_name,
+            (SELECT image_url
+            FROM auto_images
+            WHERE auto_id = autos.id
+            ORDER BY id ASC
+            LIMIT 1) AS first_image
         FROM autos
         JOIN brands ON autos.brand_id = brands.id
         WHERE autos.user_id = ?`,

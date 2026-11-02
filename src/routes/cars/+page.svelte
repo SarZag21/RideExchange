@@ -62,13 +62,13 @@
                 {#each data.cars as car (car.id)}
                     <div class="overflow-hidden rounded-2xl bg-white shadow-sm">
                        
-                    <!-- Zeigt das Bild des Autos an. -->
-                    {#if car.url_image}
+                <!-- Zeigt das erste gespeicherte Autobild an. -->
+                {#if car.first_image}
                     <img
-                        src={car.url_image}
+                        src={car.first_image}
                         alt="Car"
                         class="h-48 w-full object-cover"
-                    />
+                />
                     {:else}
                         <div class="flex h-48 items-center justify-center bg-gray-100 text-gray-400">
                             No image available
