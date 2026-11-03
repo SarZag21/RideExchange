@@ -1,85 +1,62 @@
-
 import pool from '$lib/server/database.js';
+import { error } from '@sveltejs/kit';
 
-// Lädt die Fahrzeuge und verarbeitet die Suchfilter.
 export async function load({ url }) {
-    // Liest die Suchbegriffe aus der URL.
-    const search = url.searchParams.get('search')?.trim() || '';
-    const location = url.searchParams.get('location')?.trim() || '';
-    const maxPriceInput = url.searchParams.get('maxPrice') || '';
+    const location = (url.searchParams.get('location') ?? '').trim();
+    const brand = (url.searchParams.get('brand') ?? '').trim();
+    const minPriceRaw = url.searchParams.get('minPrice') ?? '';
+    const maxPriceRaw = url.searchParams.get('maxPrice') ?? '';
+    const seatsRaw = url.searchParams.get('seats') ?? '';
+    const yearRaw = url.searchParams.get('year') ?? '';
+    const sort = url.searchParams.get('sort') ?? 'recommended';
+    const view = url.searchParams.get('view') === 'map' ? 'map' : 'grid';
 
-    // Prüft, ob ein gültiger maximaler Tagespreis angegeben wurde.
-    const maxPrice =
-        maxPriceInput !== '' &&
-        Number.isFinite(Number(maxPriceInput)) &&
-        Number(maxPriceInput) >= 0
-            ? Number(maxPriceInput)
-            : null;
+    const minPrice = minPriceRaw !== '' ? Number(minPriceRaw) : null;
+    const maxPrice = maxPriceRaw !== '' ? Number(maxPriceRaw) : null;
+    const seats = seatsRaw !== '' ? Number(seatsRaw) : null;
+    const year = yearRaw !== '' ? Number(yearRaw) : null;
 
-    // Die SQL-Abfrage lädt nur verfügbare Fahrzeuge.
-    let sql = `
-        SELECT autos.*, brands.name AS brand_name
-        FROM autos
-        JOIN brands ON autos.brand_id = brands.id
-        WHERE autos.status = 'available'
-    `;
-
-    // Speichert die Werte für die SQL-Platzhalter.
-    const params = [];
-
-    // Sucht nach Marke, Modell oder Standort.
-    if (search) {
-        sql += `
-            AND (
-                brands.name LIKE ?
-                OR autos.type LIKE ?
-                OR autos.location LIKE ?
-            )
-        `;
-
-        // Sucht auch nach einem Teil des eingegebenen Begriffs.
-        const searchValue = `%${search}%`;
-        params.push(searchValue, searchValue, searchValue);
+    if ((minPrice !== null && (!Number.isFinite(minPrice) || minPrice < 0)) ||
+        (maxPrice !== null && (!Number.isFinite(maxPrice) || maxPrice < 0)) ||
+        (seats !== null && (!Number.isInteger(seats) || seats < 1)) ||
+        (year !== null && (!Number.isInteger(year) || year < 1900 || year > 2155))) {
+        throw error(400, 'Invalid filter values');
     }
 
-    // Filtert die Fahrzeuge nach dem ausgewählten Standort.
-    if (location) {
-        sql += ' AND autos.location LIKE ?';
-        params.push(`%${location}%`);
-    }
+    const conditions = ["autos.status = 'available'"];
+    const values = [];
 
-    // Zeigt nur Fahrzeuge bis zum angegebenen Tagespreis.
-    if (maxPrice !== null) {
-        sql += ' AND autos.price_per_day <= ?';
-        params.push(maxPrice);
-    }
+    if (location) { conditions.push('autos.location LIKE ?'); values.push(`%${location}%`); }
+    if (brand) { conditions.push('brands.name = ?'); values.push(brand); }
+    if (minPrice !== null) { conditions.push('autos.price_per_day >= ?'); values.push(minPrice); }
+    if (maxPrice !== null) { conditions.push('autos.price_per_day <= ?'); values.push(maxPrice); }
+    if (seats !== null) { conditions.push('autos.number_of_seats >= ?'); values.push(seats); }
+    if (year !== null) { conditions.push('autos.production_year >= ?'); values.push(year); }
 
-    // Sortiert die Ergebnisse vom günstigsten zum teuersten Auto.
-    sql += ' ORDER BY autos.price_per_day ASC';
+    const orderBy = {
+        recommended: 'autos.id DESC',
+        price_asc: 'autos.price_per_day ASC',
+        price_desc: 'autos.price_per_day DESC',
+        year_desc: 'autos.production_year DESC'
+    }[sort] ?? 'autos.id DESC';
 
-    // Führt die Suchabfrage mit sicheren SQL-Parametern aus.
-    const [cars] = await pool.execute(sql, params);
+    const [cars] = await pool.execute(
+        `SELECT autos.*, brands.name AS brand_name
+         FROM autos JOIN brands ON autos.brand_id = brands.id
+         WHERE ${conditions.join(' AND ')}
+         ORDER BY ${orderBy}`,
+        values
+    );
 
-    // Lädt die vorhandenen Standorte für das Auswahlmenü.
-    const [locationRows] = await pool.execute(`
-        SELECT DISTINCT location
-        FROM autos
-        WHERE status = 'available'
-          AND location IS NOT NULL
-          AND location != ''
-        ORDER BY location ASC
-    `);
+    const [brandRows] = await pool.execute(
+        `SELECT DISTINCT brands.name FROM brands
+         JOIN autos ON autos.brand_id = brands.id
+         WHERE autos.status = 'available' ORDER BY brands.name`
+    );
 
-    // Übergibt die Fahrzeuge, Standorte und Filter an die Seite.
     return {
         cars,
-        locations: locationRows.map((row) => row.location),
-        filters: {
-            search,
-            location,
-            maxPrice: maxPriceInput
-        }
+        brands: brandRows.map((item) => item.name),
+        filters: { location, brand, minPrice: minPriceRaw, maxPrice: maxPriceRaw, seats: seatsRaw, year: yearRaw, sort, view }
     };
 }
-
-
