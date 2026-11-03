@@ -82,55 +82,73 @@
 <section class="mt-16 rounded-xl border border-gray-200 bg-gray-50 p-6">
   <h2 class="mb-4 text-xl font-bold">Find your next ride</h2>
 
-  <form class="grid gap-4 md:grid-cols-3">
-    <div>
-      <label for="location" class="mb-2 block text-sm font-medium">
-        Pickup location
-      </label>
-      <input
-        id="location"
-        type="text"
-        placeholder="Where do you need a car?"
-        class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3"
-      />
+
+<section class="mx-auto max-w-6xl px-6 py-12">
+    <div class="mb-6">
+        <h2 class="text-3xl font-bold text-gray-900">
+            Find your perfect car
+        </h2>
+        <p class="mt-2 text-gray-600">
+            Choose your location and travel dates to find available cars.
+        </p>
     </div>
 
-    <div>
-      <label for="start-date" class="mb-2 block text-sm font-medium">
-        Start date
-      </label>
-      <input
-        id="start-date"
-        type="date"
-        class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3"
-      />
-    </div>
+    <form action="/browse" method="GET" class="grid gap-4 rounded-2xl bg-white p-6 shadow-lg md:grid-cols-3">
 
-    <div>
-      <label for="end-date" class="mb-2 block text-sm font-medium">
-        End date
-      </label>
-      <input
-        id="end-date"
-        type="date"
-        class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3"
-      />
-    </div>
+        <div>
+            <label for="location" class="mb-2 block text-sm font-medium">
+                Pickup location
+            </label>
+            <input
+                id="location"
+                name="location"
+                type="text"
+                placeholder="Where do you need a car?"
+                class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3"
+            />
+        </div>
 
-    <button
-      type="submit"
-      class="rounded-lg bg-red-700 px-6 py-3 font-medium text-white hover:bg-red-800 md:col-span-3"
-    >
-      Search cars
-    </button>
-  </form>
+        <div>
+            <label for="start-date" class="mb-2 block text-sm font-medium">
+                Start date
+            </label>
+            <input
+                id="start-date"
+                name="startDate"
+                type="date"
+                min={new Date().toISOString().split('T')[0]}
+                class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3"
+            />
+        </div>
+
+        <div>
+            <label for="end-date" class="mb-2 block text-sm font-medium">
+                End date
+            </label>
+            <input
+                id="end-date"
+                name="endDate"
+                type="date"
+                min={new Date().toISOString().split('T')[0]}
+                class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3"
+            />
+        </div>
+
+        <button
+            type="submit"
+            class="rounded-lg bg-red-700 px-6 py-3 font-medium text-white hover:bg-red-800 md:col-span-3"
+        >
+            Search cars
+        </button>
+    </form>
 </section>
-  <div class="mt-20">
-  <div class="relative mx-auto max-w-3xl border-t-2 border-dotted border-gray-300">
-    <div class="driving-car">🚗</div>
-  </div>
+
+<div class="mt-20">
+    <div class="relative mx-auto max-w-3xl border-t-2 border-dotted border-gray-300">
+        <div class="driving-car">🚗</div>
+    </div>
 </div>
-  </main>
+
   
 
 <section class="mx-auto mt-20 max-w-6xl px-8">
