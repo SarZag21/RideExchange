@@ -46,9 +46,9 @@
                 <div class="rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
 
                 <!-- Zeigt das Fahrzeugbild, wenn eines vorhanden ist. -->
-                {#if car.url_image}
+                {#if car.first_image}
                     <img
-                        src={car.url_image}
+                        src={car.first_image}
                         alt={`${car.brand_name} ${car.type}`}
                         class="mb-4 h-48 w-full rounded-lg object-cover"
                     />
