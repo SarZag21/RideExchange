@@ -95,45 +95,6 @@
 
     <form action="/browse" method="GET" class="grid gap-4 rounded-2xl bg-white p-6 shadow-lg md:grid-cols-3">
 
-        <div>
-            <label for="location" class="mb-2 block text-sm font-medium">
-                Pickup location
-            </label>
-            <input
-                id="location"
-                name="location"
-                type="text"
-                placeholder="Where do you need a car?"
-                class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3"
-            />
-        </div>
-
-        <div>
-            <label for="start-date" class="mb-2 block text-sm font-medium">
-                Start date
-            </label>
-            <input
-                id="start-date"
-                name="startDate"
-                type="date"
-                min={new Date().toISOString().split('T')[0]}
-                class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3"
-            />
-        </div>
-
-        <div>
-            <label for="end-date" class="mb-2 block text-sm font-medium">
-                End date
-            </label>
-            <input
-                id="end-date"
-                name="endDate"
-                type="date"
-                min={new Date().toISOString().split('T')[0]}
-                class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3"
-            />
-        </div>
-
         <button
             type="submit"
             class="rounded-lg bg-red-700 px-6 py-3 font-medium text-white hover:bg-red-800 md:col-span-3"
