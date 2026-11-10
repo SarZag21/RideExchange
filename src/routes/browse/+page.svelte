@@ -137,16 +137,16 @@
                         <label for="brand" class="mb-1 block text-sm font-medium text-gray-700">
                             Brand
                         </label>
+                        <!-- List the available car brands. -->
                         <select
                             id="brand"
                             name="brand"
                             class="w-full rounded-lg border-gray-300"
                         >
                             <option value="">All brands</option>
-                        // Populate the brand dropdown with available brands from the server.
                             {#each data.brands as brand}
                                 <option
-                                    value={brand}
+            value={brand}
                                     selected={data.filters.brand === brand}
                                 >
                                     {brand}
@@ -165,7 +165,6 @@
                             name="minPrice"
                             type="number"
                             min="0"
-                            // Allow decimal values for the price input.
                             step="0.01"
                             value={data.filters.minPrice}
                             placeholder="No minimum"
@@ -195,13 +194,14 @@
                         <label for="seats" class="mb-1 block text-sm font-medium text-gray-700">
                             Minimum seats
                         </label>
+                        <!-- Offer common minimum seat-count filters. -->
                         <select
                             id="seats"
                             name="seats"
                             class="w-full rounded-lg border-gray-300"
                         >
                             <option value="">Any number</option>
-                            // Populate the seat count dropdown with predefined options.
+
                             {#each [2, 4, 5, 7, 8] as seatCount}
                                 <option
                                     value={seatCount}
@@ -272,9 +272,8 @@
                         Apply filters
                     </button>
 
-                    <a
-                        href="/browse"
-                        class="rounded-lg border border-gray-300 px-5 py-2.5 font-semibold text-gray-700 hover:bg-gray-50"
+                    <a href="browse" 
+                    class="rounded-lg border border-gray-300 px-5 py-2.5 font-semibold text-gray-700 hover:bg-gray-50"
                     >
                         Reset
                     </a>
@@ -312,23 +311,25 @@
                     Clear filters
                 </a>
             </div>
-        {/if}   
-<!-- Zeigt das Fahrzeugbild, wenn eines vorhanden ist. -->
-                {#if car.first_image}
-                    <img
-                        src={car.first_image}
-                        alt={`${car.brand_name} ${car.type}`}
-                        class="mb-4 h-48 w-full rounded-lg object-cover"
-                    />
-                {:else}
-                    <!-- Zeigt einen Platzhalter, wenn kein Bild vorhanden ist. -->
-                    <div class="mb-4 flex h-48 items-center justify-center rounded-lg bg-gray-100">
-                        <p class="text-gray-400">
-                            No image available
-                        </p>
 
+        <!-- Map view: display Google Maps beside the matching cars. -->
+        {:else if data.filters.view === 'map'}
+            <div class="mt-5 grid gap-5 lg:grid-cols-[minmax(0,1.5fr)_minmax(300px,1fr)]">
+
+                <div class="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
+                    <!-- Embed the map centered on the selected location. -->
+                    <iframe
+                        title="Map showing the searched car location"
+                        src={mapUrl}
+                        class="h-[480px] w-full border-0"
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"
+                    ></iframe>
+
+                    <div class="border-t border-gray-200 p-4 text-sm text-gray-500">
+                        Map centered on {mapLocation}.
                     </div>
-                {/if}   
+                </div>
 
                 <!-- Display matching cars next to the map. -->
                 <div class="space-y-3">
@@ -378,7 +379,7 @@
             </div>
 
         <!-- Grid view: display matching cars as individual cards. -->
-        {:else}
+        {:else} 
             <div class="mt-5 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
 
                 {#each data.cars as car (car.id)}
