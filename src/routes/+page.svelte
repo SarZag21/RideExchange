@@ -82,7 +82,7 @@
 <section class="mt-16 rounded-xl border border-gray-200 bg-gray-50 p-6">
   <h2 class="mb-4 text-xl font-bold">Find your next ride</h2>
 
-
+</section>
 <section class="mx-auto max-w-6xl px-6 py-12">
     <div class="mb-6">
         <h2 class="text-3xl font-bold text-gray-900">
