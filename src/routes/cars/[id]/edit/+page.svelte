@@ -34,5 +34,22 @@
                 type="number" value={data.car.production_year}
                 class="w-full rounded-lg border p-3" />
         </div>
+        <!-- Zeigt die aktuelle Fahrzeugfarbe an. -->
+        <div>
+            <label for="color">Color</label>
+            <input id="color" name="color"
+                value={data.car.color}
+                class="w-full rounded-lg border p-3" />
+        </div>
+
+        <!-- Zeigt die aktuelle Anzahl der Sitzplätze an. -->
+        <div>
+            <label for="number_of_seats">Number of Seats</label>
+            <input id="number_of_seats" name="number_of_seats"
+                type="number" min="1"
+                value={data.car.number_of_seats}
+                class="w-full rounded-lg border p-3" />
+        </div>
+
     </form>
 </div>
