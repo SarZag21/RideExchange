@@ -19,5 +19,20 @@
                 value={data.car.brand_name}
                 class="w-full rounded-lg border p-3" />
         </div>
+        <!-- Zeigt das aktuelle Fahrzeugmodell an. -->
+        <div>
+            <label for="type">Model</label>
+            <input id="type" name="type"
+                value={data.car.type}
+                class="w-full rounded-lg border p-3" />
+        </div>
+
+        <!-- Zeigt das aktuelle Baujahr an. -->
+        <div>
+            <label for="production_year">Production Year</label>
+            <input id="production_year" name="production_year"
+                type="number" value={data.car.production_year}
+                class="w-full rounded-lg border p-3" />
+        </div>
     </form>
 </div>
