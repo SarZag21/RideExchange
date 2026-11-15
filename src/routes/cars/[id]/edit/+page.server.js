@@ -51,6 +51,20 @@ export const actions = {
             !Number.isFinite(price) || price <= 0) {
             return fail(400, { message: 'Invalid car details' });
         }
+        // Prüft, ob das Fahrzeug dem angemeldeten Benutzer gehört.
+        const [cars] = await pool.execute(
+            `SELECT id FROM autos
+            WHERE id = ? AND user_id = ?`,
+            [params.id, locals.user.id]
+        );
+
+        // Verhindert Änderungen an fremden Fahrzeugen.
+        if (cars.length === 0) {
+            error(404, 'Car not found');
+        }
+
+        // Die Datenbankaktualisierung folgt im nächsten Schritt.
+        return fail(501, { message: 'Saving is not implemented yet' });
 
     }
 };
