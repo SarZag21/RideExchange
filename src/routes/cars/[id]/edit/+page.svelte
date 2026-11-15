@@ -66,5 +66,20 @@
                 value={data.car.price_per_day}
                 class="w-full rounded-lg border p-3" />
         </div>
+        <!-- Speichert die Änderungen oder bricht die Bearbeitung ab. -->
+        <div class="flex gap-4 pt-6">
+            <button
+                type="submit"
+                class="rounded-lg bg-red-700 px-6 py-3 font-semibold text-white hover:bg-red-800"
+            >
+                Save Changes
+            </button>
+            <a
+                href="/cars"
+                class="rounded-lg border border-gray-300 px-6 py-3 font-semibold text-gray-700 hover:bg-gray-100"
+            >
+                Cancel
+            </a>
+        </div>
     </form>
 </div>
