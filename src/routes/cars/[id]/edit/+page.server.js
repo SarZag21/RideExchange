@@ -63,6 +63,16 @@ export const actions = {
             error(404, 'Car not found');
         }
 
+        // Sucht die Fahrzeugmarke oder erstellt sie bei Bedarf.
+        const [brandResult] = await pool.execute(
+            `INSERT INTO brands (name) VALUES (?)
+            ON DUPLICATE KEY UPDATE id = LAST_INSERT_ID(id)`,
+            [brand]
+        );
+
+        // Speichert die ID der ausgewählten Marke.
+        const brandId = brandResult.insertId;
+
         // Die Datenbankaktualisierung folgt im nächsten Schritt.
         return fail(501, { message: 'Saving is not implemented yet' });
 
