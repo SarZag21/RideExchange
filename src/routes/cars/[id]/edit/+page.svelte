@@ -50,6 +50,21 @@
                 value={data.car.number_of_seats}
                 class="w-full rounded-lg border p-3" />
         </div>
+        <!-- Zeigt den aktuellen Standort des Fahrzeugs an. -->
+        <div>
+            <label for="location">Location</label>
+            <input id="location" name="location"
+                value={data.car.location}
+                class="w-full rounded-lg border p-3" />
+        </div>
 
+        <!-- Zeigt den aktuellen Mietpreis pro Tag an. -->
+        <div>
+            <label for="price_per_day">Price per Day (€)</label>
+            <input id="price_per_day" name="price_per_day"
+                type="number" min="0.01" step="0.01"
+                value={data.car.price_per_day}
+                class="w-full rounded-lg border p-3" />
+        </div>
     </form>
 </div>
