@@ -1,5 +1,6 @@
 import { error, fail, redirect } from '@sveltejs/kit';
 import pool from '$lib/server/database.js';
+import { del } from '@vercel/blob';
 
 
 // Lädt das Auto, das der Benutzer bearbeiten möchte.
@@ -134,6 +135,17 @@ export const actions = {
         // Verhindert das Löschen fremder Bilder.
         if (images.length === 0) {
             error(404, 'Photo not found');
+        }
+
+        // Löscht die Bilddatei zuerst aus Vercel Blob.
+        try {
+            await del(images[0].image_url);
+        } catch (err) {
+            // Behält den Datenbankeintrag bei einem Blob-Fehler.
+            console.error('Failed to delete car photo:', err);
+            return fail(500, {
+                message: 'Photo could not be deleted'
+            });
         }
 
         // Löscht den Bildeintrag nur für das eigene Fahrzeug.
