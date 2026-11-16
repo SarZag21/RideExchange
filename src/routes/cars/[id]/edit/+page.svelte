@@ -82,4 +82,29 @@
             </a>
         </div>
     </form>
+
+    <!-- Zeigt die vorhandenen Fahrzeugbilder an. -->
+    <section class="mt-10">
+        <h2 class="mb-2 text-2xl font-bold">Car Photos</h2>
+        <p class="mb-5 text-sm text-gray-600">
+            Manage the photos of your car.
+        </p>
+
+        {#if data.images.length > 0}
+            <div class="grid grid-cols-2 gap-4 sm:grid-cols-3">
+                {#each data.images as image (image.id)}
+                    <div class="overflow-hidden rounded-lg border">
+                        <img
+                            src={image.image_url}
+                            alt="Car photo"
+                            class="h-36 w-full object-cover"
+                        />
+                    </div>
+                {/each}
+            </div>
+        {:else}
+            <p class="text-gray-500">No photos available.</p>
+        {/if}
+    </section>
+
 </div>
