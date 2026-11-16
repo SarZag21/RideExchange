@@ -136,8 +136,19 @@ export const actions = {
             error(404, 'Photo not found');
         }
 
-        // Das Löschen wird im nächsten Schritt ergänzt.
-        return fail(501, { message: 'Deleting is not implemented yet' });
+        // Löscht den Bildeintrag nur für das eigene Fahrzeug.
+        await pool.execute(
+            `DELETE auto_images FROM auto_images
+             JOIN autos ON auto_images.auto_id = autos.id
+             WHERE auto_images.id = ?
+               AND autos.id = ?
+               AND autos.user_id = ?`,
+            [imageId, params.id, locals.user.id]
+        );
+
+        // Die Datei in Vercel Blob wird später entfernt.
+        redirect(303, `/cars/${params.id}/edit`);
+
     }
 
 };
