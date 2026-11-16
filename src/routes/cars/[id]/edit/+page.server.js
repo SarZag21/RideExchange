@@ -104,5 +104,40 @@ export const actions = {
         redirect(303, '/cars');
 
 
+    },
+    deletePhoto: async ({ request, locals, params }) => {
+        // Prüft, ob der Benutzer angemeldet ist.
+        if (!locals.user) {
+            redirect(303, '/login');
+        }
+
+        // Liest die ID des zu löschenden Bildes.
+        const formData = await request.formData();
+        const imageId = Number(formData.get('imageId'));
+
+        // Prüft, ob die Bild-ID gültig ist.
+        if (!Number.isSafeInteger(imageId) || imageId <= 0) {
+            return fail(400, { message: 'Invalid photo ID' });
+        }
+
+        // Prüft, ob das Bild zum Fahrzeug des Benutzers gehört.
+        const [images] = await pool.execute(
+            `SELECT auto_images.id, auto_images.image_url
+             FROM auto_images
+             JOIN autos ON auto_images.auto_id = autos.id
+             WHERE auto_images.id = ?
+               AND autos.id = ?
+               AND autos.user_id = ?`,
+            [imageId, params.id, locals.user.id]
+        );
+
+        // Verhindert das Löschen fremder Bilder.
+        if (images.length === 0) {
+            error(404, 'Photo not found');
+        }
+
+        // Das Löschen wird im nächsten Schritt ergänzt.
+        return fail(501, { message: 'Deleting is not implemented yet' });
     }
+
 };
