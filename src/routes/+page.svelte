@@ -7,44 +7,7 @@
 
 <div class="min-h-screen bg-white text-slate-900">
 
-<header class="flex items-center justify-between border-b border-gray-100 bg-white px-8 py-5 shadow-sm">
-    <a href="/" class="text-2xl font-bold tracking-tight text-red-700">
-        RideExchange
-    </a>
 
-    <nav class="flex items-center gap-8">
-        
-
-        <a href="/guide" class="font-medium transition hover:text-red-700">
-            Guide
-        </a>
-
-        {#if data.user}
-            <form method="POST" action="/logout">
-                <button
-                    type="submit"
-                    class="rounded-lg border border-gray-200 px-5 py-2 font-medium transition hover:border-red-700 hover:text-red-700"
-                >
-                    Log out
-                </button>
-            </form>
-        {:else}
-            <a
-                href="/login"
-                class="rounded-lg border border-gray-200 px-5 py-2 font-medium transition hover:border-red-700 hover:text-red-700"
-            >
-                Log in
-            </a>
-
-            <a
-                href="/register"
-                class="rounded-lg bg-red-700 px-5 py-2 font-medium text-white transition hover:bg-red-800"
-            >
-                Register
-            </a>
-        {/if}
-    </nav>
-</header>
 
   
   <main class="mx-auto max-w-6xl px-8 py-24">
@@ -79,10 +42,7 @@
 </div>
   </section>
   
-<section class="mt-16 rounded-xl border border-gray-200 bg-gray-50 p-6">
-  <h2 class="mb-4 text-xl font-bold">Find your next ride</h2>
 
-</section>
 <section class="mx-auto max-w-6xl px-6 py-12">
     <div class="mb-6">
         <h2 class="text-3xl font-bold text-gray-900">
@@ -115,7 +75,7 @@
 <section class="mx-auto mt-20 max-w-6xl px-8">
     <div class="text-center">
         <p class="mb-3 text-sm font-semibold tracking-widest text-red-700">
-            WHY RIDEEXCHANGE?
+            WHY RIDE EXCHANGE?
         </p>
 
         <h2 class="text-3xl font-bold tracking-tight text-slate-900">
