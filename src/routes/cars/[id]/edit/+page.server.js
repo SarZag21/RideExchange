@@ -1,6 +1,7 @@
 import { error, fail, redirect } from '@sveltejs/kit';
 import pool from '$lib/server/database.js';
 
+
 // Lädt das Auto, das der Benutzer bearbeiten möchte.
 export async function load({ params, locals }) {
     // Prüft, ob der Benutzer angemeldet ist.
@@ -22,8 +23,21 @@ export async function load({ params, locals }) {
         error(404, 'Car not found');
     }
 
+    // Lädt alle Bilder des Fahrzeugs aus der Datenbank.
+    const [images] = await pool.execute(
+    `SELECT id, image_url
+    FROM auto_images
+    WHERE auto_id = ?
+    ORDER BY id ASC`,
+    [params.id]    
+    );
+
     // Übergibt die Fahrzeugdaten an die Bearbeitungsseite.
-    return { car: cars[0] };
+    return { 
+        car: cars[0],
+        images
+
+    };
 }
 
 export const actions = {
@@ -85,7 +99,7 @@ export const actions = {
                 seats, location, price, params.id, locals.user.id
             ]
         );
-
+        
         // Leitet nach dem Speichern zur Fahrzeugübersicht weiter.
         redirect(303, '/cars');
 
