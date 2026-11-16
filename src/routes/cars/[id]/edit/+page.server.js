@@ -73,8 +73,22 @@ export const actions = {
         // Speichert die ID der ausgewählten Marke.
         const brandId = brandResult.insertId;
 
-        // Die Datenbankaktualisierung folgt im nächsten Schritt.
-        return fail(501, { message: 'Saving is not implemented yet' });
+        // Aktualisiert die Fahrzeugdaten in der Datenbank.
+        await pool.execute(
+            `UPDATE autos
+             SET brand_id = ?, type = ?, production_year = ?,
+                 color = ?, number_of_seats = ?, location = ?,
+                 price_per_day = ?
+             WHERE id = ? AND user_id = ?`,
+            [
+                brandId, type, productionYear, color,
+                seats, location, price, params.id, locals.user.id
+            ]
+        );
+
+        // Leitet nach dem Speichern zur Fahrzeugübersicht weiter.
+        redirect(303, '/cars');
+
 
     }
 };
