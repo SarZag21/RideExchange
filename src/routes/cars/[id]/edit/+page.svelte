@@ -4,7 +4,7 @@
 </script>
 
 <svelte:head>
-    <title>Edit Car | RideExchange</title>
+    <title>Edit Car</title>
 </svelte:head>
 
 <!-- Zeigt das Formular zur Fahrzeugbearbeitung an. -->
@@ -93,7 +93,16 @@
         {#if data.images.length > 0}
             <div class="grid grid-cols-2 gap-4 sm:grid-cols-3">
                 {#each data.images as image (image.id)}
-                    <div class="overflow-hidden rounded-lg border">
+            <div class="relative overflow-hidden rounded-lg border">
+                <!-- Zeigt den Löschbutton für das Fahrzeugbild an. -->
+                <!-- Accessible label for screen readers so the delete action is announced clearly. -->
+                <button
+                    type="button"   
+                        aria-label="Delete photo"
+                    class="absolute right-2 top-2 rounded-full bg-white p-2 text-red-600 shadow hover:bg-red-50"
+                >
+                    🗑️
+                </button>
                         <img
                             src={image.image_url}
                             alt="Car photo"
