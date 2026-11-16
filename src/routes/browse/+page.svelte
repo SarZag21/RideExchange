@@ -372,6 +372,12 @@
                                 >
                                     Open location ↗
                                 </a>
+                                <a
+                                    href={`/booking?auto_id=${car.id}`}
+                                    class="mt-2 inline-block rounded-lg bg-red-700 px-4 py-2 text-sm font-semibold text-white hover:bg-red-800"
+                                >
+                                    Book now
+                                </a>
                             </div>
                         </article>
                     {/each}
@@ -438,6 +444,12 @@
                                     rel="noreferrer"
                                 >
                                     View location ↗
+                                </a>
+                                 <a
+                                    href={`/booking?auto_id=${car.id}`}
+                                     class="rounded-lg bg-red-700 px-4 py-2 text-sm font-semibold text-white hover:bg-red-800"
+                                >
+                                     Book now
                                 </a>
                             </div>
                         </div>
