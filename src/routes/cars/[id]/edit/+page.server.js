@@ -128,8 +128,34 @@ export const actions = {
         } catch (err) {
             // Zeigt einen Fehler beim Hochladen an.
             console.error('Photo upload failed:', err);
+
+              // Entfernt neue Bildeinträge aus der Datenbank.
+            for (const url of uploadedUrls) {
+                try {
+                    await pool.execute(
+                        'DELETE FROM auto_images WHERE auto_id = ? AND image_url = ?',
+                        [params.id, url]
+                    );
+                } catch (dbErr) {
+                    console.error('Database cleanup failed:', dbErr);
+                }
+            }
+
+            // Entfernt hochgeladene Bilder aus Vercel Blob.
+            if (uploadedUrls.length > 0) {
+                try {
+                    await del(uploadedUrls, {
+                        token: BLOB_READ_WRITE_TOKEN
+                    });
+                } catch (blobErr) {
+                    console.error('Blob cleanup failed:', blobErr);
+                }
+            }
+
             return fail(500, { message: 'Photo upload failed.' });
         }
+        // Leitet nach dem Hochladen zur Bearbeitungsseite weiter.
+        redirect(303, `/cars/${params.id}/edit`);
     },
 
     saveCar: async ({ request, locals, params }) => {
@@ -250,7 +276,7 @@ export const actions = {
             [imageId, params.id, locals.user.id]
         );
 
-        // Die Datei in Vercel Blob wird später entfernt.
+        // Leitet nach dem Löschen zur Bearbeitungsseite weiter.
         redirect(303, `/cars/${params.id}/edit`);
 
     }
