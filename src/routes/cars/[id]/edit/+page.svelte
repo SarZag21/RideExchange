@@ -1,4 +1,5 @@
 <script>
+    import { Trash2 } from 'lucide-svelte';
     // Empfängt die Fahrzeugdaten vom Server.
     let { data } = $props();
 </script>
@@ -11,7 +12,7 @@
 <div class="mx-auto max-w-2xl px-6 py-10">
     <h1 class="mb-6 text-3xl font-bold">Edit Car</h1>
 
-    <form method="POST" class="space-y-5">
+    <form method="POST" action="?/saveCar" class="space-y-5">
         <!-- Zeigt die aktuelle Fahrzeugmarke an. -->
         <div>
             <label for="brand">Brand</label>
@@ -91,26 +92,42 @@
         </p>
 
         {#if data.images.length > 0}
-            <div class="grid grid-cols-2 gap-4 sm:grid-cols-3">
-                {#each data.images as image (image.id)}
-            <div class="relative overflow-hidden rounded-lg border">
-                <!-- Zeigt den Löschbutton für das Fahrzeugbild an. -->
-                <!-- Accessible label for screen readers so the delete action is announced clearly. -->
-                <button
-                    type="button"   
-                        aria-label="Delete photo"
-                    class="absolute right-2 top-2 rounded-full bg-white p-2 text-red-600 shadow hover:bg-red-50"
+           <div class="grid grid-cols-2 gap-4 sm:grid-cols-3">
+        {#each data.images as image (image.id)}
+            <div class="relative overflow-hidden rounded-xl border">
+                <!-- Zeigt das Fahrzeugbild an. -->
+                <img
+                    src={image.image_url}
+                    alt="Car photo"
+                    class="h-40 w-full object-cover"
+                />
+
+                <!-- Sendet die Bild-ID an die Löschaktion. -->
+                <form
+                    method="POST"
+                    action="?/deletePhoto"
+                    class="absolute right-2 top-2 z-10"
                 >
-                    🗑️
-                </button>
-                        <img
-                            src={image.image_url}
-                            alt="Car photo"
-                            class="h-36 w-full object-cover"
+                    <input type="hidden" name="imageId" value={image.id} />
+
+                    <button
+                        type="submit"
+                        aria-label="Delete photo"
+                        class="group rounded-full bg-white/90 p-2
+                            text-red-600 shadow-md transition-all
+                            duration-200 hover:scale-110
+                            hover:bg-red-600 hover:text-white"
+                    >
+                        <Trash2
+                            size={18}
+                            strokeWidth={2}
+                            class="transition-transform duration-200"
                         />
-                    </div>
-                {/each}
+                    </button>
+                </form>
             </div>
+        {/each}
+        </div>
         {:else}
             <p class="text-gray-500">No photos available.</p>
         {/if}

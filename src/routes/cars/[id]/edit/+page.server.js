@@ -1,6 +1,7 @@
 import { error, fail, redirect } from '@sveltejs/kit';
 import pool from '$lib/server/database.js';
 import { del } from '@vercel/blob';
+import { BLOB_READ_WRITE_TOKEN } from '$env/static/private';
 
 
 // Lädt das Auto, das der Benutzer bearbeiten möchte.
@@ -42,7 +43,7 @@ export async function load({ params, locals }) {
 }
 
 export const actions = {
-    default: async ({ request, locals, params }) => {
+    saveCar: async ({ request, locals, params }) => {
         // Prüft, ob der Benutzer angemeldet ist.
         if (!locals.user) {
             redirect(303, '/login');
@@ -139,7 +140,9 @@ export const actions = {
 
         // Löscht die Bilddatei zuerst aus Vercel Blob.
         try {
-            await del(images[0].image_url);
+            await del(images[0].image_url, {
+            token: BLOB_READ_WRITE_TOKEN
+            });
         } catch (err) {
             // Behält den Datenbankeintrag bei einem Blob-Fehler.
             console.error('Failed to delete car photo:', err);

@@ -1,0 +1,30 @@
+{
+	"$schema": "https://inlang.com/schema/inlang-message-format",
+	"hello_world": "Hello, {name} from de!",
+
+
+
+
+  "register_home": "Zur Startseite",
+  "register_get_started": "Jetzt starten",
+  "register_welcome": "Werde Teil von RideExchange und starte mit uns durch!",
+  "register_existing_account": "Du hast bereits ein Konto?",
+  "register_login": "Anmelden",
+  "register_title": "Registrieren",
+  "register_subtitle": "Erstelle dein Konto",
+  "register_username": "Benutzername",
+  "register_email": "E-Mail",
+  "register_phone": "Telefonnummer",
+  "register_password": "Passwort",
+  "register_button": "Registrieren",
+  "register_error_required": "Bitte fülle alle Pflichtfelder aus.",
+  "register_error_username_length": "Der Benutzername muss mindestens 3 Zeichen lang sein.",
+  "register_error_username_spaces": "Der Benutzername darf keine Leerzeichen enthalten.",
+  "register_error_email": "Bitte gib eine gültige E-Mail-Adresse ein.",
+  "register_error_password_length": "Das Passwort muss mindestens 8 Zeichen lang sein.",
+  "register_error_password_spaces": "Das Passwort darf keine Leerzeichen enthalten.",
+  "register_error_exists": "Benutzername oder E-Mail-Adresse existiert bereits."
+}
+
+
+

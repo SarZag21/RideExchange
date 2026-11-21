@@ -1,0 +1,29 @@
+{
+	"$schema": "https://inlang.com/schema/inlang-message-format",
+	"hello_world": "Hello, {name} from en!",
+
+
+  "register_home": "Go to Home Page",
+  "register_get_started": "Get Started",
+  "register_welcome": "Join RideExchange and hit the road together!",
+  "register_existing_account": "Already have an account?",
+  "register_login": "Log in",
+  "register_title": "Register",
+  "register_subtitle": "Create your account",
+  "register_username": "Username",
+  "register_email": "Email",
+  "register_phone": "Phone Number",
+  "register_password": "Password",
+  "register_button": "Register",
+  "register_error_required": "Please fill all the required fields.",
+  "register_error_username_length": "Username must have at least 3 characters.",
+  "register_error_username_spaces": "Username must not contain spaces.",
+  "register_error_email": "Please enter a valid email.",
+  "register_error_password_length": "Password must be at least 8 characters long.",
+  "register_error_password_spaces": "Password must not contain spaces.",
+  "register_error_exists": "Username or email already exists."
+
+
+
+
+}
