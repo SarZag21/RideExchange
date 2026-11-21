@@ -133,4 +133,36 @@
         {/if}
     </section>
 
+<!-- Erstellt einen Bereich für neue Fahrzeugbilder. -->
+<section class="mt-8">
+    <!-- Zeigt den Titel des Bereichs an. -->
+    <h2 class="mb-4 text-xl font-bold">Add New Photos</h2>
+
+    <!-- Sendet die ausgewählten Bilder an den Server. -->
+    <form method="POST" action="?/addPhotos" enctype="multipart/form-data">
+
+        <!-- Ermöglicht die Auswahl mehrerer Bilder. -->
+        <input
+            type="file"
+            name="images"
+            accept="image/jpeg,image/png"
+            multiple
+            class="w-full rounded-lg border p-3"
+        />
+
+        <!-- Zeigt die Regeln für die Bilder an. -->
+        <p class="mt-2 text-sm text-gray-500">
+            Maximum 7 photos per car. JPG or PNG, up to 2 MB each.
+        </p>
+
+        <!-- Erstellt den Button zum Hochladen. -->
+        <button
+            type="submit"
+            class="mt-4 rounded-lg bg-red-700 px-6 py-3 font-semibold text-white hover:bg-red-800"
+        >
+            Upload Photos
+        </button>
+    </form>
+</section>
+
 </div>

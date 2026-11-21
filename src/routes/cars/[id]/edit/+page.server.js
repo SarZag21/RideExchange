@@ -1,6 +1,6 @@
 import { error, fail, redirect } from '@sveltejs/kit';
 import pool from '$lib/server/database.js';
-import { del } from '@vercel/blob';
+import { put,del } from '@vercel/blob';
 import { BLOB_READ_WRITE_TOKEN } from '$env/static/private';
 
 
@@ -43,6 +43,95 @@ export async function load({ params, locals }) {
 }
 
 export const actions = {
+    addPhotos: async ({ request, locals, params }) => {
+        // Prüft, ob der Benutzer angemeldet ist.
+        if (!locals.user) redirect(303, '/login');
+
+        // Liest die ausgewählten Bilder.
+        const formData = await request.formData();
+        const images = formData.getAll('images').filter(
+            (file) => file instanceof File && file.size > 0
+        );
+
+        // Prüft, ob neue Bilder ausgewählt wurden.
+        if (images.length === 0) {
+            return fail(400, { message: 'Please select photos.' });
+        }
+
+        // Prüft, ob das Auto dem Benutzer gehört.
+        const [cars] = await pool.execute(
+            'SELECT id FROM autos WHERE id = ? AND user_id = ?',
+            [params.id, locals.user.id]
+        );
+
+        if (cars.length === 0) error(404, 'Car not found');
+
+        // Zählt die bereits gespeicherten Bilder.
+        const [rows] = await pool.execute(
+            'SELECT COUNT(*) AS total FROM auto_images WHERE auto_id = ?',
+            [params.id]
+        );
+
+        // Erlaubt insgesamt maximal sieben Bilder.
+        if (rows[0].total + images.length > 7) {
+            return fail(400, { message: 'Maximum 7 photos allowed.' });
+        }
+
+        // Prüft jedes ausgewählte Bild.
+        for (const image of images) {
+
+            // Erlaubt nur JPG- und PNG-Bilder.
+            if (!['image/jpeg', 'image/png'].includes(image.type)) {
+                return fail(400, {
+                    message: 'Only JPG and PNG are allowed.'
+                });
+            }
+
+            // Erlaubt maximal 2 MB pro Bild.
+            if (image.size > 2 * 1024 * 1024) {
+                return fail(400, {
+                    message: 'Maximum image size is 2 MB.'
+                });
+            }
+        }
+        // Speichert die URLs der hochgeladenen Bilder.
+        const uploadedUrls = [];
+
+        // Bereitet das Hochladen der Bilder vor.
+        try {
+            // Geht alle ausgewählten Bilder durch.
+            for (const image of images) {
+                // Bestimmt die Dateiendung.
+                const extension = image.type === 'image/png' ? 'png' : 'jpg';
+                // Lädt das Bild in Vercel Blob hoch.
+                const blob = await put(
+                    `cars/${params.id}/${crypto.randomUUID()}.${extension}`,
+                    image,
+                    {
+                        access: 'public',
+                        token: BLOB_READ_WRITE_TOKEN
+                    }
+                );
+
+                // Merkt sich die URL für die spätere Speicherung.
+                uploadedUrls.push(blob.url);
+
+                // Speichert die Bild-URL in der Datenbank.
+                await pool.execute(
+                    `INSERT INTO auto_images (auto_id, image_url)
+                     VALUES (?, ?)`,
+                    [params.id, blob.url]
+                );
+
+
+            }
+        } catch (err) {
+            // Zeigt einen Fehler beim Hochladen an.
+            console.error('Photo upload failed:', err);
+            return fail(500, { message: 'Photo upload failed.' });
+        }
+    },
+
     saveCar: async ({ request, locals, params }) => {
         // Prüft, ob der Benutzer angemeldet ist.
         if (!locals.user) {
