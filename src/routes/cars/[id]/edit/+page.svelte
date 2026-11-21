@@ -1,7 +1,7 @@
 <script>
     import { Trash2 } from 'lucide-svelte';
     // Empfängt die Fahrzeugdaten vom Server.
-    let { data } = $props();
+    let { data, form } = $props();
 </script>
 
 <svelte:head>
@@ -140,6 +140,13 @@
 
     <!-- Sendet die ausgewählten Bilder an den Server. -->
     <form method="POST" action="?/addPhotos" enctype="multipart/form-data">
+
+        <!-- Zeigt Fehlermeldungen beim Hochladen an. -->
+        {#if form?.message}
+            <p class="mb-3 text-sm text-red-600">
+                {form.message}
+            </p>
+        {/if}
 
         <!-- Ermöglicht die Auswahl mehrerer Bilder. -->
         <input
