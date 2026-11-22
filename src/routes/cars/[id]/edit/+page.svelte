@@ -201,14 +201,14 @@
 
 <!-- Erstellt eine Karte zum Hochladen neuer Bilder. -->
 <section class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
-    <!-- Zeigt den Titel mit einem Upload-Symbol an. -->
-    <div class="mb-5 flex items-center gap-3 border-b border-gray-200 pb-4">
+   <!-- Ordnet Titel und Bildanzahl auf kleinen Bildschirmen an. -->
+<div class="mb-5 flex flex-wrap items-center gap-3 border-b border-gray-200 pb-4">
         <Upload size={22} class="text-red-700" />
-        <h2 class="text-xl font-bold text-gray-900">
+        <h2 class="text-lg font-bold text-gray-900 sm:text-xl">
             Add New Photos
         </h2>
         <!-- Zeigt die Anzahl der freien Bildplätze an. -->
-        <span class="ml-auto rounded-full bg-gray-100 px-3 py-1 text-xs font-semibold text-gray-600">
+        <span class="rounded-full bg-gray-100 px-3 py-1 text-xs font-semibold text-gray-600 sm:ml-auto">
         {7 - data.images.length}
         {7 - data.images.length === 1 ? 'photo' : 'photos'} remaining
         </span>

@@ -1,30 +1,50 @@
 <script>
     import './layout.css';
     import favicon from '$lib/assets/favicon.svg';
+     import { Menu, X } from 'lucide-svelte';
 
     let { children, data } = $props();
+    // Speichert, ob das mobile Menü geöffnet ist.
+    let menuOpen = $state(false);
 </script>
 
 <svelte:head>
     <link rel="icon" href={favicon} />
 </svelte:head>
 
-<header class="flex items-center justify-between border-b border-gray-100 bg-white px-8 py-5 shadow-sm">
+<!-- Hält Logo und Menü in einer Zeile. -->
+<header class="flex items-center justify-between gap-3 border-b border-gray-100 bg-white px-4 py-3 shadow-sm sm:px-8">
     <a href="/" class="text-2xl font-bold tracking-tight text-red-700 flex items-center gap-2">
     <img
         src="/images/RideExchange_logo_clean_transparent.png"
         alt="RideExchange logo"
-        class="h-10 w-10 object-contain"
+        class="h-9 w-9 shrink-0 object-contain"
     />
         RideExchange
     </a>
 
-    <nav class="flex items-center gap-8">
+    <!-- Öffnet und schließt das Menü auf mobilen Geräten. -->
+    <button
+        type="button"
+        class="rounded-lg border border-gray-200 p-2 lg:hidden"
+        aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+        aria-expanded={menuOpen}
+        onclick={() => menuOpen = !menuOpen}
+    >
+        {#if menuOpen}
+            <X size={24} />
+        {:else}
+            <Menu size={24} />
+        {/if}
+    </button>
+
+<!-- Zeigt das Menü mobil unter dem Header an. -->
+<nav class={`${menuOpen ? 'flex' : 'hidden'} w-full flex-col items-start gap-4 border-t border-gray-100 pt-4 lg:flex lg:w-auto lg:flex-row lg:items-center lg:gap-8 lg:border-0 lg:pt-0`}>
         
-        <a href="/profile" class="font-medium transition hover:text-red-700">
+        <a href="/profile"  onclick={() => menuOpen = false} class="font-medium transition hover:text-red-700">
             Profile
         </a>
-        <a href="/guide" class="font-medium transition hover:text-red-700">
+        <a href="/guide"  onclick={() => menuOpen = false} class="font-medium transition hover:text-red-700">
             Guide
         </a>
 
