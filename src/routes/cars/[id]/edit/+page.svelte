@@ -59,7 +59,15 @@
 
         <!-- Rechte Spalte für Formular und Bilder. -->
         <div class="lg:col-span-2 space-y-8">
+        <!-- Erstellt eine Karte für die Fahrzeugdaten. -->
+        <section class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
 
+            <!-- Zeigt die Überschrift der Fahrzeugdaten an. -->
+            <h2 class="mb-6 border-b border-gray-200 pb-4 text-xl font-bold text-gray-900">
+                Vehicle Information
+            </h2>
+
+      
     <!-- Ordnet die Eingabefelder in zwei Spalten an. -->
     <form method="POST" action="?/saveCar" class="grid grid-cols-1 gap-5 md:grid-cols-2">
         <!-- Zeigt die aktuelle Fahrzeugmarke an. -->
@@ -132,10 +140,17 @@
             </a>
         </div>
     </form>
+  </section>
 
-    <!-- Zeigt die vorhandenen Fahrzeugbilder an. -->
-    <section class="mt-10">
-        <h2 class="mb-2 text-2xl font-bold">Car Photos</h2>
+<!-- Zeigt die Fahrzeugbilder in einer eigenen Karte an. -->
+<section class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+    <!-- Zeigt den Titel und die Anzahl der Bilder an. -->
+    <div class="mb-4 flex items-center justify-between gap-4">
+        <h2 class="text-xl font-bold text-gray-900">Car Photos</h2>
+        <span class="rounded-full bg-red-50 px-3 py-1 text-sm font-semibold text-red-700">
+            {data.images.length} / 7 Photos
+        </span>
+    </div>
         <p class="mb-5 text-sm text-gray-600">
             Manage the photos of your car.
         </p>
@@ -143,12 +158,13 @@
         {#if data.images.length > 0}
            <div class="grid grid-cols-2 gap-4 sm:grid-cols-3">
         {#each data.images as image (image.id)}
-            <div class="relative overflow-hidden rounded-xl border">
+           <!-- Gestaltet jedes Fahrzeugbild als moderne Karte. -->
+           <div class="relative overflow-hidden rounded-xl border border-gray-200 shadow-sm transition-shadow hover:shadow-md">
                 <!-- Zeigt das Fahrzeugbild an. -->
                 <img
                     src={image.image_url}
                     alt="Car photo"
-                    class="h-40 w-full object-cover"
+                    class="h-40 w-full object-cover transition-transform duration-300 hover:scale-105"
                 />
 
                 <!-- Sendet die Bild-ID an die Löschaktion. -->
