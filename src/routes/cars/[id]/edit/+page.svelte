@@ -8,9 +8,26 @@
     <title>Edit Car</title>
 </svelte:head>
 
-<!-- Zeigt das Formular zur Fahrzeugbearbeitung an. -->
-<div class="mx-auto max-w-2xl px-6 py-10">
+<!-- Erstellt den Hauptbereich der Bearbeitungsseite. -->
+<div class="mx-auto max-w-7xl px-6 py-10">
     <h1 class="mb-6 text-3xl font-bold">Edit Car</h1>
+
+    <!-- Erstellt ein responsives Layout mit zwei Spalten. -->
+    <div class="grid grid-cols-1 gap-8 lg:grid-cols-3">
+
+        <!-- Linke Spalte für die Fahrzeugvorschau. -->
+        <aside class="lg:col-span-1">
+            <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+                <h2 class="text-xl font-bold">Car Preview</h2>
+                <p class="mt-2 text-sm text-gray-500">
+                    Preview of your vehicle.
+                </p>
+            </div>
+        </aside>
+
+        <!-- Rechte Spalte für Formular und Bilder. -->
+        <div class="lg:col-span-2 space-y-8">
+
 
     <form method="POST" action="?/saveCar" class="space-y-5">
         <!-- Zeigt die aktuelle Fahrzeugmarke an. -->
@@ -171,5 +188,6 @@
         </button>
     </form>
 </section>
-
+</div>
+</div>
 </div>
