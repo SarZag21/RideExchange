@@ -1,5 +1,5 @@
 <script>
-    import { Trash2, MapPin  } from 'lucide-svelte';
+    import { Trash2, MapPin, Upload } from 'lucide-svelte';
     // Empfängt die Fahrzeugdaten vom Server.
     let { data, form } = $props();
 </script>
@@ -198,11 +198,21 @@
         {/if}
     </section>
 
-<!-- Erstellt einen Bereich für neue Fahrzeugbilder. -->
-<section class="mt-8">
-    <!-- Zeigt den Titel des Bereichs an. -->
-    <h2 class="mb-4 text-xl font-bold">Add New Photos</h2>
 
+<!-- Erstellt eine Karte zum Hochladen neuer Bilder. -->
+<section class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+    <!-- Zeigt den Titel mit einem Upload-Symbol an. -->
+    <div class="mb-5 flex items-center gap-3 border-b border-gray-200 pb-4">
+        <Upload size={22} class="text-red-700" />
+        <h2 class="text-xl font-bold text-gray-900">
+            Add New Photos
+        </h2>
+        <!-- Zeigt die Anzahl der freien Bildplätze an. -->
+        <span class="ml-auto rounded-full bg-gray-100 px-3 py-1 text-xs font-semibold text-gray-600">
+        {7 - data.images.length}
+        {7 - data.images.length === 1 ? 'photo' : 'photos'} remaining
+        </span>
+    </div>
     <!-- Sendet die ausgewählten Bilder an den Server. -->
     <form method="POST" action="?/addPhotos" enctype="multipart/form-data">
 
@@ -219,7 +229,7 @@
             name="images"
             accept="image/jpeg,image/png"
             multiple
-            class="w-full rounded-lg border p-3"
+            class="w-full cursor-pointer rounded-xl border border-gray-200 bg-gray-50 p-3 text-sm text-gray-600 transition-colors hover:border-red-300 file:mr-4 file:cursor-pointer file:rounded-lg file:border-0 file:bg-red-50 file:px-4 file:py-2 file:font-semibold file:text-red-700 hover:file:bg-red-100"
         />
 
         <!-- Zeigt die Regeln für die Bilder an. -->
@@ -229,9 +239,11 @@
 
         <!-- Erstellt den Button zum Hochladen. -->
         <button
-            type="submit"
-            class="mt-4 rounded-lg bg-red-700 px-6 py-3 font-semibold text-white hover:bg-red-800"
+        type="submit"
+        class="mt-4 inline-flex items-center gap-2 rounded-lg bg-red-700 px-6 py-3 font-semibold text-white transition-colors hover:bg-red-800"
         >
+        <!-- Zeigt ein Symbol im Upload-Button an. -->
+        <Upload size={18} />
             Upload Photos
         </button>
     </form>
