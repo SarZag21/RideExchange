@@ -60,8 +60,8 @@
         <!-- Rechte Spalte für Formular und Bilder. -->
         <div class="lg:col-span-2 space-y-8">
 
-
-    <form method="POST" action="?/saveCar" class="space-y-5">
+    <!-- Ordnet die Eingabefelder in zwei Spalten an. -->
+    <form method="POST" action="?/saveCar" class="grid grid-cols-1 gap-5 md:grid-cols-2">
         <!-- Zeigt die aktuelle Fahrzeugmarke an. -->
         <div>
             <label for="brand">Brand</label>
@@ -108,8 +108,8 @@
                 class="w-full rounded-lg border p-3" />
         </div>
 
-        <!-- Zeigt den aktuellen Mietpreis pro Tag an. -->
-        <div>
+       <!-- Zeigt den Mietpreis über beide Spalten an. -->
+        <div class="md:col-span-2">
             <label for="price_per_day">Price per Day (€)</label>
             <input id="price_per_day" name="price_per_day"
                 type="number" min="0.01" step="0.01"
@@ -117,7 +117,7 @@
                 class="w-full rounded-lg border p-3" />
         </div>
         <!-- Speichert die Änderungen oder bricht die Bearbeitung ab. -->
-        <div class="flex gap-4 pt-6">
+        <div class="flex gap-4 pt-4 md:col-span-2">
             <button
                 type="submit"
                 class="rounded-lg bg-red-700 px-6 py-3 font-semibold text-white hover:bg-red-800"
