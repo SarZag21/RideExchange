@@ -1,5 +1,5 @@
 <script>
-    import { Trash2 } from 'lucide-svelte';
+    import { Trash2, MapPin  } from 'lucide-svelte';
     // Empfängt die Fahrzeugdaten vom Server.
     let { data, form } = $props();
 </script>
@@ -18,10 +18,42 @@
         <!-- Linke Spalte für die Fahrzeugvorschau. -->
         <aside class="lg:col-span-1">
             <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
-                <h2 class="text-xl font-bold">Car Preview</h2>
-                <p class="mt-2 text-sm text-gray-500">
-                    Preview of your vehicle.
-                </p>
+               
+            <!-- Zeigt das erste Fahrzeugbild als Vorschau an. -->
+            {#if data.images.length > 0}
+                <img
+                    src={data.images[0].image_url}
+                    alt="Vehicle preview"
+                    class="h-64 w-full rounded-xl object-cover"
+                />
+            {:else}
+                <!-- Zeigt einen Hinweis, wenn kein Bild vorhanden ist. -->
+                <div class="flex h-64 items-center justify-center rounded-xl bg-gray-100">
+                    <p class="text-sm text-gray-500">No photo available</p>
+                </div>
+            {/if}
+            <!-- Zeigt den Namen des Fahrzeugs an. -->
+            <h2 class="mt-5 text-2xl font-bold text-gray-900">
+                {data.car.brand_name} {data.car.type}
+            </h2>
+
+            <!-- Zeigt Baujahr und Sitzplätze an. -->
+            <p class="mt-2 text-sm text-gray-600">
+                {data.car.production_year} · {data.car.number_of_seats} Seats
+            </p>
+            <!-- Zeigt den Standort mit einem Symbol an. -->
+            <p class="mt-3 flex items-center gap-2 text-sm text-gray-600">
+                <MapPin size={18} strokeWidth={2} class="text-red-600" />
+                {data.car.location}
+            </p>
+            <!-- Zeigt den Mietpreis pro Tag an. -->
+            <div class="mt-5 rounded-xl bg-red-50 px-4 py-3 text-center">
+                <span class="text-2xl font-bold text-red-700">
+                    € {Number(data.car.price_per_day).toFixed(2)}
+                </span>
+                <span class="text-sm text-gray-600"> / day</span>
+            </div>
+
             </div>
         </aside>
 
