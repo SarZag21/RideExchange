@@ -11,6 +11,15 @@
     // Speichert die Vorschau-URLs der ausgewählten Bilder.
     let imagePreviews = $state([]);
 
+    // Speichert die ausgewählten Verfügbarkeitsdaten.
+    let availableFrom = $state('');
+    let availableUntil = $state('');
+
+    // Prüft, ob der Zeitraum gültig ist.
+  let invalidDates = $derived(
+    Boolean(availableFrom && availableUntil && availableUntil < availableFrom)
+);
+
     // Prüft, ob höchstens sieben Bilder ausgewählt wurden.
     function checkImages(event) {
         const files = event.currentTarget.files;
@@ -212,12 +221,27 @@
                         id={field.id}
                         name={field.id}
                         type="date"
+                         value={field.id === 'available_from' ? availableFrom : availableUntil}
+                        min={field.id === 'available_until' ? availableFrom || undefined : undefined}
+                        oninput={(event) => {
+                            if (field.id === 'available_from') {
+                                availableFrom = event.currentTarget.value;
+                            } else {
+                                availableUntil = event.currentTarget.value;
+                            }
+                        }}
                         required
                         class="mt-2 w-full rounded-xl border border-gray-300 bg-white p-3"
                     />
                 </div>
             {/each}
         </div>
+            <!-- Zeigt einen Fehler bei ungültigen Daten an. -->
+            {#if invalidDates}
+                <p class="mt-3 text-sm text-red-600">
+                    End date cannot be before start date.
+                </p>
+            {/if}
     </div>
 
 <!-- Ermöglicht das Hochladen von bis zu sieben Autobildern. -->
@@ -279,12 +303,10 @@
         </p>
     {/if}
 
-<!-- Speichert die Fahrzeugdaten über die Server-Aktion. 
-     disabled={!!imageError} Deaktiviert den Button, wenn ein Bildfehler vorliegt. 
--->
+<!-- Deaktiviert den Button bei Bildfehlern oder ungültigen Daten. -->
 <button
     type="submit"
-    disabled={!!imageError}
+    disabled={!!imageError || !!invalidDates}
     class="w-full rounded-xl bg-red-700 px-5 py-3 font-semibold text-white hover:bg-red-800 disabled:cursor-not-allowed disabled:opacity-50"
 >
     Save Car
