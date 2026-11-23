@@ -1,4 +1,5 @@
 <script>
+    import { CalendarDays } from 'lucide-svelte';
     // Importiert die Sidebar für die Navigation.
     import Sidebar from '$lib/components/sidebar.svelte';
     // Enthält die Rückmeldung der Server-Aktion.
@@ -184,6 +185,40 @@
     />
 </div>
 
+    <!-- Zeigt den Verfügbarkeitszeitraum des Autos an. -->
+    <div class="rounded-2xl bg-orange-50 p-5">
+        <div class="mb-4 flex items-center gap-3">
+            <CalendarDays class="h-6 w-6 text-red-700" />
+            <div>
+                <h2 class="font-semibold text-gray-900">
+                    Availability Period
+                </h2>
+                <p class="text-sm text-gray-600">
+                    Select the dates when your car is available for rent.
+                </p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+            {#each [
+                { id: 'available_from', label: 'Available From' },
+                { id: 'available_until', label: 'Available Until' }
+            ] as field}
+                <div>
+                    <label for={field.id} class="block font-medium text-gray-700">
+                        {field.label}
+                    </label>
+                    <input
+                        id={field.id}
+                        name={field.id}
+                        type="date"
+                        required
+                        class="mt-2 w-full rounded-xl border border-gray-300 bg-white p-3"
+                    />
+                </div>
+            {/each}
+        </div>
+    </div>
 
 <!-- Ermöglicht das Hochladen von bis zu sieben Autobildern. -->
 <div>
