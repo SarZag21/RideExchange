@@ -1,5 +1,5 @@
 <script>
-    import { Trash2, MapPin, Upload } from 'lucide-svelte';
+    import { Trash2, MapPin, Upload, CalendarDays } from 'lucide-svelte';
     // Empfängt die Fahrzeugdaten vom Server.
     let { data, form } = $props();
 </script>
@@ -124,6 +124,42 @@
                 value={data.car.price_per_day}
                 class="w-full rounded-lg border p-3" />
         </div>
+
+        <!-- Zeigt den Verfügbarkeitszeitraum des Autos an. -->
+        <div class="rounded-2xl bg-orange-50 p-5 md:col-span-2">
+            <div class="mb-4 flex items-center gap-3">
+                <CalendarDays class="h-6 w-6 text-red-700" />
+                <div>
+                    <h3 class="font-semibold text-gray-900">
+                        Availability Period
+                    </h3>
+                    <p class="text-sm text-gray-600">
+                        Select the dates when your car is available for rent.
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
+                {#each [
+                    { id: 'available_from', label: 'Available From' },
+                    { id: 'available_until', label: 'Available Until' }
+                ] as field}
+                    <div>
+                        <label for={field.id} class="block font-medium text-gray-700">
+                            {field.label}
+                        </label>
+                        <input
+                            id={field.id}
+                            name={field.id}
+                            type="date"
+                            required
+                            class="mt-2 w-full rounded-lg border border-gray-300 bg-white p-3"
+                        />
+                    </div>
+                {/each}
+            </div>
+        </div>
+
         <!-- Speichert die Änderungen oder bricht die Bearbeitung ab. -->
         <div class="flex gap-4 pt-4 md:col-span-2">
             <button
