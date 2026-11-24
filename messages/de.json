@@ -36,7 +36,21 @@
   "login_no_account": "Du hast noch kein Konto?",
   "login_create_account": "Konto erstellen",
   "login_error_required": "Bitte fülle alle Pflichtfelder aus.",
-  "login_error_invalid": "Ungültige E-Mail-Adresse, Benutzername oder Passwort."
+  "login_error_invalid": "Ungültige E-Mail-Adresse, Benutzername oder Passwort.",
+
+ "profile_title": "Mein Profil",
+  "profile_subtitle": "Verwalte deine persönlichen Daten",
+  "profile_change_photo": "Foto ändern",
+  "profile_photo_format": "JPG oder PNG (max. 2 MB)",
+  "profile_information": "Persönliche Informationen",
+  "profile_information_description": "Kontodaten ansehen und bearbeiten",
+  "profile_success": "Profil erfolgreich aktualisiert!",
+  "profile_username": "Benutzername",
+  "profile_email": "E-Mail",
+  "profile_phone": "Telefonnummer",
+  "profile_save": "Änderungen speichern",
+  "profile_error_photo_type": "Nur JPG- und PNG-Bilder sind erlaubt.",
+  "profile_error_photo_size": "Das Bild muss kleiner als 2 MB sein."
 }
 
 

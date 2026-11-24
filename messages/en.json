@@ -35,6 +35,19 @@
   "login_no_account": "Don't have an account?",
   "login_create_account": "Create an account",
   "login_error_required": "Please fill all the required fields.",
-  "login_error_invalid": "Invalid email, username or password."
+  "login_error_invalid": "Invalid email, username or password.",
 
+  "profile_title": "My Profile",
+  "profile_subtitle": "Manage your personal information",
+  "profile_change_photo": "Change Photo",
+  "profile_photo_format": "JPG or PNG (max 2MB)",
+  "profile_information": "Personal Information",
+  "profile_information_description": "View and update your account details",
+  "profile_success": "Profile updated successfully!",
+  "profile_username": "Username",
+  "profile_email": "Email",
+  "profile_phone": "Phone Number",
+  "profile_save": "Save Changes",
+  "profile_error_photo_type": "Only JPG and PNG images are allowed.",
+  "profile_error_photo_size": "The image must be smaller than 2 MB."
 }

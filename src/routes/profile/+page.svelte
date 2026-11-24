@@ -1,4 +1,5 @@
 <script>
+    import * as m from '$lib/paraglide/messages.js';
     // Importiert die Sidebar für die Navigation im Benutzerkonto
     import Sidebar from '$lib/components/sidebar.svelte';
     // Importiert die Icons für die Fotobuttons.
@@ -36,13 +37,13 @@
 
     // Erlaubt nur JPG- und PNG-Dateien.
     if (file.type !== 'image/jpeg' && file.type !== 'image/png') {
-        photoError = 'Only JPG and PNG images are allowed.';
+       photoError = m.profile_error_photo_type();
         return;
     }
 
     // Erlaubt maximal 2 MB.
     if (file.size > 2 * 1024 * 1024) {
-        photoError = 'The image must be smaller than 2 MB.';
+       photoError = m.profile_error_photo_size();
         return;
     }
 }
@@ -74,11 +75,11 @@ function handlePhotoChange() {
         <div class="mx-auto max-w-4xl">
 
         <h1 class="text-3xl font-bold text-gray-900">
-            My Profile
+        	{m.profile_title()}
         </h1>
 
         <p class="mt-2 text-gray-600">
-            Manage your personal information
+           {m.profile_subtitle()}
         </p>
 
 
@@ -130,13 +131,13 @@ function handlePhotoChange() {
         class="mt-4 flex w-full items-center justify-center gap-2 whitespace-nowrap rounded-lg bg-red-700 px-3 py-2.5 text-sm font-medium text-white transition hover:bg-red-800"
     >
         <Pencil size={16} />
-        Change Photo
+       	{m.profile_change_photo()}
     </button>
 
     </form>
 
             <p class="mt-2 text-xs text-gray-500">
-            JPG or PNG (max 2MB)
+           	{m.profile_photo_format()}
             </p>
 
             <!-- Zeigt einen Fehler bei einem ungültigen Foto. -->
@@ -152,18 +153,18 @@ function handlePhotoChange() {
         <div class="flex-1">
 
         <h2 class="text-xl font-semibold text-gray-900">
-        Personal Information
+      {m.profile_information()}
         </h2>
 
         <p class="mt-1 text-sm text-gray-500">
-        View and update your account details
+       	{m.profile_information_description()}
         </p>
 
 
         <!-- Zeigt eine Meldung nach erfolgreichem Speichern. -->
         {#if form?.success}
             <p class="mt-4 rounded-lg bg-green-50 px-4 py-3 text-sm text-green-700">
-                Profile updated successfully!
+               	{m.profile_success()}
             </p>
         {/if}
 
@@ -189,7 +190,7 @@ function handlePhotoChange() {
     <form method="POST" action="?/update">
         <div class="mt-6">
     <label for="username" class="block text-sm font-medium text-gray-700">
-        Username
+       {m.profile_username()}
     </label>
 
     <!--
@@ -209,7 +210,7 @@ function handlePhotoChange() {
 
     <div class="mt-4">
      <label for="email" class="block text-sm font-medium text-gray-700">
-        Email
+       	{m.profile_email()}
      </label>
 
      <input
@@ -225,7 +226,7 @@ function handlePhotoChange() {
 
 <div class="mt-4">
     <label for="phone_number" class="block text-sm font-medium text-gray-700">
-        Phone Number
+   	{m.profile_phone()}
     </label>
 
     <!--
@@ -246,7 +247,7 @@ function handlePhotoChange() {
     type="submit"
     class="mt-6 rounded-lg bg-red-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-red-800"
 >
-    Save Changes
+    {m.profile_save()}
 </button>
 
 </form>

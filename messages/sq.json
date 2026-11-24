@@ -35,7 +35,21 @@
   "login_no_account": "Nuk ke ende një llogari?",
   "login_create_account": "Krijo një llogari",
   "login_error_required": "Plotëso të gjitha fushat e detyrueshme.",
-  "login_error_invalid": "Emaili, emri i përdoruesit ose fjalëkalimi është i pasaktë."
+  "login_error_invalid": "Emaili, emri i përdoruesit ose fjalëkalimi është i pasaktë.",
+
+  "profile_title": "Profili im",
+  "profile_subtitle": "Menaxho të dhënat e tua personale",
+  "profile_change_photo": "Ndrysho foton",
+  "profile_photo_format": "JPG ose PNG (maks. 2 MB)",
+  "profile_information": "Informacionet personale",
+  "profile_information_description": "Shiko dhe përditëso të dhënat e llogarisë",
+  "profile_success": "Profili u përditësua me sukses!",
+  "profile_username": "Emri i përdoruesit",
+  "profile_email": "Email",
+  "profile_phone": "Numri i telefonit",
+  "profile_save": "Ruaj ndryshimet",
+  "profile_error_photo_type": "Lejohen vetëm fotografitë JPG dhe PNG.",
+  "profile_error_photo_size": "Fotografia duhet të jetë më e vogël se 2 MB."
 
 
 }
