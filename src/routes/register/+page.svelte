@@ -7,9 +7,8 @@
     let { form } = $props();
 </script>
 
-<div class="flex justify-end px-6 py-4">
-    <div class="flex items-center gap-1 rounded-lg border
-                border-gray-200 bg-white p-1 shadow-sm">
+<div class="absolute top-24 right-6 z-20">
+   <div class="flex items-center gap-1 rounded-full border border-white/50 bg-white/90 p-1.5 shadow-md backdrop-blur-md">
 
         <Globe size={18} class="mx-2 text-gray-500" />
 
@@ -17,11 +16,10 @@
             <button
                 type="button"
                 onclick={() => setLocale(lang)}
-                class="rounded-md px-3 py-1.5 text-sm
-                       font-medium transition-colors
-                       {getLocale() === lang
-                           ? 'bg-red-600 text-white'
-                           : 'text-gray-600 hover:bg-red-50 hover:text-red-600'}"
+                class="cursor-pointer rounded-full px-4 py-2 text-xs font-semibold transition-all duration-200
+                {getLocale() === lang
+                    ? 'bg-[#cc0000] text-white shadow-sm'
+                    : 'text-gray-600 hover:bg-red-50 hover:text-red-600'}"
             >
                 {lang.toUpperCase()}
             </button>

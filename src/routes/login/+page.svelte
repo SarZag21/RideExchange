@@ -1,7 +1,33 @@
 <script>
- import * as m from '$lib/paraglide/messages.js';
-    let { form } = $props();
+import * as m from '$lib/paraglide/messages.js';
+let { form } = $props();
+import { setLocale, getLocale } from '$lib/paraglide/runtime.js';
+import { Globe } from 'lucide-svelte';
 </script>
+
+<div class="absolute top-24 right-6 z-20">
+    <div class="flex items-center gap-1 rounded-full
+                border border-white/50 bg-white/90
+                p-1.5 shadow-md backdrop-blur-md">
+
+        <Globe size={18} class="mx-2 text-gray-500" />
+
+        {#each ['en', 'de', 'sq'] as lang}
+            <button
+                type="button"
+                onclick={() => setLocale(lang)}
+                class="cursor-pointer rounded-full px-4 py-2
+                       text-xs font-semibold transition-all duration-200
+                       {getLocale() === lang
+                           ? 'bg-[#cc0000] text-white shadow-sm'
+                           : 'text-gray-600 hover:bg-red-50 hover:text-red-600'}"
+            >
+                {lang.toUpperCase()}
+            </button>
+        {/each}
+
+    </div>
+</div>
 
 <!-- Legt den Titel "Login" für den Browser-Tab fest. -->
 <svelte:head>
