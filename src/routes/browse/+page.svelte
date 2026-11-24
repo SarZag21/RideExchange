@@ -1,5 +1,7 @@
 <script>
     import * as m from '$lib/paraglide/messages.js';
+    import { setLocale, getLocale } from '$lib/paraglide/runtime.js';
+    import { Globe } from 'lucide-svelte';
     // Get cars, brands, and filters from the server.
     let { data } = $props();
 
@@ -47,6 +49,25 @@
 <!-- Main page container. -->
 <div class="min-h-screen bg-gray-50 px-4 py-8 sm:px-8">
     <div class="mx-auto max-w-7xl">
+
+    <div class="mb-4 flex justify-end">
+    <div class="flex items-center gap-1 rounded-full border border-gray-200 bg-white p-1.5 shadow-md">
+        <Globe size={18} class="mx-2 text-gray-500" />
+
+        {#each ['en', 'de', 'sq'] as lang}
+            <button
+                type="button"
+                onclick={() => setLocale(lang)}
+                class="cursor-pointer rounded-full px-4 py-2 text-xs font-semibold transition-all duration-200
+                    {getLocale() === lang
+                        ? 'bg-[#cc0000] text-white shadow-sm'
+                        : 'text-gray-600 hover:bg-red-50 hover:text-red-600'}"
+            >
+                {lang.toUpperCase()}
+            </button>
+        {/each}
+    </div>
+</div>
 
         <!-- Page heading and view selection. -->
         <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
