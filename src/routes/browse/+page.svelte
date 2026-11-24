@@ -128,7 +128,7 @@
                             id="location"
                             name="location"
                             value={data.filters.location}
-                            placeholder="e.g. Shkoder"
+                           placeholder={m.browse_location_placeholder()}
                             class="w-full rounded-lg border-gray-300"
                         />
                     </div>
@@ -159,7 +159,7 @@
                     <!-- Set the minimum daily rental price. -->
                     <div>
                         <label for="minPrice" class="mb-1 block text-sm font-medium text-gray-700">
-                            Minimum price (€ / day)
+                          	{m.browse_min_price()}
                         </label>
                         <input
                             id="minPrice"
@@ -168,7 +168,7 @@
                             min="0"
                             step="0.01"
                             value={data.filters.minPrice}
-                            placeholder="No minimum"
+                            placeholder={m.browse_no_minimum()}
                             class="w-full rounded-lg border-gray-300"
                         />
                     </div>
@@ -176,7 +176,7 @@
                     <!-- Set the maximum daily rental price. -->
                     <div>
                         <label for="maxPrice" class="mb-1 block text-sm font-medium text-gray-700">
-                            Maximum price (€ / day)
+                          	{m.browse_max_price()}
                         </label>
                         <input
                             id="maxPrice"
@@ -185,7 +185,7 @@
                             min="0"
                             step="0.01"
                             value={data.filters.maxPrice}
-                            placeholder="No maximum"
+                            placeholder={m.browse_no_maximum()}
                             class="w-full rounded-lg border-gray-300"
                         />
                     </div>
@@ -193,7 +193,7 @@
                     <!-- Filter by minimum number of seats. -->
                     <div>
                         <label for="seats" class="mb-1 block text-sm font-medium text-gray-700">
-                            Minimum seats
+                            {m.browse_min_seats()}
                         </label>
                         <!-- Offer common minimum seat-count filters. -->
                         <select
@@ -201,14 +201,14 @@
                             name="seats"
                             class="w-full rounded-lg border-gray-300"
                         >
-                            <option value="">Any number</option>
+                            <option value="">{m.browse_any_number()}</option>
 
                             {#each [2, 4, 5, 7, 8] as seatCount}
                                 <option
                                     value={seatCount}
                                     selected={data.filters.seats === String(seatCount)}
                                 >
-                                    {seatCount}+ seats
+                                {seatCount}+ {m.browse_seats()}
                                 </option>
                             {/each}
                         </select>
@@ -217,7 +217,7 @@
                     <!-- Filter by production year. -->
                     <div>
                         <label for="year" class="mb-1 block text-sm font-medium text-gray-700">
-                            From year
+                         {m.browse_from_year()}
                         </label>
                         <input
                             id="year"
@@ -226,7 +226,7 @@
                             min="1900"
                             max="2155"
                             value={data.filters.year}
-                            placeholder="e.g. 2018"
+                            placeholder={m.browse_year_placeholder()}
                             class="w-full rounded-lg border-gray-300"
                         />
                     </div>
@@ -234,7 +234,7 @@
                     <!-- Choose how the results are sorted. -->
                     <div>
                         <label for="sort" class="mb-1 block text-sm font-medium text-gray-700">
-                            Sort by
+                           	{m.browse_sort_by()}
                         </label>
                         <select
                             id="sort"
@@ -242,16 +242,16 @@
                             class="w-full rounded-lg border-gray-300"
                         >
                             <option value="recommended" selected={data.filters.sort === 'recommended'}>
-                                Recommended
+                             	{m.browse_recommended()}
                             </option>
                             <option value="price_asc" selected={data.filters.sort === 'price_asc'}>
-                                Price: low to high
+                              	{m.browse_price_asc()}
                             </option>
                             <option value="price_desc" selected={data.filters.sort === 'price_desc'}>
-                                Price: high to low
+                             	{m.browse_price_desc()}
                             </option>
                             <option value="year_desc" selected={data.filters.sort === 'year_desc'}>
-                                Newest year
+                              {m.browse_newest_year()}
                             </option>
                         </select>
                     </div>
@@ -270,13 +270,13 @@
                         type="submit"
                         class="rounded-lg bg-red-700 px-5 py-2.5 font-semibold text-white hover:bg-red-800"
                     >
-                        Apply filters
+                    {m.browse_apply_filters()}
                     </button>
 
                     <a href="browse" 
                     class="rounded-lg border border-gray-300 px-5 py-2.5 font-semibold text-gray-700 hover:bg-gray-50"
                     >
-                        Reset
+                    {m.browse_reset()}
                     </a>
                 </div>
             {/if}
