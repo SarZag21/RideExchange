@@ -1,4 +1,5 @@
 <script>
+    import * as m from '$lib/paraglide/messages.js';
     // Get cars, brands, and filters from the server.
     let { data } = $props();
 
@@ -36,10 +37,10 @@
 
 <!-- Set the browser tab title and page description. -->
 <svelte:head>
-    <title>Find a car | RideExchange</title>
+    <title>{m.browse_page_title()}</title>
     <meta
         name="description"
-        content="Search available rental cars across Albania."
+       content={m.browse_meta_description()}
     />
 </svelte:head>
 
@@ -55,11 +56,11 @@
                 </p>
 
                 <h1 class="mt-2 text-3xl font-bold text-gray-900 sm:text-4xl">
-                    Find your car
+                  	{m.browse_title()}
                 </h1>
 
                 <p class="mt-2 text-gray-600">
-                    Search available cars across Albania.
+                   	{m.browse_subtitle()}
                 </p>
             </div>
 
@@ -73,7 +74,7 @@
                             : 'text-gray-600 hover:bg-gray-100'
                     }`}
                 >
-                    Grid view
+                   	{m.browse_grid_view()}
                 </a>
 
                 <a
@@ -84,7 +85,7 @@
                             : 'text-gray-600 hover:bg-gray-100'
                     }`}
                 >
-                    Map view
+                  {m.browse_map_view()}
                 </a>
             </div>
         </div>
@@ -97,10 +98,10 @@
             <div class="flex items-center justify-between gap-3">
                 <div>
                     <h2 class="text-lg font-semibold text-gray-900">
-                        Filters
+                     	{m.browse_filters()}
                     </h2>
                     <p class="mt-1 text-sm text-gray-500">
-                        Narrow down the available cars.
+                     	{m.browse_filters_description()}
                     </p>
                 </div>
 
@@ -110,7 +111,7 @@
                     onclick={() => filtersOpen = !filtersOpen}
                     class="rounded-lg border border-gray-300 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
                 >
-                    {filtersOpen ? 'Hide filters' : 'Show filters'}
+                   {filtersOpen ? m.browse_hide_filters() : m.browse_show_filters()}
                 </button>
             </div>
 
@@ -121,7 +122,7 @@
                     <!-- Filter by location. -->
                     <div>
                         <label for="location" class="mb-1 block text-sm font-medium text-gray-700">
-                            Location
+                           {m.browse_location()}
                         </label>
                         <input
                             id="location"
@@ -135,7 +136,7 @@
                     <!-- Filter by car brand. -->
                     <div>
                         <label for="brand" class="mb-1 block text-sm font-medium text-gray-700">
-                            Brand
+                           	{m.browse_brand()}
                         </label>
                         <!-- List the available car brands. -->
                         <select
@@ -143,10 +144,10 @@
                             name="brand"
                             class="w-full rounded-lg border-gray-300"
                         >
-                            <option value="">All brands</option>
+                            <option value="">{m.browse_all_brands()}</option>
                             {#each data.brands as brand}
                                 <option
-            value={brand}
+                                    value={brand}
                                     selected={data.filters.brand === brand}
                                 >
                                     {brand}
