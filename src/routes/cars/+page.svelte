@@ -2,6 +2,8 @@
     // Importiert die Sidebar für die Navigation.
     import Sidebar from '$lib/components/sidebar.svelte';
     import * as m from '$lib/paraglide/messages.js';
+    import { setLocale, getLocale } from '$lib/paraglide/runtime.js';
+    import { Globe } from 'lucide-svelte';
 
     // Erhält die Daten aus +page.server.js.
     let { data } = $props();
@@ -21,6 +23,27 @@
     <main class="flex-1 px-8 py-10">
 
         <div class="mx-auto max-w-6xl">
+
+            <div class="mb-4 flex justify-end">
+    <div class="flex items-center gap-1 rounded-full border border-gray-200 bg-white/90 p-1.5 shadow-md backdrop-blur-md">
+
+        <Globe size={18} class="mx-2 text-gray-500" />
+
+        {#each ['en', 'de', 'sq'] as lang}
+            <button
+                type="button"
+                onclick={() => setLocale(lang)}
+                class="cursor-pointer rounded-full px-4 py-2 text-xs font-semibold transition-all duration-200
+                    {getLocale() === lang
+                        ? 'bg-[#cc0000] text-white shadow-sm'
+                        : 'text-gray-600 hover:bg-red-50 hover:text-red-600'}"
+            >
+                {lang.toUpperCase()}
+            </button>
+        {/each}
+
+    </div>
+</div>
 
             <!-- Zeigt die Überschrift und den Button nebeneinander an. -->
             <div class="flex items-center justify-between">
