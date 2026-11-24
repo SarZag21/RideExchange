@@ -3,7 +3,8 @@
     // Importiert die Sidebar für die Navigation im Benutzerkonto
     import Sidebar from '$lib/components/sidebar.svelte';
     // Importiert die Icons für die Fotobuttons.
-    import { Upload, Pencil } from 'lucide-svelte';
+    import { Upload, Pencil, Globe  } from 'lucide-svelte';
+    import { setLocale, getLocale } from '$lib/paraglide/runtime.js';
    
     // data enthält die Benutzerdaten aus +page.server.js.
     // form enthält mögliche Fehlermeldungen nach dem Speichern
@@ -71,7 +72,27 @@ function handlePhotoChange() {
  <!-- Zeigt die Sidebar mit den Navigationslinks an. -->
     <Sidebar />
   <!-- Erstellt den Hauptbereich neben der Sidebar. -->
-    <main class="flex-1 px-8 py-10">
+    <main class="relative flex-1 px-8 py-10">
+
+<div class="absolute top-5 right-6 z-20">
+    <div class="flex items-center gap-1 rounded-full border border-gray-200 bg-white/90 p-1.5 shadow-md backdrop-blur-md">
+        <Globe size={18} class="mx-2 text-gray-500" />
+
+        {#each ['en', 'de', 'sq'] as lang}
+            <button
+                type="button"
+                onclick={() => setLocale(lang)}
+                class="cursor-pointer rounded-full px-4 py-2 text-xs font-semibold transition-all duration-200
+                    {getLocale() === lang
+                        ? 'bg-[#cc0000] text-white shadow-sm'
+                        : 'text-gray-600 hover:bg-red-50 hover:text-red-600'}"
+            >
+                {lang.toUpperCase()}
+            </button>
+        {/each}
+    </div>
+</div>
+
         <div class="mx-auto max-w-4xl">
 
         <h1 class="text-3xl font-bold text-gray-900">
