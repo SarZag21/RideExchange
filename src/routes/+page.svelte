@@ -43,26 +43,6 @@
   </section>
   
 
-<section class="mx-auto max-w-6xl px-6 py-12">
-    <div class="mb-6">
-        <h2 class="text-3xl font-bold text-gray-900">
-            Find your perfect car
-        </h2>
-        <p class="mt-2 text-gray-600">
-            Choose your location and travel dates to find available cars.
-        </p>
-    </div>
-
-    <form action="/browse" method="GET" class="grid gap-4 rounded-2xl bg-white p-6 shadow-lg md:grid-cols-3">
-
-        <button
-            type="submit"
-            class="rounded-lg bg-red-700 px-6 py-3 font-medium text-white hover:bg-red-800 md:col-span-3"
-        >
-            Search cars
-        </button>
-    </form>
-</section>
 
 <div class="mt-20">
     <div class="relative mx-auto max-w-3xl border-t-2 border-dotted border-gray-300">
