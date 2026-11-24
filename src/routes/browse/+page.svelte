@@ -285,12 +285,13 @@
         <!-- Display the number of matching cars. -->
         <div class="mt-7 flex items-center justify-between">
             <h2 class="text-xl font-semibold text-gray-900">
-                Available cars
+                {m.browse_available_cars()}
             </h2>
 
             <p class="text-sm text-gray-500">
-                {data.cars.length}
-                {data.cars.length === 1 ? 'car' : 'cars'} found
+                {data.cars.length === 1
+                ? m.browse_result_single()
+                : m.browse_results({ count: data.cars.length })}
             </p>
         </div>
 
@@ -298,18 +299,18 @@
         {#if data.cars.length === 0}
             <div class="mt-5 rounded-2xl border border-dashed border-gray-300 bg-white px-6 py-14 text-center">
                 <h3 class="text-lg font-semibold text-gray-900">
-                    No cars found
+                 	{m.browse_no_cars()}
                 </h3>
 
                 <p class="mt-2 text-gray-500">
-                    Try changing or clearing your filters.
+                   	{m.browse_no_cars_description()}
                 </p>
 
                 <a
                     href="/browse"
                     class="mt-5 inline-block rounded-lg bg-red-700 px-5 py-2.5 font-semibold text-white hover:bg-red-800"
                 >
-                    Clear filters
+                 	{m.browse_clear_filters()}
                 </a>
             </div>
 
@@ -320,7 +321,7 @@
                 <div class="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
                     <!-- Embed the map centered on the selected location. -->
                     <iframe
-                        title="Map showing the searched car location"
+                        title={m.browse_map_title()}
                         src={mapUrl}
                         class="h-[480px] w-full border-0"
                         loading="lazy"
@@ -328,7 +329,7 @@
                     ></iframe>
 
                     <div class="border-t border-gray-200 p-4 text-sm text-gray-500">
-                        Map centered on {mapLocation}.
+                       {m.browse_map_centered({ location: mapLocation })}
                     </div>
                 </div>
 
@@ -346,7 +347,7 @@
                                 />
                             {:else}
                                 <div class="flex h-24 w-28 shrink-0 items-center justify-center rounded-lg bg-gray-100 text-xs text-gray-400">
-                                    No image
+                                  {m.browse_no_image()}
                                 </div>
                             {/if}
 
@@ -361,7 +362,7 @@
                                 </p>
 
                                 <p class="mt-2 font-bold text-red-700">
-                                    €{car.price_per_day} / day
+                                    €{car.price_per_day} {m.browse_per_day()}
                                 </p>
 
                                 <!-- Open the car's location in Google Maps. -->
@@ -371,13 +372,13 @@
                                     target="_blank"
                                     rel="noreferrer"
                                 >
-                                    Open location ↗
+                                   {m.browse_open_location()} ↗
                                 </a>
                                 <a
                                     href={`/booking?auto_id=${car.id}`}
                                     class="mt-2 inline-block rounded-lg bg-red-700 px-4 py-2 text-sm font-semibold text-white hover:bg-red-800"
                                 >
-                                    Book now
+                                {m.browse_book_now()}
                                 </a>
                             </div>
                         </article>
@@ -401,7 +402,7 @@
                             />
                         {:else}
                             <div class="flex h-52 items-center justify-center bg-gray-100 text-sm text-gray-400">
-                                No image available
+                             {m.browse_no_image_available()}
                             </div>
                         {/if}
 
@@ -414,7 +415,7 @@
 
                                 <!-- Display the availability status. -->
                                 <span class="shrink-0 rounded-full bg-green-50 px-2.5 py-1 text-xs font-semibold text-green-700">
-                                    Available
+                                   {m.browse_available()}
                                 </span>
                             </div>
 
@@ -425,7 +426,7 @@
                             <!-- Display the car's year, seat count, and color. -->
                             <div class="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-sm text-gray-600">
                                 <span>{car.production_year}</span>
-                                <span>{car.number_of_seats} seats</span>
+                                <span>{car.number_of_seats} {m.browse_seats()}</span>
                                 <span>{car.color}</span>
                             </div>
 
@@ -434,7 +435,7 @@
                                 <p class="text-lg font-bold text-red-700">
                                     €{car.price_per_day}
                                     <span class="text-sm font-normal text-gray-500">
-                                        / day
+                                       	{m.browse_per_day()}
                                     </span>
                                 </p>
 
@@ -444,13 +445,13 @@
                                     target="_blank"
                                     rel="noreferrer"
                                 >
-                                    View location ↗
+                                  	{m.browse_view_location()} ↗
                                 </a>
                                  <a
                                     href={`/booking?auto_id=${car.id}`}
                                      class="rounded-lg bg-red-700 px-4 py-2 text-sm font-semibold text-white hover:bg-red-800"
                                 >
-                                     Book now
+                                     {m.browse_book_now()}
                                 </a>
                             </div>
                         </div>
