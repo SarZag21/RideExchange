@@ -65,7 +65,40 @@
   "browse_location": "Standort",
   "browse_location_placeholder": "z. B. Shkodra",
   "browse_brand": "Marke",
-  "browse_all_brands": "Alle Marken"
+  "browse_all_brands": "Alle Marken",
+
+  "browse_min_price": "Mindestpreis (€ / Tag)",
+  "browse_max_price": "Höchstpreis (€ / Tag)",
+  "browse_no_minimum": "Kein Mindestpreis",
+  "browse_no_maximum": "Kein Höchstpreis",
+  "browse_min_seats": "Mindestanzahl an Sitzplätzen",
+  "browse_any_number": "Beliebige Anzahl",
+  "browse_seats": "Sitzplätze",
+  "browse_from_year": "Ab Baujahr",
+  "browse_year_placeholder": "z. B. 2018",
+  "browse_sort_by": "Sortieren nach",
+  "browse_recommended": "Empfohlen",
+  "browse_price_asc": "Preis aufsteigend",
+  "browse_price_desc": "Preis absteigend",
+  "browse_newest_year": "Neuestes Baujahr",
+  "browse_apply_filters": "Filter anwenden",
+  "browse_reset": "Zurücksetzen",
+
+  "browse_available_cars": "Verfügbare Fahrzeuge",
+  "browse_results": "{count} Fahrzeuge gefunden",
+  "browse_result_single": "1 Fahrzeug gefunden",
+  "browse_no_cars": "Keine Fahrzeuge gefunden",
+  "browse_no_cars_description": "Versuche, deine Filter zu ändern oder zurückzusetzen.",
+  "browse_clear_filters": "Filter entfernen",
+  "browse_map_title": "Karte mit dem gesuchten Fahrzeugstandort",
+  "browse_map_centered": "Karte zentriert auf {location}.",
+  "browse_no_image": "Kein Bild",
+  "browse_no_image_available": "Kein Bild verfügbar",
+  "browse_per_day": "/ Tag",
+  "browse_open_location": "Standort öffnen",
+  "browse_view_location": "Standort anzeigen",
+  "browse_book_now": "Jetzt buchen",
+  "browse_available": "Verfügbar"
 }
 
 

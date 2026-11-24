@@ -65,7 +65,41 @@
   "browse_location": "Vendndodhja",
   "browse_location_placeholder": "p.sh. Shkodër",
   "browse_brand": "Marka",
-  "browse_all_brands": "Të gjitha markat"
+  "browse_all_brands": "Të gjitha markat",
+
+  "browse_min_price": "Çmimi minimal (€ / ditë)",
+  "browse_max_price": "Çmimi maksimal (€ / ditë)",
+  "browse_no_minimum": "Pa minimum",
+  "browse_no_maximum": "Pa maksimum",
+  "browse_min_seats": "Numri minimal i vendeve",
+  "browse_any_number": "Çdo numër",
+  "browse_seats": "vende",
+  "browse_from_year": "Nga viti",
+  "browse_year_placeholder": "p.sh. 2018",
+  "browse_sort_by": "Rendit sipas",
+  "browse_recommended": "Të rekomanduara",
+  "browse_price_asc": "Çmimi në rritje",
+  "browse_price_desc": "Çmimi në zbritje",
+  "browse_newest_year": "Viti më i ri",
+  "browse_apply_filters": "Apliko filtrat",
+  "browse_reset": "Rivendos",
+
+
+  "browse_available_cars": "Makinat e disponueshme",
+  "browse_results": "U gjetën {count} makina",
+  "browse_result_single": "U gjet 1 makinë",
+  "browse_no_cars": "Nuk u gjetën makina",
+  "browse_no_cars_description": "Provo të ndryshosh ose të heqësh filtrat.",
+  "browse_clear_filters": "Hiq filtrat",
+  "browse_map_title": "Harta e vendndodhjes së makinës së kërkuar",
+  "browse_map_centered": "Harta e përqendruar në {location}.",
+  "browse_no_image": "Pa fotografi",
+  "browse_no_image_available": "Nuk ka fotografi",
+  "browse_per_day": "/ ditë",
+  "browse_open_location": "Hap vendndodhjen",
+  "browse_view_location": "Shiko vendndodhjen",
+  "browse_book_now": "Rezervo tani",
+  "browse_available": "E disponueshme"
 
 
 }
