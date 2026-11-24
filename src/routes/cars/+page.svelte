@@ -1,13 +1,14 @@
 <script>
     // Importiert die Sidebar für die Navigation.
     import Sidebar from '$lib/components/sidebar.svelte';
+    import * as m from '$lib/paraglide/messages.js';
 
     // Erhält die Daten aus +page.server.js.
     let { data } = $props();
 </script>
 
 <svelte:head>
-    <title>My Cars</title>
+    <title>{m.cars_title()}</title>
 </svelte:head>
 
 <!-- Erstellt das Layout mit Sidebar und Hauptbereich. -->
@@ -26,11 +27,11 @@
 
                 <div>
                     <h1 class="text-3xl font-bold text-gray-900">
-                        My Cars
+                     	{m.cars_title()}
                     </h1>
 
                     <p class="mt-2 text-gray-600">
-                        Manage your listed vehicles
+                       {m.cars_subtitle()}
                     </p>
                 </div>
 
@@ -38,8 +39,8 @@
                 <a
                     href="/cars/add"
                     class="flex items-center gap-2 rounded-xl bg-red-700 px-5 py-3 font-semibold text-white hover:bg-red-800"
-                >
-                    + Add Car
+                >	
+                + {m.cars_add()}
                 </a>
 
             </div>
@@ -49,10 +50,10 @@
             <!-- Zeigt eine Nachricht, wenn noch keine Autos vorhanden sind. -->
             <div class="mt-10 rounded-2xl bg-white p-10 text-center shadow-sm">
                 <h2 class="text-xl font-semibold text-gray-900">
-                    No cars yet
+                    {m.cars_empty_title()}
                 </h2>
                 <p class="mt-2 text-gray-500">
-                    You haven't added any cars yet.
+              	{m.cars_empty_description()}
                 </p>
             </div>
         {:else}
@@ -66,12 +67,12 @@
                 {#if car.first_image}
                     <img
                         src={car.first_image}
-                        alt="Car"
+                        alt={m.cars_image()}
                         class="h-48 w-full object-cover"
                 />
                     {:else}
                         <div class="flex h-48 items-center justify-center bg-gray-100 text-gray-400">
-                            No image available
+                        {m.cars_no_image()}
                         </div>
                     {/if}    
 
@@ -83,26 +84,26 @@
 
                     <!-- Zeigt den Status des Autos an. -->
                     <p class="mt-2 text-sm text-gray-500">
-                        Status: {car.status}
+                       {m.cars_status()}: {car.status}
                     </p>
 
                     <!-- Zeigt den Standort an. -->
                     <p class="mt-2 text-gray-500">
-                        Location: {car.location}
+                        {m.cars_location()}: {car.location}
                     </p>
 
                     <!-- Zeigt die Farbe und die Sitzplätze an. -->
                     <p class="mt-2 text-gray-500">
-                        Color: {car.color}
+                     {m.cars_color()}: {car.color}
                     </p>
 
                      <p class="mt-2 text-gray-500">
-                        Seats: {car.number_of_seats}
+                      {m.cars_seats()}: {car.number_of_seats}
                     </p>
 
                     <!-- Zeigt den Tagespreis an. -->
                     <p class="mt-4 text-lg font-bold text-red-700">
-                        €{car.price_per_day} / day
+                      €{car.price_per_day} {m.cars_per_day()}
                     </p>
 
                     <!-- Öffnet die Bearbeitungsseite des eigenen Fahrzeugs. -->
@@ -110,7 +111,7 @@
                         href={`/cars/${car.id}/edit`}
                         class="mt-4 inline-block rounded-lg bg-red-700 px-4 py-2 text-sm font-semibold text-white hover:bg-red-800"
                     >
-                        Edit Car
+                       	{m.cars_edit()}
                     </a>
                 </div>
             </div>
