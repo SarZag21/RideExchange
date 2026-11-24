@@ -21,9 +21,20 @@
   "register_error_email": "Please enter a valid email.",
   "register_error_password_length": "Password must be at least 8 characters long.",
   "register_error_password_spaces": "Password must not contain spaces.",
-  "register_error_exists": "Username or email already exists."
+  "register_error_exists": "Username or email already exists.",
 
 
-
+  "login_title": "Login",
+  "login_welcome": "Welcome back",
+  "login_subtitle": "Log in to your account",
+  "login_identifier": "Email address or username",
+  "login_identifier_placeholder": "Enter your email or username",
+  "login_password": "Password",
+  "login_password_placeholder": "Enter your password",
+  "login_button": "Log in",
+  "login_no_account": "Don't have an account?",
+  "login_create_account": "Create an account",
+  "login_error_required": "Please fill all the required fields.",
+  "login_error_invalid": "Invalid email, username or password."
 
 }

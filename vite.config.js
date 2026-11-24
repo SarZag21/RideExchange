@@ -2,9 +2,15 @@ import tailwindcss from '@tailwindcss/vite';
 import adapter from '@sveltejs/adapter-auto';
 import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig } from 'vite';
+import { paraglideVitePlugin } from '@inlang/paraglide-js';
 
 export default defineConfig({
 	plugins: [
+		paraglideVitePlugin({
+		project: './project.inlang',
+		outdir: './src/lib/paraglide',
+		outputStructure: 'message-modules'
+	}),
 		tailwindcss(),
 		sveltekit({
 			compilerOptions: {

@@ -1,11 +1,11 @@
-
 <script>
+ import * as m from '$lib/paraglide/messages.js';
     let { form } = $props();
 </script>
 
 <!-- Legt den Titel "Login" für den Browser-Tab fest. -->
 <svelte:head>
-    <title>Login</title>
+    <title>{m.login_title()}</title>
 </svelte:head>
 
 <!-- Erstellt einen Container für das Login-Formular mit einem Hintergrundbild. -->
@@ -28,11 +28,11 @@ style="background-image: url('/images/car-bg.png');"
             />
 
             <h1 class="text-3xl font-bold text-gray-900">
-                Welcome back
+              {m.login_welcome()}
             </h1>
 
             <p class="mt-2 text-gray-600">
-                Log in to your account
+              {m.login_subtitle()}
             </p>
         </div>
 
@@ -55,7 +55,7 @@ style="background-image: url('/images/car-bg.png');"
     <div class="mb-5">
      <!-- Beschriftet das Eingabefeld für die E-Mail-Adresse und Username. -->
         <label for="identifier"class="mb-1 block text-sm font-medium text-gray-900" >
-            Email address or username
+        {m.login_identifier()}
         </label>
 
     <!--
@@ -69,7 +69,7 @@ style="background-image: url('/images/car-bg.png');"
             id="identifier"
             name="identifier"
             type="text"
-            placeholder="Enter your email or username"
+            placeholder={m.login_identifier_placeholder()}
             required
             class="w-full rounded-lg border border-gray-300
                bg-white px-4 py-3 text-gray-900
@@ -81,14 +81,14 @@ style="background-image: url('/images/car-bg.png');"
     
     <div class="mb-6">
         <label for="password" class="mb-1 block text-sm font-medium text-gray-900">
-            Password
+           {m.login_password()}
         </label>
 
         <input
             id="password"
             name="password"
             type="password"
-            placeholder="Enter your password"
+            placeholder={m.login_password_placeholder()}
             required
             class="w-full rounded-lg border border-gray-300
                bg-white px-4 py-3 text-gray-900
@@ -107,20 +107,20 @@ style="background-image: url('/images/car-bg.png');"
     class="w-full rounded-lg bg-red-700 py-3
            font-semibold text-white transition
            hover:bg-red-800">
-           Log in
+          	{m.login_button()}
     </button>
 
 </form>
 
 
 <p class="mt-6 text-center text-sm text-gray-600">
-    Don't have an account?
+  {m.login_no_account()}
 
     <a
         href="/register"
         class="font-semibold text-red-700 hover:text-red-800 hover:underline"
     >
-        Create an account
+      	{m.login_create_account()}
     </a>
 </p>
 </div>

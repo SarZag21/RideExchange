@@ -22,7 +22,20 @@
   "register_error_email": "Shkruaj një adresë emaili të vlefshme.",
   "register_error_password_length": "Fjalëkalimi duhet të ketë të paktën 8 karaktere.",
   "register_error_password_spaces": "Fjalëkalimi nuk duhet të përmbajë hapësira.",
-  "register_error_exists": "Emri i përdoruesit ose emaili ekziston tashmë."
+  "register_error_exists": "Emri i përdoruesit ose emaili ekziston tashmë.",
+
+  "login_title": "Hyr",
+  "login_welcome": "Mirë se u riktheve",
+  "login_subtitle": "Hyr në llogarinë tënde",
+  "login_identifier": "Email ose emri i përdoruesit",
+  "login_identifier_placeholder": "Shkruaj emailin ose emrin e përdoruesit",
+  "login_password": "Fjalëkalimi",
+  "login_password_placeholder": "Shkruaj fjalëkalimin",
+  "login_button": "Hyr",
+  "login_no_account": "Nuk ke ende një llogari?",
+  "login_create_account": "Krijo një llogari",
+  "login_error_required": "Plotëso të gjitha fushat e detyrueshme.",
+  "login_error_invalid": "Emaili, emri i përdoruesit ose fjalëkalimi është i pasaktë."
 
 
 }

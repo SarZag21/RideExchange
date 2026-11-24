@@ -1,8 +1,34 @@
 <script>
+     import * as m from '$lib/paraglide/messages.js';
+     import { setLocale, getLocale } from '$lib/paraglide/runtime.js';
+     import { Globe } from 'lucide-svelte';
     // $props() enthält die vom Server zurückgegebenen Daten.
     // form enthält mögliche Fehlermeldungen aus +page.server.js.
     let { form } = $props();
 </script>
+
+<div class="flex justify-end px-6 py-4">
+    <div class="flex items-center gap-1 rounded-lg border
+                border-gray-200 bg-white p-1 shadow-sm">
+
+        <Globe size={18} class="mx-2 text-gray-500" />
+
+        {#each ['en', 'de', 'sq'] as lang}
+            <button
+                type="button"
+                onclick={() => setLocale(lang)}
+                class="rounded-md px-3 py-1.5 text-sm
+                       font-medium transition-colors
+                       {getLocale() === lang
+                           ? 'bg-red-600 text-white'
+                           : 'text-gray-600 hover:bg-red-50 hover:text-red-600'}"
+            >
+                {lang.toUpperCase()}
+            </button>
+        {/each}
+
+    </div>
+</div>
 
 <!-- Erstellt den Hintergrund und zentriert den Registrierungsbereich. -->
 <div class="min-h-screen bg-grey-50 flex items-center justify-center p-6"> 
@@ -24,7 +50,7 @@
 
       <!-- Link zur Startseite -->
     <a href="/" class="text-gray-700 hover:text-[#BF0030]">
-        Got to Home Page
+       {m.register_home()}
     </a>
 
     <!-- Zentriert das Logo, die Texte und den Login-Button. -->
@@ -36,15 +62,15 @@
             class="w-30 mb-5"
         />
         <h1 class="text-5xl font-bold text-gray-900">
-            Get Started
+           {m.register_get_started()}
         </h1>
 
         <p class="text-gray-500 text-lg mt-4">
-            Join RideExchange and hit the road together!
+            {m.register_welcome()}
         </p>
 
         <p class="text-gray-700 mt-10">
-            Already have an account?
+           {m.register_existing_account()}
         </p>
         <a
             href="/login"
@@ -52,7 +78,7 @@
                    px-12 py-3 rounded-xl hover:bg-[#BF0030]
                    hover:text-white"
         >
-            Log in
+          {m.register_login()}
         </a>
     </div>
 </div>
@@ -63,11 +89,11 @@
 <div class="p-10 md:p-14">
 
         <h1 class="text-3xl font-bold text-[#D62828] text-center mb-2">
-            Register
+          {m.register_title()}
         </h1>
 
         <p class="text-gray-500 text-center mb-6">
-            Create your account
+        {m.register_subtitle()}
         </p>
 <!-- Zeigt eine Fehlermeldung an, wenn form.error existiert -->
         {#if form?.error}
@@ -80,7 +106,7 @@
         <!-- POST sendet die eingegebenen Daten an +page.server.js. -->
         <form method="POST">
             <label for="username" class="block mb-1">
-                Username
+            {m.register_username()}
             </label>
 
             <input
@@ -92,7 +118,7 @@
             />
 
             <label for="email" class="block mb-1">
-                Email
+            {m.register_email()}
             </label>
 
             <input
@@ -104,7 +130,7 @@
             />
 
             <label for="phone_number" class="block mb-1">
-                Phone Number
+            {m.register_phone()}
             </label>
 
             <input
@@ -115,7 +141,7 @@
             />
 
             <label for="password" class="block mb-1">
-                Password
+            {m.register_password()}
             </label>
 
             <input
@@ -130,7 +156,7 @@
                 type="submit"
                 class="w-full bg-[#D62828] text-white p-3 rounded-lg hover:bg-[#D62828]"
             >
-                Register
+            {m.register_button()}
             </button>
 
         </form>
