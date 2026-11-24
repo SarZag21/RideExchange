@@ -98,7 +98,22 @@
   "browse_open_location": "Standort öffnen",
   "browse_view_location": "Standort anzeigen",
   "browse_book_now": "Jetzt buchen",
-  "browse_available": "Verfügbar"
+  "browse_available": "Verfügbar",
+
+
+  "cars_title": "Meine Fahrzeuge",
+  "cars_subtitle": "Verwalte deine eingetragenen Fahrzeuge",
+  "cars_add": "Fahrzeug hinzufügen",
+  "cars_empty_title": "Noch keine Fahrzeuge",
+  "cars_empty_description": "Du hast noch keine Fahrzeuge hinzugefügt.",
+  "cars_image": "Fahrzeug",
+  "cars_no_image": "Kein Bild verfügbar",
+  "cars_status": "Status",
+  "cars_location": "Standort",
+  "cars_color": "Farbe",
+  "cars_seats": "Sitzplätze",
+  "cars_per_day": "/ Tag",
+  "cars_edit": "Fahrzeug bearbeiten"
 }
 
 

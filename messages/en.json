@@ -97,5 +97,19 @@
   "browse_open_location": "Open location",
   "browse_view_location": "View location",
   "browse_book_now": "Book now",
-  "browse_available": "Available"
+  "browse_available": "Available",
+
+  "cars_title": "My Cars",
+  "cars_subtitle": "Manage your listed vehicles",
+  "cars_add": "Add Car",
+  "cars_empty_title": "No cars yet",
+  "cars_empty_description": "You haven't added any cars yet.",
+  "cars_image": "Car",
+  "cars_no_image": "No image available",
+  "cars_status": "Status",
+  "cars_location": "Location",
+  "cars_color": "Color",
+  "cars_seats": "Seats",
+  "cars_per_day": "/ day",
+  "cars_edit": "Edit Car"
 }

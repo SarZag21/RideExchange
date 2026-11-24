@@ -99,7 +99,21 @@
   "browse_open_location": "Hap vendndodhjen",
   "browse_view_location": "Shiko vendndodhjen",
   "browse_book_now": "Rezervo tani",
-  "browse_available": "E disponueshme"
+  "browse_available": "E disponueshme",
+
+  "cars_title": "Makinat e mia",
+  "cars_subtitle": "Menaxho makinat e tua të listuara",
+  "cars_add": "Shto makinë",
+  "cars_empty_title": "Ende nuk ka makina",
+  "cars_empty_description": "Nuk ke shtuar ende asnjë makinë.",
+  "cars_image": "Makina",
+  "cars_no_image": "Nuk ka fotografi",
+  "cars_status": "Statusi",
+  "cars_location": "Vendndodhja",
+  "cars_color": "Ngjyra",
+  "cars_seats": "Vendet",
+  "cars_per_day": "/ ditë",
+  "cars_edit": "Modifiko makinën"
 
 
 }
