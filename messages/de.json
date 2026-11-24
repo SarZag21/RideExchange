@@ -50,7 +50,22 @@
   "profile_phone": "Telefonnummer",
   "profile_save": "Änderungen speichern",
   "profile_error_photo_type": "Nur JPG- und PNG-Bilder sind erlaubt.",
-  "profile_error_photo_size": "Das Bild muss kleiner als 2 MB sein."
+  "profile_error_photo_size": "Das Bild muss kleiner als 2 MB sein.",
+
+  "browse_page_title": "Auto finden | RideExchange",
+  "browse_meta_description": "Suche verfügbare Mietwagen in ganz Albanien.",
+  "browse_title": "Finde dein Auto",
+  "browse_subtitle": "Suche verfügbare Fahrzeuge in ganz Albanien.",
+  "browse_grid_view": "Rasteransicht",
+  "browse_map_view": "Kartenansicht",
+  "browse_filters": "Filter",
+  "browse_filters_description": "Grenze die verfügbaren Fahrzeuge ein.",
+  "browse_hide_filters": "Filter ausblenden",
+  "browse_show_filters": "Filter anzeigen",
+  "browse_location": "Standort",
+  "browse_location_placeholder": "z. B. Shkodra",
+  "browse_brand": "Marke",
+  "browse_all_brands": "Alle Marken"
 }
 
 

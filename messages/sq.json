@@ -49,7 +49,23 @@
   "profile_phone": "Numri i telefonit",
   "profile_save": "Ruaj ndryshimet",
   "profile_error_photo_type": "Lejohen vetëm fotografitë JPG dhe PNG.",
-  "profile_error_photo_size": "Fotografia duhet të jetë më e vogël se 2 MB."
+  "profile_error_photo_size": "Fotografia duhet të jetë më e vogël se 2 MB.",
+
+
+  "browse_page_title": "Gjej një makinë | RideExchange",
+  "browse_meta_description": "Kërko makina me qira në të gjithë Shqipërinë.",
+  "browse_title": "Gjej makinën tënde",
+  "browse_subtitle": "Kërko makina të disponueshme në të gjithë Shqipërinë.",
+  "browse_grid_view": "Pamja në rrjet",
+  "browse_map_view": "Pamja në hartë",
+  "browse_filters": "Filtrat",
+  "browse_filters_description": "Filtro makinat e disponueshme.",
+  "browse_hide_filters": "Fshih filtrat",
+  "browse_show_filters": "Shfaq filtrat",
+  "browse_location": "Vendndodhja",
+  "browse_location_placeholder": "p.sh. Shkodër",
+  "browse_brand": "Marka",
+  "browse_all_brands": "Të gjitha markat"
 
 
 }

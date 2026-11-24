@@ -49,5 +49,20 @@
   "profile_phone": "Phone Number",
   "profile_save": "Save Changes",
   "profile_error_photo_type": "Only JPG and PNG images are allowed.",
-  "profile_error_photo_size": "The image must be smaller than 2 MB."
+  "profile_error_photo_size": "The image must be smaller than 2 MB.",
+
+  "browse_page_title": "Find a car | RideExchange",
+  "browse_meta_description": "Search available rental cars across Albania.",
+  "browse_title": "Find your car",
+  "browse_subtitle": "Search available cars across Albania.",
+  "browse_grid_view": "Grid view",
+  "browse_map_view": "Map view",
+  "browse_filters": "Filters",
+  "browse_filters_description": "Narrow down the available cars.",
+  "browse_hide_filters": "Hide filters",
+  "browse_show_filters": "Show filters",
+  "browse_location": "Location",
+  "browse_location_placeholder": "e.g. Shkoder",
+  "browse_brand": "Brand",
+  "browse_all_brands": "All brands"
 }
